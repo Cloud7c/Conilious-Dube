@@ -26,10 +26,10 @@
       position: relative;
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;   /* push content up */
       justify-content: center;
       text-align: center;
-      padding: 80px 10%;
+      padding: 60px 10% 40px;    /* reduced top padding */
       background-image: url('newwallpaper.png');
       background-size: cover;
       background-position: center center;
@@ -41,6 +41,7 @@
       position: relative;
       z-index: 1;
       max-width: 1000px;
+      margin-top: 20px; /* fine-tune upward shift */
     }
 
     .hero h1 {
@@ -63,8 +64,8 @@
       color: #ffffff;
       font-weight: 600;
       text-shadow: 
-        0 2px 4px rgba(0,0,0,0.75),   /* darker shadow directly behind text */
-        0 4px 8px rgba(0,0,0,0.65);   /* extended glow for readability */
+        0 2px 4px rgba(0,0,0,0.8),   /* darker shadow directly behind text */
+        0 4px 8px rgba(0,0,0,0.7);   /* extended glow for readability */
     }
 
     /* SOFTWARE BADGES styled like button */
