@@ -58,7 +58,8 @@
       font-size: 1.5rem;
       margin-bottom: 40px;
       line-height: 1.6;
-      color: #333;
+      color: #ffffff; /* super white */
+      font-weight: 600;
     }
 
     .red-accent { color: var(--accent-red); }
@@ -74,20 +75,21 @@
     }
 
     .badge {
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.1);
-      padding: 8px 20px;
-      border-radius: 100px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #0a0c10;
-      transition: 0.3s;
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 6px 14px rgba(3, 102, 214, 0.25);
     }
 
     .badge:hover {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.4);
     }
 
     .btn {
@@ -181,7 +183,7 @@
         <span class="red-accent">CAD</span>
         <span class="neutral-accent">Design for Real-World Applications</span>
       </h1>
-      <p>I design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
+      <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
       
       <div class="software-badges">
         <span class="badge">Siemens NX</span>
