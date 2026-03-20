@@ -2,164 +2,170 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Conilious Dube | Mechanical Design Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conilious Dube | Mechanical CAD Design</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      background: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background: #1a1d21;
-      color: #fff;
-      text-align: center;
-      padding: 5rem 1rem;
-    }
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-    header p {
-      font-size: 1.25rem;
-      opacity: 0.85;
-      margin-bottom: 1.5rem;
-    }
-    .tags-header {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .tags-header .tag {
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      background: #0366d6;
-      color: white;
-      transition: transform 0.2s ease;
-    }
-    .tags-header .tag:hover {
-      transform: scale(1.05);
-      cursor: default;
-    }
-    .container {
-      width: 85%;
-      max-width: 1200px;
-      margin: auto;
-      padding: 60px 0;
-    }
-    h2 {
-      color: #0366d6;
-      border-bottom: 2px solid #0366d6;
-      padding-bottom: 8px;
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-    .project-card {
-      background: #fff;
-      border-radius: 12px;
-      margin-bottom: 40px;
-      padding: 30px;
-      display: flex;
-      gap: 30px;
-      align-items: center;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 18px 30px rgba(0,0,0,0.12);
-    }
-    .project-img {
-      flex: 1;
-      min-width: 300px;
-      height: 250px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #e0e0e0, #cfcfcf);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: #666;
-      overflow: hidden;
-    }
-    .project-info {
-      flex: 1.5;
-    }
-    .project-info h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 1.5rem;
-    }
-    .project-info p {
-      margin: 0 0 10px 0;
-    }
-    .software-list {
-      font-style: italic;
-      color: #555;
-      margin-top: 5px;
-    }
-    .project-info .tag {
-      background: #e1ecf4;
-      color: #39739d;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      margin: 5px 5px 5px 0;
-      display: inline-block;
-      font-weight: 600;
-      transition: background 0.2s ease;
-    }
-    .project-info .tag:hover {
-      background: #0366d6;
-      color: white;
-      cursor: default;
+    :root {
+      --primary: #0366d6;
+      --dark: #1a1d21;
+      --light: #f9f9f9;
+      --accent: #ffcc00; /* Swiftrooter-style highlight */
     }
 
-    @media(max-width: 900px){
-      .project-card { flex-direction: column; }
-      .project-img { width: 100%; height: 200px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: var(--light);
+      color: #333;
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      background: var(--dark);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5% 10%;
+      min-height: 80vh;
+      gap: 50px;
+    }
+
+    .hero-content { flex: 1; }
+    .hero-image { 
+      flex: 1; 
+      background: #333; 
+      height: 400px; 
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #444;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 30px;
+      max-width: 500px;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 15px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .btn:hover { background: #024da3; transform: translateY(-3px); }
+
+    /* --- SERVICES GRID --- */
+    .section-title {
+      text-align: center;
+      padding-top: 80px;
+      font-size: 2.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 50px 10%;
+    }
+
+    .service-card {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: 0.3s;
+      border-bottom: 4px solid transparent;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+    }
+
+    .service-card h3 { color: var(--primary); margin-bottom: 15px; }
+
+    /* --- FEATURED PROJECTS --- */
+    .project-container { padding: 50px 10%; }
+    .project-card {
+      display: flex;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      margin-bottom: 50px;
+    }
+
+    .project-img { flex: 1; background: #eee; min-height: 300px; }
+    .project-info { flex: 1; padding: 50px; }
+
+    @media (max-width: 900px) {
+      .hero, .project-card { flex-direction: column; text-align: center; }
+      .hero h1 { font-size: 2.5rem; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Conilious Dube</h1>
-  <p>Mechanical Design Engineer | CAD & Simulation Specialist</p>
-  <div class="tags-header">
-    <span class="tag">Creo</span>
-    <span class="tag">Fusion 360</span>
-    <span class="tag">Siemens NX</span>
-  </div>
-</header>
-
-<div class="container">
-  <h2>Engineering Expertise</h2>
-  <p>Specializing in high-fidelity 3D modeling, <strong>FEA (Finite Element Analysis)</strong>, and <strong>CFD (Computational Fluid Dynamics)</strong> to optimize mechanical performance and fluid flow.</p>
-
-  <h2>Featured Projects</h2>
-  
-  <div class="project-card">
-    <div class="project-img">
-      [3D Render Placeholder]
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Product & Mechanical CAD Design Services</h1>
+      <p>Turning complex engineering ideas into manufacturable, production-ready 3D models using industry-leading software.</p>
+      <a href="#contact" class="btn">Get a Quote</a>
     </div>
-    <div class="project-info">
-      <h3>Advanced Mechanical Assembly</h3>
-      <p>Designed a complex multi-part system optimized for manufacturing. Performed stress analysis to ensure structural integrity under peak loads.</p>
-      <div class="software-list">Tools: Siemens NX, FEA Analysis</div>
-      <div style="margin-top:15px;">
-        <span class="tag">Structural Analysis</span>
-        <span class="tag">DFM</span>
-        <span class="tag">CFD Optimized</span>
+    <div class="hero-image">
+       <span style="color:#666">Insert Your Best 3D Render Here</span>
+    </div>
+  </section>
+
+  <h2 class="section-title">My Expert Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <h3>3D Modeling</h3>
+      <p>High-precision part and assembly modeling using <strong>Siemens NX</strong> and <strong>Creo</strong>.</p>
+    </div>
+    <div class="service-card">
+      <h3>FEA & Simulation</h3>
+      <p>Stress, strain, and thermal analysis to ensure structural integrity before production.</p>
+    </div>
+    <div class="service-card">
+      <h3>CFD Analysis</h3>
+      <p>Optimizing fluid flow and thermal management for complex mechanical systems.</p>
+    </div>
+    <div class="service-card">
+      <h3>DFM Optimization</h3>
+      <p>Redesigning components to reduce manufacturing costs and assembly time.</p>
+    </div>
+  </div>
+
+  <div class="project-container">
+    <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Featured Work</h2>
+    <div class="project-card">
+      <div class="project-img"></div>
+      <div class="project-info">
+        <span style="color:var(--primary); font-weight: bold;">SIEMENS NX • FEA</span>
+        <h3>Advanced Mechanical Assembly</h3>
+        <p>A full-scale industrial design optimized for high-load environments. This project involved complex surfacing and motion studies.</p>
+        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: bold;">View Details →</a>
       </div>
     </div>
   </div>
-</div>
 
 </body>
 </html>
