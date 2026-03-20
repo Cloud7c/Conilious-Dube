@@ -17,14 +17,14 @@
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      background: #f4f7fa; /* keep default background for rest of site */
+      background: #f4f7fa;
       color: var(--text-main);
       scroll-behavior: smooth;
     }
 
     /* --- HERO SECTION WITH WALLPAPER --- */
     .hero {
-      background-image: url('wallpaper.png.png'); /* exact filename */
+      background-image: url('wallpaper.png.png'); /* your uploaded wallpaper */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -36,16 +36,15 @@
       justify-content: center;
       text-align: center;
       padding: 120px 10%;
-      min-height: 70vh;
+      min-height: 80vh;
       position: relative;
     }
 
-    /* optional dark overlay for readability */
     .hero::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.5); /* overlay for readability */
       z-index: 0;
     }
 
@@ -70,7 +69,6 @@
       line-height: 1.6;
     }
 
-    /* Badges */
     .software-badges {
       margin-bottom: 40px;
       display: flex;
@@ -110,7 +108,7 @@
       box-shadow: 0 10px 20px rgba(3, 102, 214, 0.3);
     }
 
-    /* Section Titles */
+    /* --- SERVICES SECTION --- */
     .section-title {
       text-align: center;
       padding: 100px 0 15px 0;
@@ -126,7 +124,6 @@
       font-size: 1.1rem;
     }
 
-    /* Services Grid */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -155,48 +152,7 @@
       color: var(--dark);
     }
 
-    /* Project Cards */
-    .project-container {
-      padding: 0 10% 100px 10%;
-    }
-
-    .project-card {
-      display: flex;
-      background: var(--card-bg);
-      border-radius: 30px;
-      overflow: hidden;
-      border: 1px solid #e1e4e8;
-      margin-bottom: 50px;
-    }
-
-    .project-img {
-      flex: 1;
-      background: #eaedf0;
-      min-height: 350px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .project-info {
-      flex: 1;
-      padding: 60px;
-    }
-
-    .project-info h3 {
-      font-size: 2.2rem;
-      margin-bottom: 15px;
-    }
-
-    .project-info ul {
-      color: var(--text-muted);
-      padding-left: 20px;
-      font-size: 1.1rem;
-    }
-
-    .project-info li { margin-bottom: 12px; }
-
-    /* Contact Section */
+    /* --- CONTACT SECTION --- */
     .contact {
       background: var(--dark);
       color: white;
@@ -206,11 +162,12 @@
 
     @media (max-width: 900px) {
       .hero h1 { font-size: 2.8rem; }
-      .project-card { flex-direction: column; }
     }
   </style>
 </head>
 <body>
+
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
       <h1>Product & Mechanical CAD Design for Real-World Applications</h1>
@@ -227,9 +184,31 @@
     </div>
   </section>
 
+  <!-- SERVICES -->
   <h2 class="section-title">Engineering Expertise</h2>
   <p class="section-subtitle">Technical solutions optimized for performance and manufacturability.</p>
   
-  <!-- rest of your sections unchanged -->
+  <div class="services-grid">
+    <div class="service-card">
+      <h3>Advanced Modeling</h3>
+      <p>Large-scale assembly management and complex surfacing using <strong>Siemens NX</strong> and <strong>Creo</strong>.</p>
+    </div>
+    <div class="service-card">
+      <h3>FEA Simulation</h3>
+      <p>Structural validation, stress analysis, and material optimization performed in <strong>Ansys</strong>.</p>
+    </div>
+    <div class="service-card">
+      <h3>DFM Services</h3>
+      <p>Design for Manufacturing and Assembly (DFM/DFA) to ensure cost-effective production.</p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2>Ready to build something real?</h2>
+    <p style="margin-bottom: 40px; opacity: 0.7; font-size: 1.2rem;">Currently accepting new CAD and Simulation contracts.</p>
+    <a href="mailto:your@email.com" class="btn">Get in Touch</a>
+  </section>
+
 </body>
 </html>
