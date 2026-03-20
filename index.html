@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0366d6;   /* blue accent */
+      --primary: #0366d6;
       --dark: #0a0c10;
       --card-bg: #ffffff;
       --text-main: #1c1f23;
@@ -22,15 +22,15 @@
       scroll-behavior: smooth;
     }
 
-    /* --- HERO SECTION WITH BIGGER SIZE + WHITE GRADIENT --- */
+    /* --- HERO SECTION WITH WHITE GRADIENT, TEXT SHIFTED UP --- */
     .hero {
       position: relative;
       min-height: 100vh; /* full viewport height */
       display: flex;
-      align-items: center;
+      align-items: flex-start; /* push content to the top */
       justify-content: center;
       text-align: center;
-      padding: 160px 10%; /* more breathing space */
+      padding: 100px 10% 60px 10%; /* more top padding, less bottom */
       color: #0a0c10;
       background-image: url('wallpaper.png.png');
       background-size: cover;
@@ -56,7 +56,7 @@
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 1000px; /* wider content */
+      max-width: 1000px;
     }
 
     .hero h1 {
