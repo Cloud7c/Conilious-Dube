@@ -22,19 +22,19 @@
       scroll-behavior: smooth;
     }
 
-    /* --- HERO SECTION WITH WHITE GRADIENT, TEXT SHIFTED UP --- */
+    /* --- HERO SECTION WITH WHITE GRADIENT, TEXT AT TOP --- */
     .hero {
       position: relative;
-      min-height: 100vh; /* full viewport height */
+      min-height: 110vh; /* taller hero */
       display: flex;
-      align-items: flex-start; /* push content to the top */
+      align-items: flex-start; /* push content to top */
       justify-content: center;
       text-align: center;
-      padding: 100px 10% 60px 10%; /* more top padding, less bottom */
+      padding: 80px 10% 40px 10%; /* more top padding, less bottom */
       color: #0a0c10;
       background-image: url('wallpaper.png.png');
       background-size: cover;
-      background-position: center;
+      background-position: center bottom; /* push wallpaper down */
       background-repeat: no-repeat;
     }
 
@@ -45,9 +45,9 @@
       background: linear-gradient(
         to bottom,
         rgba(255,255,255,1) 0%,     /* solid white at top */
-        rgba(255,255,255,0.9) 25%,  /* strong fade */
-        rgba(255,255,255,0.6) 50%,  /* mid fade */
-        rgba(255,255,255,0.2) 75%,  /* light fade */
+        rgba(255,255,255,0.95) 20%, /* strong fade */
+        rgba(255,255,255,0.7) 45%,  /* mid fade */
+        rgba(255,255,255,0.3) 70%,  /* light fade */
         rgba(255,255,255,0.0) 100%  /* clear bottom */
       );
       z-index: 0;
@@ -60,7 +60,7 @@
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-size: 4.2rem;
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 24px;
