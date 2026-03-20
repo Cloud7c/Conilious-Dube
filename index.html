@@ -22,15 +22,15 @@
       scroll-behavior: smooth;
     }
 
-    /* --- HERO SECTION WITH WHITE GRADIENT --- */
+    /* --- HERO SECTION WITH BIGGER SIZE + WHITE GRADIENT --- */
     .hero {
       position: relative;
-      min-height: 90vh;
+      min-height: 100vh; /* full viewport height */
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 10%;
+      padding: 160px 10%; /* more breathing space */
       color: #0a0c10;
       background-image: url('wallpaper.png.png');
       background-size: cover;
@@ -44,10 +44,11 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: linear-gradient(
         to bottom,
-        rgba(255,255,255,0.95) 0%,
-        rgba(255,255,255,0.7) 40%,
-        rgba(255,255,255,0.4) 70%,
-        rgba(255,255,255,0.0) 100%
+        rgba(255,255,255,1) 0%,     /* solid white at top */
+        rgba(255,255,255,0.9) 25%,  /* strong fade */
+        rgba(255,255,255,0.6) 50%,  /* mid fade */
+        rgba(255,255,255,0.2) 75%,  /* light fade */
+        rgba(255,255,255,0.0) 100%  /* clear bottom */
       );
       z-index: 0;
     }
@@ -55,15 +56,15 @@
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 900px;
+      max-width: 1000px; /* wider content */
     }
 
     .hero h1 {
-      font-size: 3.8rem;
+      font-size: 4rem;
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 24px;
-      letter-spacing: -2px;
+      letter-spacing: -1px;
       color: #0a0c10;
     }
 
