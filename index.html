@@ -55,17 +55,16 @@
     .blue-accent { color: var(--accent-blue); }
     .neutral-accent { color: #000000; } /* black for "Design for Real-World Applications" */
 
-    /* SUBTEXT with lighter single-line highlight */
+    /* SUBTEXT with line-by-line glow highlight */
     .hero p {
       font-size: 1.5rem;
       margin-bottom: 40px;
       line-height: 1.6;
       color: #ffffff;
       font-weight: 600;
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      background: rgba(0,0,0,0.3); /* lighter overlay only behind text */
+      text-shadow: 
+        0 2px 4px rgba(0,0,0,0.4),
+        0 4px 8px rgba(0,0,0,0.3);
     }
 
     /* SOFTWARE BADGES styled like button */
