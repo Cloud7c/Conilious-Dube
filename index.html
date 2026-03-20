@@ -136,14 +136,14 @@
       font-weight: 600;
       max-width: 700px;
       text-shadow: 
-        0 2px 6px rgba(0,0,0,0.9),   /* stronger dark shadow */
-        0 4px 12px rgba(0,0,0,0.8),  /* deeper glow */
-        0 6px 18px rgba(0,0,0,0.7);  /* extended softness */
+        0 2px 6px rgba(0,0,0,0.9),
+        0 4px 12px rgba(0,0,0,0.8),
+        0 6px 18px rgba(0,0,0,0.7);
     }
 
-    /* SOFTWARE BADGES */
+    /* SOFTWARE BADGES (moved to bottom where button was) */
     .software-badges {
-      margin-bottom: 40px;
+      margin-top: 20px;
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
@@ -169,22 +169,7 @@
       background: #024da3;
     }
 
-    /* BUTTON */
-    .btn {
-      background: var(--primary);
-      color: white;
-      padding: 18px 45px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      display: inline-block;
-      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.3);
-    }
+    /* BUTTON removed from hero */
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
@@ -220,14 +205,13 @@
       </h1>
       <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
       
+      <!-- Badges moved here -->
       <div class="software-badges">
         <span class="badge">Siemens NX</span>
         <span class="badge">Creo Parametric</span>
         <span class="badge">Ansys</span>
         <span class="badge">Fusion 360</span>
       </div>
-
-      <a href="#contact" class="btn">Start a Project</a>
     </div>
   </section>
 
