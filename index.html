@@ -24,13 +24,16 @@
     /* HERO SECTION */
     .hero {
       position: relative;
-      background: url("newwallpaper.png") center/cover no-repeat;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 0 10%;
       text-align: center;
+      padding: 80px 10%;
+      background-image: url('newwallpaper.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
       color: #ffffff;
     }
 
@@ -41,24 +44,28 @@
     }
 
     .hero h1 {
-      font-size: 3.8rem;
-      line-height: 1.2;
-      margin-bottom: 20px;
+      font-size: 4.4rem;
       font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
     }
 
     .red-accent { color: var(--accent-red); }
     .blue-accent { color: var(--accent-blue); }
     .neutral-accent { color: #ffffff; }
 
-    /* SUBTEXT with highlight */
+    /* SUBTEXT with dark highlight */
     .hero p {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+      line-height: 1.6;
       color: #ffffff;
-      margin-bottom: 30px;
       font-weight: 600;
-      text-shadow: 0 0 8px rgba(255,255,255,0.8), 
-                   0 0 16px rgba(255,255,255,0.6); /* glow highlight */
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.6); /* dark overlay only behind text */
     }
 
     /* SOFTWARE BADGES styled like button */
@@ -117,7 +124,9 @@
       text-align: center;
       font-size: 2.8rem;
       font-weight: 800;
+      letter-spacing: -1px;
       margin-bottom: 15px;
+      color: var(--dark);
     }
 
     .section-subtitle {
@@ -160,6 +169,10 @@
       color: white;
       text-align: center;
       padding: 120px 10%;
+    }
+
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 2.8rem; }
     }
   </style>
 </head>
