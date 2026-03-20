@@ -9,9 +9,6 @@
     :root {
       --primary: #0366d6;
       --dark: #0a0c10;
-      --card-bg: #ffffff;
-      --text-main: #1c1f23;
-      --text-muted: #586069;
       --accent-red: #d62828;
       --accent-blue: #0366d6;
     }
@@ -20,98 +17,112 @@
       font-family: 'Inter', sans-serif;
       margin: 0;
       background: #f4f7fa;
-      color: var(--text-main);
+      color: var(--dark);
       scroll-behavior: smooth;
     }
 
-    /* --- HERO SECTION --- */
+    /* HERO SECTION UPGRADE */
     .hero {
       position: relative;
-      min-height: 100vh;
+      background: url("newwallpaper.png") center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 100vh;
+      padding: 0 10%;
       text-align: center;
-      padding: 80px 10%;
-      color: #0a0c10;
-      background-image: url('newwallpaper.png');
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
+      color: #f1f1f1;
     }
 
+    /* DARK OVERLAY */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6); /* adjust 0.5–0.7 if needed */
+      z-index: 1;
+    }
+
+    /* CONTENT ABOVE OVERLAY */
     .hero-content {
       position: relative;
-      z-index: 1;
-      max-width: 1000px;
+      z-index: 2;
+      max-width: 900px;
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px); /* premium glass effect */
     }
 
+    /* HEADLINE */
     .hero h1 {
-      font-size: 4.4rem;
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
       font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -1px;
-    }
-
-    .hero p {
-      font-size: 1.5rem;
-      margin-bottom: 40px;
-      line-height: 1.6;
-      color: #ffffff; /* super white */
-      font-weight: 600;
     }
 
     .red-accent { color: var(--accent-red); }
     .blue-accent { color: var(--accent-blue); }
-    .neutral-accent { color: var(--dark); }
+    .neutral-accent { color: #ffffff; }
 
-    .software-badges {
-      margin-bottom: 40px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
+    /* SUBTEXT */
+    .hero p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+      margin-bottom: 30px;
     }
 
+    /* SOFTWARE BADGES */
     .badge {
-      background: var(--primary);
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
       display: inline-block;
-      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      background: rgba(3, 102, 214, 0.9);
+      color: white;
+      padding: 8px 18px;
+      margin: 6px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.3s;
       box-shadow: 0 6px 14px rgba(3, 102, 214, 0.25);
     }
 
     .badge:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.4);
+      transform: translateY(-3px);
+      background: #024da3;
     }
 
+    /* BUTTON */
     .btn {
-      background: var(--primary);
+      background: #0366d6;
       color: white;
-      padding: 18px 45px;
-      border-radius: 12px;
+      padding: 15px 35px;
+      border-radius: 50px;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: bold;
       display: inline-block;
-      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      margin-top: 20px;
+      transition: 0.3s;
     }
 
     .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.3);
+      background: #024da3;
+      transform: translateY(-3px);
     }
 
-    /* --- SERVICES SECTION --- */
+    /* MOBILE OPTIMIZATION */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      .hero-content {
+        padding: 20px;
+      }
+    }
+
+    /* SERVICES SECTION */
     .services-section {
       background: #ffffff;
-      color: var(--text-main);
+      color: var(--dark);
       padding: 100px 10% 80px 10%;
     }
 
@@ -119,14 +130,12 @@
       text-align: center;
       font-size: 2.8rem;
       font-weight: 800;
-      letter-spacing: -1px;
       margin-bottom: 15px;
-      color: var(--dark);
     }
 
     .section-subtitle {
       text-align: center;
-      color: var(--text-muted);
+      color: #586069;
       margin-bottom: 60px;
       font-size: 1.1rem;
     }
@@ -138,13 +147,12 @@
     }
 
     .service-card {
-      background: var(--card-bg);
+      background: #fff;
       padding: 50px 40px;
       border-radius: 24px;
       border: 1px solid #e1e4e8;
       transition: 0.4s;
       text-align: center;
-      color: var(--text-main);
     }
 
     .service-card:hover {
@@ -159,16 +167,12 @@
       color: var(--dark);
     }
 
-    /* --- CONTACT SECTION --- */
+    /* CONTACT SECTION */
     .contact {
       background: var(--dark);
       color: white;
       text-align: center;
       padding: 120px 10%;
-    }
-
-    @media (max-width: 900px) {
-      .hero h1 { font-size: 2.8rem; }
     }
   </style>
 </head>
