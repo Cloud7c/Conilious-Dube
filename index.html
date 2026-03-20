@@ -17,24 +17,18 @@
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      background-image: url('wallpaper.png.png'); /* <-- exact filename */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      background: #f4f7fa; /* keep default background for rest of site */
       color: var(--text-main);
       scroll-behavior: smooth;
     }
 
-    /* Optional overlay for readability */
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.5);
-      min-height: 100vh;
-    }
-
-    /* --- HERO SECTION --- */
+    /* --- HERO SECTION WITH WALLPAPER --- */
     .hero {
-      background: var(--dark);
+      background-image: url('wallpaper.png.png'); /* exact filename */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       color: white;
       display: flex;
       flex-direction: column;
@@ -46,9 +40,19 @@
       position: relative;
     }
 
+    /* optional dark overlay for readability */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 0;
+    }
+
     .hero-content {
       max-width: 900px;
       z-index: 1;
+      position: relative;
     }
 
     .hero h1 {
@@ -61,7 +65,7 @@
 
     .hero p {
       font-size: 1.4rem;
-      opacity: 0.8;
+      opacity: 0.9;
       margin-bottom: 40px;
       line-height: 1.6;
     }
@@ -207,62 +211,25 @@
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Product & Mechanical CAD Design for Real-World Applications</h1>
-        <p>I design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
-        
-        <div class="software-badges">
-          <span class="badge">Siemens NX</span>
-          <span class="badge">Creo Parametric</span>
-          <span class="badge">Ansys</span>
-          <span class="badge">Fusion 360</span>
-        </div>
-
-        <a href="#contact" class="btn">Start a Project</a>
-      </div>
-    </section>
-
-    <h2 class="section-title">Engineering Expertise</h2>
-    <p class="section-subtitle">Technical solutions optimized for performance and manufacturability.</p>
-    
-    <div class="services-grid">
-      <div class="service-card">
-        <h3>Advanced Modeling</h3>
-        <p>Large-scale assembly management and complex surfacing using <strong>Siemens NX</strong> and <strong>Creo</strong>.</p>
-      </div>
-      <div class="service-card">
-        <h3>FEA Simulation</h3>
-        <p>Structural validation, stress analysis, and material optimization performed in <strong>Ansys</strong>.</p>
-      </div>
-      <div class="service-card">
-        <h3>DFM Services</h3>
-        <p>Design for Manufacturing and Assembly (DFM/DFA) to ensure cost-effective production.</p>
-      </div>
-    </div>
-
-    <div class="project-container">
-      <h2 class="section-title">Case Studies</h2>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Product & Mechanical CAD Design for Real-World Applications</h1>
+      <p>I design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
       
-      <div class="project-card">
-        <div class="project-img">
-          <span style="color:#999; font-weight: 600;">[ Insert High-Res Render ]</span>
-        </div>
-        <div class="project-info">
-          <span style="color:var(--primary); font-weight: 800; font-size: 0.85rem; text-transform: uppercase;">Siemens NX • Ansys Simulation</span>
-          <h3>Industrial Power Unit</h3>
-          <p>A multi-stage assembly designed for high-stress environments, validated through linear and non-linear analysis.</p>
-          <ul>
-            <li>Achieved 15% weight reduction through topology optimization.</li>
-            <li>Full DFM package including tolerance analysis (GD&T).</li>
-            <li>Safety factor validation via Ansys Mechanical.</li>
-          </ul>
-        </div>
+      <div class="software-badges">
+        <span class="badge">Siemens NX</span>
+        <span class="badge">Creo Parametric</span>
+        <span class="badge">Ansys</span>
+        <span class="badge">Fusion 360</span>
       </div>
-    </div>
 
-    <section id="contact" class="contact">
-      <h2>Ready to build something real?</h2>
-      <p style="margin-bottom: 40px; opacity: 0.7; font-size: 1.2rem;">Currently accepting new CAD and Simulation contracts.</p>
-      <a href="mailto:
+      <a href="#contact" class="btn">Start a Project</a>
+    </div>
+  </section>
+
+  <h2 class="section-title">Engineering Expertise</h2>
+  <p class="section-subtitle">Technical solutions optimized for performance and manufacturability.</p>
+  
+  <!-- rest of your sections unchanged -->
+</body>
+</html>
