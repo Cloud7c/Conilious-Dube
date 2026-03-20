@@ -29,7 +29,7 @@
       align-items: flex-start;   /* push content up */
       justify-content: center;
       text-align: center;
-      padding: 60px 10% 40px;    /* reduced top padding */
+      padding: 40px 10% 20px;    /* reduced top/bottom padding */
       background-image: url('newwallpaper.png');
       background-size: cover;
       background-position: center center;
@@ -41,7 +41,7 @@
       position: relative;
       z-index: 1;
       max-width: 1000px;
-      margin-top: 20px; /* fine-tune upward shift */
+      margin-top: 0; /* no extra margin, sits higher */
     }
 
     .hero h1 {
@@ -59,18 +59,18 @@
     /* SUBTEXT with stronger line-by-line glow */
     .hero p {
       font-size: 1.5rem;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       line-height: 1.6;
       color: #ffffff;
       font-weight: 600;
       text-shadow: 
-        0 2px 4px rgba(0,0,0,0.8),   /* darker shadow directly behind text */
-        0 4px 8px rgba(0,0,0,0.7);   /* extended glow for readability */
+        0 2px 4px rgba(0,0,0,0.85),   /* darker shadow directly behind text */
+        0 4px 8px rgba(0,0,0,0.75);   /* extended glow for readability */
     }
 
     /* SOFTWARE BADGES styled like button */
     .software-badges {
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
