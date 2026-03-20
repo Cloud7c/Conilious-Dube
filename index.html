@@ -22,19 +22,19 @@
       scroll-behavior: smooth;
     }
 
-    /* --- HERO SECTION WITH WHITE GRADIENT, TEXT AT TOP, BIGGER SIZE --- */
+    /* --- HERO SECTION WITH WHITE GRADIENT, TEXT AT TOP, HUGE SIZE --- */
     .hero {
       position: relative;
-      min-height: 130vh; /* extra tall hero */
+      min-height: 150vh; /* much taller hero */
       display: flex;
-      align-items: flex-start; /* push content to top */
+      align-items: flex-start; /* keep content at top */
       justify-content: center;
       text-align: center;
       padding: 80px 10% 0 10%; /* top padding only */
       color: #0a0c10;
       background-image: url('wallpaper.png.png');
       background-size: cover;
-      background-position: center bottom; /* wallpaper pushed down */
+      background-position: center 200%; /* push wallpaper way down (5x more) */
       background-repeat: no-repeat;
     }
 
@@ -46,8 +46,8 @@
         to bottom,
         rgba(255,255,255,1) 0%,     /* solid white at top */
         rgba(255,255,255,0.95) 25%, /* strong fade */
-        rgba(255,255,255,0.8) 45%,  /* mid fade */
-        rgba(255,255,255,0.4) 65%,  /* lighter fade */
+        rgba(255,255,255,0.8) 50%,  /* mid fade */
+        rgba(255,255,255,0.4) 75%,  /* lighter fade */
         rgba(255,255,255,0.0) 100%  /* clear bottom */
       );
       z-index: 0;
