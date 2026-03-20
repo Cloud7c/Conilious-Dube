@@ -22,19 +22,19 @@
       scroll-behavior: smooth;
     }
 
-    /* --- HERO SECTION WITH WHITE GRADIENT, TEXT AT TOP --- */
+    /* --- HERO SECTION WITH WHITE GRADIENT, TEXT AT TOP, BIGGER SIZE --- */
     .hero {
       position: relative;
-      min-height: 110vh; /* taller hero */
+      min-height: 120vh; /* even taller hero */
       display: flex;
       align-items: flex-start; /* push content to top */
       justify-content: center;
       text-align: center;
-      padding: 80px 10% 40px 10%; /* more top padding, less bottom */
+      padding: 80px 10% 0 10%; /* top padding only */
       color: #0a0c10;
       background-image: url('wallpaper.png.png');
       background-size: cover;
-      background-position: center bottom; /* push wallpaper down */
+      background-position: center bottom; /* wallpaper sits lower */
       background-repeat: no-repeat;
     }
 
@@ -46,8 +46,8 @@
         to bottom,
         rgba(255,255,255,1) 0%,     /* solid white at top */
         rgba(255,255,255,0.95) 20%, /* strong fade */
-        rgba(255,255,255,0.7) 45%,  /* mid fade */
-        rgba(255,255,255,0.3) 70%,  /* light fade */
+        rgba(255,255,255,0.8) 40%,  /* mid fade */
+        rgba(255,255,255,0.4) 60%,  /* lighter fade */
         rgba(255,255,255,0.0) 100%  /* clear bottom */
       );
       z-index: 0;
@@ -57,6 +57,7 @@
       position: relative;
       z-index: 1;
       max-width: 1000px;
+      margin-bottom: auto; /* keep content at top */
     }
 
     .hero h1 {
