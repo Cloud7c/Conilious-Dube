@@ -120,14 +120,14 @@
       margin-bottom: 24px;
       letter-spacing: -1px;
       color: #ffffff;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6); /* subtle sharpness */
     }
 
     .red-accent { color: var(--accent-red); }
     .blue-accent { color: var(--accent-blue); }
     .neutral-accent { color: #000000; }
 
-    /* PARAGRAPH WITH INLINE DARK OVERLAY */
+    /* PARAGRAPH WITH CHARACTER-SHADOW */
     .hero p {
       font-size: 1.4rem;
       margin: 0 auto 40px;
@@ -135,11 +135,9 @@
       color: #e0e0e0;
       font-weight: 600;
       max-width: 700px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      background: rgba(0,0,0,0.35); /* overlay only behind text */
-      padding: 6px 12px;
-      border-radius: 6px;
-      display: inline; /* hugs text exactly, no box */
+      text-shadow: 
+        0 2px 6px rgba(0,0,0,0.7),   /* main shadow */
+        0 4px 12px rgba(0,0,0,0.5); /* softer glow */
     }
 
     /* SOFTWARE BADGES */
