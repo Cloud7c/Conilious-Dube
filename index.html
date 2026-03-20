@@ -43,16 +43,16 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .logo-icon {
-      height: 40px;   /* adjust size to fit header */
+      height: 60px;   /* bigger logo size */
       width: auto;
     }
 
     .logo-text {
-      font-size: 1.4rem;
+      font-size: 1.6rem; /* slightly larger text */
       font-weight: 800;
       color: #0a0c10;
     }
@@ -96,10 +96,10 @@
       position: relative;
       min-height: 100vh;
       display: flex;
-      align-items: flex-start; /* move content upward */
+      align-items: flex-start;
       justify-content: center;
       text-align: center;
-      padding: 100px 10% 80px; /* reduced top padding */
+      padding: 100px 10% 80px;
       background-image: url('newwallpaper.png');
       background-size: cover;
       background-position: center center;
@@ -124,21 +124,19 @@
       }
     }
 
-    /* HEADLINE with no overlay/shadow */
     .hero h1 {
       font-size: 4.2rem;
       font-weight: 800;
       line-height: 1.2;
       margin-bottom: 24px;
       letter-spacing: -1px;
-      color: #ffffff; /* pure white, no shadow */
+      color: #ffffff;
     }
 
     .red-accent { color: var(--accent-red); }
     .blue-accent { color: var(--accent-blue); }
     .neutral-accent { color: #000000; }
 
-    /* PARAGRAPH WITH DARKER CHARACTER SHADOW */
     .hero p {
       font-size: 1.4rem;
       margin: 0 auto 30px;
@@ -152,9 +150,8 @@
         0 6px 18px rgba(0,0,0,0.7);
     }
 
-    /* SOFTWARE BADGES moved lower */
     .software-badges {
-      margin-top: 120px; /* push badges down below monitors */
+      margin-top: 120px;
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
@@ -182,6 +179,8 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
+      .logo-icon { height: 40px; } /* shrink logo on small screens */
+      .logo-text { font-size: 1.2rem; }
       .hero h1 { font-size: 2.6rem; }
       .hero p { font-size: 1.1rem; }
       .software-badges { margin-top: 60px; }
@@ -218,7 +217,6 @@
       </h1>
       <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
       
-      <!-- Badges pushed lower -->
       <div class="software-badges">
         <span class="badge">Siemens NX</span>
         <span class="badge">Creo Parametric</span>
