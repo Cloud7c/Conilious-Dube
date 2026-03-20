@@ -12,6 +12,8 @@
       --card-bg: #ffffff;
       --text-main: #1c1f23;
       --text-muted: #586069;
+      --accent-red: #d62828; /* premium red */
+      --accent-blue: #0366d6; /* deep blue */
     }
 
     body {
@@ -22,19 +24,19 @@
       scroll-behavior: smooth;
     }
 
-    /* --- HERO SECTION WITH PREMIUM VISIBILITY --- */
+    /* --- HERO SECTION --- */
     .hero {
       position: relative;
       min-height: 240vh; /* extra tall hero */
       display: flex;
-      align-items: flex-start; /* keep content at top */
+      align-items: flex-start;
       justify-content: center;
       text-align: center;
-      padding: 80px 10% 0 10%; /* top padding only */
+      padding: 80px 10% 0 10%;
       color: #0a0c10;
       background-image: url('wallpaper.png.png');
       background-size: cover;
-      background-position: center 4000%; /* wallpaper pushed way down for clear bottom */
+      background-position: center 4000%; /* wallpaper pushed way down */
       background-repeat: no-repeat;
     }
 
@@ -44,11 +46,11 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: linear-gradient(
         to bottom,
-        rgba(255,255,255,1) 0%,     /* solid white at top */
-        rgba(255,255,255,0.95) 20%, /* strong fade */
-        rgba(255,255,255,0.7) 40%,  /* mid fade */
-        rgba(255,255,255,0.2) 55%,  /* lighter fade */
-        rgba(255,255,255,0.0) 70%   /* clear earlier, bottom fully visible */
+        rgba(255,255,255,1) 0%,
+        rgba(255,255,255,0.95) 20%,
+        rgba(255,255,255,0.7) 40%,
+        rgba(255,255,255,0.2) 55%,
+        rgba(255,255,255,0.0) 70%
       );
       z-index: 0;
     }
@@ -57,7 +59,7 @@
       position: relative;
       z-index: 1;
       max-width: 1000px;
-      margin-bottom: auto; /* keep content at top */
+      margin-bottom: auto;
     }
 
     .hero h1 {
@@ -66,7 +68,6 @@
       line-height: 1.1;
       margin-bottom: 24px;
       letter-spacing: -1px;
-      color: #0a0c10;
     }
 
     .hero p {
@@ -75,6 +76,11 @@
       line-height: 1.6;
       color: #333;
     }
+
+    /* Accent colors */
+    .red-accent { color: var(--accent-red); }
+    .blue-accent { color: var(--accent-blue); }
+    .neutral-accent { color: var(--dark); }
 
     .software-badges {
       margin-bottom: 40px;
@@ -186,7 +192,12 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
-      <h1>Product & Mechanical CAD Design for Real-World Applications</h1>
+      <h1>
+        <span class="red-accent">Product &</span>
+        <span class="blue-accent">Mechanical</span>
+        <span class="red-accent">CAD</span>
+        <span class="neutral-accent">Design for Real-World Applications</span>
+      </h1>
       <p>I design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
       
       <div class="software-badges">
