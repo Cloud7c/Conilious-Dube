@@ -7,8 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0366d6;
-      --dark: #0a0c10;
+      --primary: #0070f3;   /* SwiftRooter blue accent */
+      --dark: #0a0c10;      /* deep dark background */
       --card-bg: #ffffff;
       --text-main: #1c1f23;
       --text-muted: #586069;
@@ -60,18 +60,20 @@
     }
 
     .hero h1 {
-      font-size: 3.8rem;
+      font-size: 4rem;
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 24px;
-      letter-spacing: -2px;
+      letter-spacing: -1px;
+      color: #ffffff; /* crisp white headline */
     }
 
     .hero p {
-      font-size: 1.4rem;
-      opacity: 0.9;
+      font-size: 1.3rem;
+      font-weight: 400;
       margin-bottom: 40px;
       line-height: 1.6;
+      color: rgba(255,255,255,0.85); /* softer white for subtext */
     }
 
     .software-badges {
@@ -83,12 +85,13 @@
     }
 
     .badge {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 8px 20px;
       border-radius: 100px;
       font-size: 0.95rem;
       font-weight: 600;
+      color: #fff;
       transition: 0.3s;
     }
 
@@ -110,7 +113,7 @@
 
     .btn:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 112, 243, 0.3);
     }
 
     /* --- SERVICES SECTION --- */
@@ -120,6 +123,7 @@
       font-size: 2.8rem;
       font-weight: 800;
       letter-spacing: -1px;
+      color: var(--dark);
     }
 
     .section-subtitle {
