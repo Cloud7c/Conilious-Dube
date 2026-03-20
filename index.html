@@ -22,36 +22,41 @@
       scroll-behavior: smooth;
     }
 
-    /* --- HERO SECTION WITH WALLPAPER --- */
+    /* --- HERO SECTION WITH PREMIUM BACKGROUND --- */
     .hero {
-      background-image: url('wallpaper.png.png'); /* your uploaded wallpaper */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: white;
+      position: relative;
+      min-height: 90vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 120px 10%;
-      min-height: 80vh;
-      position: relative;
+      color: white;
+      background-image: url('wallpaper.png.png'); /* your wallpaper */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
+    /* Gradient overlay for premium look */
     .hero::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5); /* overlay for readability */
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 12, 16, 0.95) 0%,   /* solid dark at top */
+        rgba(10, 12, 16, 0.7) 40%,   /* fade */
+        rgba(10, 12, 16, 0.4) 70%,   /* lighter fade */
+        rgba(10, 12, 16, 0.0) 100%   /* transparent bottom */
+      );
       z-index: 0;
     }
 
     .hero-content {
-      max-width: 900px;
-      z-index: 1;
       position: relative;
+      z-index: 1;
+      max-width: 900px;
     }
 
     .hero h1 {
