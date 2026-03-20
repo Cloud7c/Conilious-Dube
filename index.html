@@ -1,233 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conilious Dube | Mechanical CAD Design & Simulation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #0366d6;
-      --dark: #0a0c10;
-      --accent-red: #d62828;
-      --accent-blue: #0366d6;
-    }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  padding: 30px 40px;
+  border-radius: 20px;
+  /* remove background completely */
+  background: none;
+  backdrop-filter: none;
+  animation: fadeUp 1.2s ease forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: #f4f7fa;
-      color: var(--dark);
-      scroll-behavior: smooth;
-    }
+.hero h1 {
+  font-size: 4.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
 
-    /* HEADER */
-    .site-header {
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #e1e4e8;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 10%;
-    }
-
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #0a0c10;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 30px;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-links li a {
-      text-decoration: none;
-      font-weight: 600;
-      color: #0a0c10;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links li a:hover {
-      color: var(--primary);
-    }
-
-    .cta-btn {
-      background: var(--primary);
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
-
-    .cta-btn:hover {
-      background: #024da3;
-      transform: translateY(-2px);
-    }
-
-    /* HERO */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 140px 10% 80px; /* offset for fixed header */
-      background-image: url('newwallpaper.png');
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      color: #ffffff;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      background: rgba(255,255,255,0.08); /* frosted glass effect */
-      padding: 30px 40px;
-      border-radius: 20px;
-      backdrop-filter: blur(6px);
-      animation: fadeUp 1.2s ease forwards;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero h1 {
-      font-size: 4.2rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 24px;
-      letter-spacing: -1px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    }
-
-    .red-accent { color: var(--accent-red); }
-    .blue-accent { color: var(--accent-blue); }
-    .neutral-accent { color: #000000; }
-
-    .hero p {
-      font-size: 1.4rem;
-      margin: 0 auto 40px;
-      line-height: 1.6;
-      color: #e0e0e0;
-      font-weight: 600;
-      max-width: 700px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    }
-
-    /* SOFTWARE BADGES */
-    .software-badges {
-      margin-bottom: 40px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .badge {
-      background: var(--primary);
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-block;
-      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 6px 14px rgba(3, 102, 214, 0.25);
-    }
-
-    .badge:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.4);
-      background: #024da3;
-    }
-
-    /* BUTTON */
-    .btn {
-      background: var(--primary);
-      color: white;
-      padding: 18px 45px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      display: inline-block;
-      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.3);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .hero h1 { font-size: 2.6rem; }
-      .hero p { font-size: 1.1rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <nav class="navbar">
-      <div class="logo">Conilious Dube</div>
-      <ul class="nav-links">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <a href="#contact" class="cta-btn">Start a Project</a>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="hero-content">
-      <h1>
-        <span class="red-accent">Product &</span>
-        <span class="blue-accent">Mechanical</span>
-        <span class="red-accent">CAD</span>
-        <span class="neutral-accent">Design for Real-World Applications</span>
-      </h1>
-      <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
-      
-      <div class="software-badges">
-        <span class="badge">Siemens NX</span>
-        <span class="badge">Creo Parametric</span>
-        <span class="badge">Ansys</span>
-        <span class="badge">Fusion 360</span>
-      </div>
-
-      <a href="#contact" class="btn">Start a Project</a>
-    </div>
-  </section>
-
-</body>
-</html>
+.hero p {
+  font-size: 1.4rem;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  color: #e0e0e0; /* softer white */
+  font-weight: 600;
+  max-width: 700px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
