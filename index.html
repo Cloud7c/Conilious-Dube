@@ -47,7 +47,7 @@
     }
 
     .logo-icon {
-      height: 60px;   /* bigger logo size */
+      height: 60px;
       width: auto;
     }
 
@@ -60,13 +60,13 @@
     .logo-text .name {
       font-size: 1.6rem;
       font-weight: 800;
-      color: var(--accent-red); /* red accent for name */
+      color: var(--accent-red);
     }
 
     .logo-text .tagline {
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--accent-blue); /* blue for tagline */
+      color: var(--accent-blue);
       letter-spacing: 0.5px;
     }
 
@@ -190,6 +190,90 @@
       background: #024da3;
     }
 
+    /* NEW FEATURED SECTION */
+    .featured-project {
+      padding: 100px 10%;
+      background: #f4f7fa;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header h2::after {
+      content: "";
+      display: block;
+      width: 60%;
+      height: 4px;
+      background: var(--accent-blue);
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    .section-header p {
+      font-size: 1rem;
+      color: #555;
+      max-width: 600px;
+      margin: 10px auto 0;
+    }
+
+    .project-container {
+      display: flex;
+      gap: 40px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      padding: 40px;
+      align-items: center;
+      transition: 0.3s ease;
+    }
+
+    .project-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    .project-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+    }
+
+    .project-details {
+      flex: 1;
+    }
+
+    .project-details h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: var(--accent-blue);
+    }
+
+    .project-details p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-highlights {
+      list-style: none;
+      padding: 0;
+    }
+
+    .project-highlights li {
+      margin-bottom: 8px;
+    }
+
     @media (max-width: 900px) {
       .logo-icon { height: 40px; }
       .logo-text .name { font-size: 1.2rem; }
@@ -197,6 +281,10 @@
       .hero h1 { font-size: 2.6rem; }
       .hero p { font-size: 1.1rem; }
       .software-badges { margin-top: 60px; }
+
+      .project-container {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -238,6 +326,35 @@
         <span class="badge">Creo Parametric</span>
         <span class="badge">Ansys</span>
         <span class="badge">Fusion 360</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADDED SECTION -->
+  <section class="featured-project">
+    <div class="section-header">
+      <h2>Featured Engineering Work</h2>
+      <p>A selection of mechanical design and simulation projects demonstrating real-world engineering capability.</p>
+    </div>
+
+    <div class="project-container">
+      <div class="project-image">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Jet_engine_model.png" alt="Jet Engine">
+      </div>
+
+      <div class="project-details">
+        <h3>Jet Engine Assembly & Design Study</h3>
+        <p>
+          Developed a detailed jet engine assembly to understand component integration, airflow structure, and mechanical relationships.
+          Focused on precision 3D modeling and assembly techniques using Creo.
+        </p>
+
+        <ul class="project-highlights">
+          <li>Full multi-component assembly design</li>
+          <li>Detailed part modeling and alignment</li>
+          <li>Exploration of internal structure and system layout</li>
+          <li>Built using Creo Parametric</li>
+        </ul>
       </div>
     </div>
   </section>
