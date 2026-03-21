@@ -49,7 +49,7 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
   color:var(--super-black);
 }
 
-/* Video wrapper: gradient highlight from top converging to center */
+/* Video wrapper: top-to-center white convergence and color grading */
 .video-wrap{
   position:absolute;
   inset:0;
@@ -57,15 +57,12 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
   overflow:hidden;
   background: transparent;
 }
-
-/* Top-to-center white convergence: pseudo element sits above the gradient and blends with the video */
 .video-wrap::before{
   content: "";
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  /* radial highlight starting near the top and converging toward the center */
   background:
     radial-gradient(circle at 50% 18%,
       rgba(255,255,255,0.72) 0%,
@@ -73,12 +70,9 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
       rgba(255,255,255,0.28) 18%,
       rgba(255,255,255,0.12) 30%,
       rgba(255,255,255,0.00) 45%);
-  mix-blend-mode: screen; /* brightens the video where the white highlight is applied */
+  mix-blend-mode: screen;
   transform: translateZ(0);
 }
-
-/* Secondary subtle color grading to emulate premium blue-orange industrial lighting,
-   applied as another pseudo element so it converges visually with the white highlight. */
 .video-wrap::after{
   content: "";
   position: absolute;
@@ -102,7 +96,6 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
   height:100%;
   object-fit:cover;
   z-index:0;
-  /* sharpened, high-clarity look via filters */
   filter: brightness(1.03) contrast(1.12) saturate(1.08);
   will-change: filter;
   transform: translateZ(0);
@@ -122,7 +115,7 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
 }
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 
-/* Typography: super black text directly over the video */
+/* Typography: super black title; paragraph in white with dark shadow for clarity */
 .hero h1{
   font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight:800;
@@ -135,14 +128,20 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
 .blue-accent{color:var(--accent-blue)}
 .neutral-accent{color:var(--super-black)}
 
+/* UPDATED: paragraph text in white with a crisp, dark shadow (no highlight) */
 .hero p{
   font-size: clamp(1rem, 2.2vw, 1.25rem);
   margin:0 auto 18px;
   line-height:1.6;
-  color: var(--super-black);
+  color: #ffffff; /* white text as requested */
   font-weight:600;
   max-width:700px;
-  text-shadow: none;
+  /* strong, subtle multi-layer shadow for clarity and premium look */
+  text-shadow:
+    0 1px 0 rgba(0,0,0,0.85),
+    0 4px 10px rgba(0,0,0,0.55);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 /* Badges */
