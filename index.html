@@ -13,6 +13,7 @@
       --accent-blue: #0366d6;
     }
 
+    /* Base styles: mobile-first */
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
@@ -21,9 +22,11 @@
       scroll-behavior: smooth;
     }
 
+    a { text-decoration: none; }
+
     /* HEADER */
     .site-header {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.85);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid #e1e4e8;
       position: fixed;
@@ -35,74 +38,53 @@
 
     .navbar {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      padding: 18px 10%;
+      padding: 12px 5%;
+      gap: 12px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .logo-icon {
-      height: 60px;
-      width: auto;
-    }
+    .logo-icon { height: 40px; width: auto; }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .logo-text .name {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--accent-red);
-    }
-
-    .logo-text .tagline {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--accent-blue);
-      letter-spacing: 0.5px;
-    }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-text .name { font-size: 1.2rem; font-weight: 800; color: var(--accent-red); }
+    .logo-text .tagline { font-size: 0.8rem; font-weight: 600; color: var(--accent-blue); letter-spacing: 0.5px; }
 
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 30px;
-      margin: 0;
+      flex-direction: column;
+      gap: 10px;
       padding: 0;
+      margin: 0;
+      align-items: center;
     }
 
     .nav-links li a {
-      text-decoration: none;
       font-weight: 600;
       color: #0a0c10;
       transition: color 0.3s ease;
     }
 
-    .nav-links li a:hover {
-      color: var(--primary);
-    }
+    .nav-links li a:hover { color: var(--primary); }
 
     .cta-btn {
       background: var(--primary);
       color: #fff;
-      padding: 12px 28px;
+      padding: 10px 20px;
       border-radius: 8px;
       font-weight: 700;
-      text-decoration: none;
+      text-align: center;
       transition: 0.3s ease;
     }
 
-    .cta-btn:hover {
-      background: #024da3;
-      transform: translateY(-2px);
-    }
+    .cta-btn:hover { background: #024da3; transform: translateY(-2px); }
 
     /* HERO */
     .hero {
@@ -112,61 +94,51 @@
       align-items: flex-start;
       justify-content: center;
       text-align: center;
-      padding: 100px 10% 80px;
+      padding: 100px 5% 60px;
       background-image: url('newwallpaper.png');
       background-size: cover;
       background-position: center center;
-      background-repeat: no-repeat;
       color: #ffffff;
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 900px;
-      padding: 20px 40px;
+      max-width: 90%;
+      padding: 20px;
       animation: fadeUp 1.2s ease forwards;
       opacity: 0;
       transform: translateY(30px);
     }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
     .hero h1 {
-      font-size: 4.2rem;
+      font-size: 2rem;
       font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 24px;
-      letter-spacing: -1px;
-      color: #ffffff;
+      line-height: 1.3;
+      margin-bottom: 20px;
     }
 
     .red-accent { color: var(--accent-red); }
     .blue-accent { color: var(--accent-blue); }
-    .neutral-accent { color: #000000; }
+    .neutral-accent { color: #ffffff; }
 
     .hero p {
-      font-size: 1.4rem;
-      margin: 0 auto 30px;
+      font-size: 1rem;
       line-height: 1.6;
-      color: #e0e0e0;
+      margin: 0 auto 20px;
+      max-width: 100%;
       font-weight: 600;
-      max-width: 700px;
-      text-shadow: 
+      text-shadow:
         0 2px 6px rgba(0,0,0,0.9),
-        0 4px 12px rgba(0,0,0,0.8),
-        0 6px 18px rgba(0,0,0,0.7);
+        0 4px 12px rgba(0,0,0,0.8);
     }
 
     .software-badges {
-      margin-top: 120px;
+      margin-top: 40px;
       display: flex;
-      gap: 12px;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
     }
@@ -174,41 +146,24 @@
     .badge {
       background: var(--primary);
       color: #fff;
-      padding: 12px 28px;
+      padding: 10px 20px;
       border-radius: 12px;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 700;
-      text-decoration: none;
       display: inline-block;
-      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 6px 14px rgba(3, 102, 214, 0.25);
+      box-shadow: 0 6px 14px rgba(3,102,214,0.25);
+      transition: 0.3s ease;
     }
 
-    .badge:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.4);
-      background: #024da3;
-    }
+    .badge:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(3,102,214,0.4); }
 
-    /* NEW FEATURED SECTION */
-    .featured-project {
-      padding: 100px 10%;
-      background: #f4f7fa;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
+    /* FEATURED PROJECT */
+    .featured-project { padding: 80px 5%; background: #f4f7fa; }
+    .section-header { text-align: center; margin-bottom: 40px; }
     .section-header h2 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 10px;
+      font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; display: inline-block;
       position: relative;
-      display: inline-block;
     }
-
     .section-header h2::after {
       content: "";
       display: block;
@@ -218,73 +173,68 @@
       margin: 8px auto 0;
       border-radius: 2px;
     }
-
-    .section-header p {
-      font-size: 1rem;
-      color: #555;
-      max-width: 600px;
-      margin: 10px auto 0;
-    }
+    .section-header p { font-size: 0.95rem; color: #555; max-width: 100%; margin: 0 auto; }
 
     .project-container {
       display: flex;
-      gap: 40px;
+      flex-direction: column;
+      gap: 20px;
       background: #ffffff;
       border-radius: 16px;
+      padding: 20px;
       box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-      padding: 40px;
-      align-items: center;
-      transition: 0.3s ease;
     }
 
-    .project-container:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-    }
+    .project-image img { width: 100%; border-radius: 12px; }
+    .project-details { flex: 1; }
+    .project-details h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; color: var(--accent-blue); }
+    .project-details p, .project-highlights li { font-size: 0.95rem; margin-bottom: 10px; line-height: 1.5; }
 
-    .project-image img {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 12px;
+    /* SERVICES */
+    .services { padding: 80px 5%; background: #f4f7fa; }
+    .services-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .service-card {
+      background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
+    .service-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
+    .service-card p { font-size: 0.95rem; line-height: 1.5; color: #333; }
 
-    .project-details {
-      flex: 1;
+    /* ABOUT */
+    .about-heading h2 { font-size: 1.8rem; font-weight: 800; color: var(--primary); margin: 40px auto 20px; display: inline-block; }
+    .about-heading h2::after { content: ""; display: block; width: 60px; height: 3px; background: var(--primary); margin: 8px auto 0; border-radius: 2px; }
+
+    .about { position: relative; text-align: center; padding: 20px 5%; }
+    .about-overlay { position: relative; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .about-image { width: 100%; height: auto; border-radius: 12px; }
+    .about-text {
+      width: 100%; background: rgba(0,0,0,0.35); color: #fff; padding: 20px; border-radius: 12px;
+      line-height: 1.7; text-align: left;
     }
+    .about-text p { margin-bottom: 12px; }
 
-    .project-details h3 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 15px;
-      color: var(--accent-blue);
-    }
-
-    .project-details p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .project-highlights {
-      list-style: none;
-      padding: 0;
-    }
-
-    .project-highlights li {
-      margin-bottom: 8px;
-    }
-
-    @media (max-width: 900px) {
-      .logo-icon { height: 40px; }
-      .logo-text .name { font-size: 1.2rem; }
-      .logo-text .tagline { font-size: 0.8rem; }
+    /* MEDIA QUERIES FOR FLUIDITY */
+    @media(min-width: 600px) {
+      .navbar { flex-direction: row; justify-content: space-between; }
+      .nav-links { flex-direction: row; gap: 20px; }
       .hero h1 { font-size: 2.6rem; }
-      .hero p { font-size: 1.1rem; }
-      .software-badges { margin-top: 60px; }
+      .hero p { font-size: 1.2rem; }
+      .project-container { flex-direction: row; gap: 20px; }
+      .services-grid { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+      .about-overlay { flex-direction: row; align-items: flex-start; }
+      .about-text { width: 50%; }
+    }
 
-      .project-container {
-        flex-direction: column;
-      }
+    @media(min-width: 900px) {
+      .hero h1 { font-size: 3.2rem; }
+      .hero p { font-size: 1.3rem; }
+      .project-details h3 { font-size: 1.6rem; }
+      .project-details p, .project-highlights li { font-size: 1.05rem; }
+      .service-card h3 { font-size: 1.3rem; }
+      .service-card p { font-size: 1rem; }
+      .about-heading h2 { font-size: 2rem; }
+      .about-text { font-size: 1.05rem; padding: 25px; }
     }
   </style>
 </head>
@@ -320,7 +270,6 @@
         <span class="neutral-accent">Design for Real-World Applications</span>
       </h1>
       <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
-      
       <div class="software-badges">
         <span class="badge">Siemens NX</span>
         <span class="badge">Creo Parametric</span>
@@ -330,189 +279,70 @@
     </div>
   </section>
 
-  <!-- ADDED SECTION -->
-<!-- FEATURED PROJECT: V6 ENGINE -->
-<section class="featured-project">
-  <div class="section-header">
-    <h2>Advanced Engine Modeling</h2>
-    <p>High-fidelity V6 engine assembly created in Creo Parametric, showcasing complex part integration and realistic visualization.</p>
+  <!-- FEATURED PROJECT -->
+  <section class="featured-project">
+    <div class="section-header">
+      <h2>Advanced Engine Modeling</h2>
+      <p>High-fidelity V6 engine assembly created in Creo Parametric, showcasing complex part integration and realistic visualization.</p>
+    </div>
+    <div class="project-container">
+      <div class="project-image">
+        <img src="v6_engine.png" alt="V6 Engine CAD Model">
+      </div>
+      <div class="project-details">
+        <h3>V6 Internal Combustion Engine</h3>
+        <p>Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold. The model emphasizes manufacturability and simulation-readiness for engineering analysis.</p>
+        <ul class="project-highlights">
+          <li>Multi-body assembly with realistic constraints</li>
+          <li>Color-coded components for clarity and presentation</li>
+          <li>Built using Creo Parametric</li>
+          <li>Includes intake, exhaust, and turbo subsystems</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="services">
+    <div class="section-header">
+      <h2>Engineering Services</h2>
+      <p>Specialized mechanical design and simulation services for startups and engineering teams.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>3D CAD Modeling</h3>
+        <p>High-precision part and assembly design with production-ready standards using industry-leading CAD tools.</p>
+      </div>
+      <div class="service-card">
+        <h3>FEA & Simulation</h3>
+        <p>Structural, stress, and thermal analysis to validate designs and ensure performance under real-world conditions.</p>
+      </div>
+      <div class="service-card">
+        <h3>CFD Analysis</h3>
+        <p>Fluid flow and thermal optimization to improve efficiency and performance of complex systems.</p>
+      </div>
+      <div class="service-card">
+        <h3>Design for Manufacturing</h3>
+        <p>Optimizing designs for cost-effective production, reduced complexity, and efficient assembly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="section-header about-heading">
+    <h2>About Me</h2>
   </div>
-
-  <div class="project-container">
-    <div class="project-image">
-      <img src="v6_engine.png" alt="V6 Engine CAD Model">
+  <section id="about" class="about">
+    <div class="about-overlay">
+      <img src="me.png" alt="Conilious at CAD desk" class="about-image">
+      <div class="about-text">
+        <p>I am a mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.</p>
+        <p>I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements. My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.</p>
+        <p>I approach every project with an engineering mindset—balancing design, functionality, and manufacturability. Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>, I design, analyze, and optimize mechanical systems for startups and engineering teams.</p>
+        <p>I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.</p>
+      </div>
     </div>
-
-    <div class="project-details">
-      <h3>V6 Internal Combustion Engine</h3>
-      <p>
-        Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold.
-        The model emphasizes manufacturability and simulation-readiness for engineering analysis.
-      </p>
-      <ul class="project-highlights">
-        <li>Multi-body assembly with realistic constraints</li>
-        <li>Color-coded components for clarity and presentation</li>
-        <li>Built using Creo Parametric</li>
-        <li>Includes intake, exhaust, and turbo subsystems</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES SECTION -->
-<section id="services" class="services">
-  <div class="section-header">
-    <h2>Engineering Services</h2>
-    <p>Specialized mechanical design and simulation services for startups and engineering teams.</p>
-  </div>
-
-  <div class="services-grid">
-    <div class="service-card">
-      <h3>3D CAD Modeling</h3>
-      <p>High-precision part and assembly design with production-ready standards using industry-leading CAD tools.</p>
-    </div>
-    <div class="service-card">
-      <h3>FEA & Simulation</h3>
-      <p>Structural, stress, and thermal analysis to validate designs and ensure performance under real-world conditions.</p>
-    </div>
-    <div class="service-card">
-      <h3>CFD Analysis</h3>
-      <p>Fluid flow and thermal optimization to improve efficiency and performance of complex systems.</p>
-    </div>
-    <div class="service-card">
-      <h3>Design for Manufacturing</h3>
-      <p>Optimizing designs for cost-effective production, reduced complexity, and efficient assembly.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SUB HEADING: ABOUT ME -->
-<div class="section-header about-heading">
-  <h2>About Me</h2>
-</div>
-
-<!-- ABOUT ME SECTION -->
-<section id="about" class="about">
-  <div class="about-overlay">
-    <img src="me.png" alt="Conilious at CAD desk" class="about-image">
-    <div class="about-text">
-      <p>
-        I am a mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.
-      </p>
-      <p>
-        I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements. My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.
-      </p>
-      <p>
-        I approach every project with an engineering mindset—balancing design, functionality, and manufacturability. Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>, I design, analyze, and optimize mechanical systems for startups and engineering teams.
-      </p>
-      <p>
-        I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.
-      </p>
-    </div>
-  </div>
-</section>
-
-<style>
-/* SERVICES */
-.services {
-  padding: 100px 10%;
-  background: #f4f7fa;
-}
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-}
-.service-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 30px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-}
-.service-card h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: #0366d6;
-}
-.service-card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-}
-
-/* ABOUT HEADING */
-.about-heading h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #0366d6;
-  margin: 60px auto 20px;
-  position: relative;
-  display: inline-block;
-}
-.about-heading h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: #0366d6;
-  margin: 12px auto 0;
-  border-radius: 2px;
-}
-
-/* ABOUT */
-.about {
-  position: relative;
-  text-align: center;
-}
-.about-overlay {
-  position: relative;
-}
-.about-image {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.about-text {
-  position: absolute;
-  top: 0;              /* overlay starts at top */
-  bottom: 0;           /* overlay reaches bottom */
-  left: 10%;           /* keep side gaps */
-  right: 10%;          /* keep side gaps */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* center text vertically */
-  color: #fff;
-  font-size: 1.2rem;   /* bigger text */
-  line-height: 1.9;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
-  background: rgba(0,0,0,0.35); /* full-height overlay */
-  padding: 40px;
-  border-radius: 12px;
-}
-.about-text p {
-  margin-bottom: 20px;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .services {
-    padding: 60px 5%;
-  }
-  .about-text {
-    font-size: 1rem;
-    padding: 20px;
-  }
-  .about-heading h2 {
-    font-size: 2rem;
-  }
-}
-</style>
+  </section>
 
 </body>
 </html>
