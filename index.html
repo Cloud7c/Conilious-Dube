@@ -468,7 +468,6 @@
 /* ABOUT */
 .about {
   position: relative;
-  padding: 0;
   text-align: center;
 }
 .about-overlay {
@@ -481,16 +480,19 @@
 }
 .about-text {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 800px;
+  top: 0;              /* overlay starts at top */
+  bottom: 0;           /* overlay reaches bottom */
+  left: 10%;           /* keep side gaps */
+  right: 10%;          /* keep side gaps */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* center text vertically */
   color: #fff;
-  font-size: 1.05rem;
-  line-height: 1.8;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.9); /* strong shadow for readability */
-  background: rgba(0,0,0,0.3); /* optional subtle overlay for contrast */
-  padding: 30px;
+  font-size: 1.2rem;   /* bigger text */
+  line-height: 1.9;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.35); /* full-height overlay */
+  padding: 40px;
   border-radius: 12px;
 }
 .about-text p {
@@ -503,7 +505,7 @@
     padding: 60px 5%;
   }
   .about-text {
-    font-size: 0.95rem;
+    font-size: 1rem;
     padding: 20px;
   }
   .about-heading h2 {
