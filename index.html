@@ -313,7 +313,31 @@ section { scroll-margin-top: 100px; width: 100%; }
 }
 
 /* MOBILE ONLY */
-@media (max-width:1024px) { .project-container, .contact-grid { flex-direction: column; gap: 30px; padding: 30px; } .project-details { padding-left: 0; } .about-grid { gap: 40px; } .about-image-col img { height: 500px; } }
+@media (max-width:1024px) {
+  .project-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px;
+  }
+
+  .project-details {
+    padding-left: 0;
+  }
+
+  .about-grid {
+    gap: 40px;
+  }
+
+  .about-image-col img {
+    height: 500px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
 @media (max-width:900px){
   .site-header{ background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: none; box-shadow: none; height: var(--header-height-mobile); }
   .navbar{ padding:8px 5%; }
@@ -566,7 +590,7 @@ section { scroll-margin-top: 100px; width: 100%; }
   </div>
   <div class="lightbox-content" id="lightboxContent">
     <img src="jet%20engine.png" class="lightbox-img active" alt="CAD Render">
-    </div>
+  </div>
 </div>
 
 <div class="modal-overlay" id="wizardModal">
@@ -639,7 +663,7 @@ section { scroll-margin-top: 100px; width: 100%; }
     // Mobile Nav
     const menuToggle = document.querySelector('.menu-toggle');
     const navGroup = document.querySelector('.nav-group');
-    const navLinks = document.querySelectorAll('.nav-links a:not(.open-modal-btn)'); // exclude cta if needed
+    const navLinks = document.querySelectorAll('.nav-links a:not(.open-modal-btn)');
 
     menuToggle.addEventListener('click', () => {
       menuToggle.classList.toggle('is-active');
@@ -667,7 +691,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 
     // LIGHTBOX GALLERY LOGIC
     const openGalleryBtn = document.getElementById('openGalleryBtn');
-    const navGalleryBtn = document.getElementById('navGalleryBtn'); // New Nav Link Connection
+    const navGalleryBtn = document.getElementById('navGalleryBtn');
     const lightboxOverlay = document.getElementById('lightboxOverlay');
     const closeLightboxBtn = document.getElementById('closeLightboxBtn');
     const nextImageBtn = document.getElementById('nextImageBtn');
@@ -679,7 +703,6 @@ section { scroll-margin-top: 100px; width: 100%; }
       if(e) e.preventDefault();
       lightboxOverlay.classList.add('is-active');
       document.body.style.overflow = 'hidden'; 
-      // Close mobile menu if opened from there
       menuToggle.classList.remove('is-active');
       navGroup.classList.remove('is-open');
     };
