@@ -14,7 +14,7 @@
   --super-black: #000000;
 }
 
-/* Base */
+/* Reset & base */
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa;color:var(--dark);scroll-behavior:smooth}
 
@@ -50,61 +50,52 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
   overflow:hidden;
 }
 
-/* Background video (fixed camera; component motion only) */
+/* Video wrapper: gradient background that will color-grade the video */
+.video-wrap{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  display:block;
+  /* Diagonal blue-orange gradient tuned to match the uploaded image lighting */
+  background: linear-gradient(135deg,
+    rgba(3,102,214,0.20) 0%,
+    rgba(255,170,90,0.08) 30%,
+    rgba(214,40,40,0.06) 60%,
+    rgba(0,0,0,0.18) 100%);
+  overflow:hidden;
+}
+
+/* The video sits above the gradient background but uses mix-blend-mode to blend with it,
+   producing the graded look directly on the video pixels while keeping the DOM simple. */
 .hero-video{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  z-index:0;
-  /* color grading to match industrial blue-orange lighting */
-  filter: brightness(0.92) contrast(1.12) saturate(1.08) sepia(0.04) hue-rotate(-6deg);
+  /* Blend the video with the gradient behind it to emulate the exact lighting feel */
+  mix-blend-mode: multiply;
+  z-index:1;
+  filter: brightness(0.95) contrast(1.08) saturate(1.05);
   transform: translateZ(0);
 }
 
-/* Blue-orange diagonal wash to emulate the uploaded lighting */
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background: linear-gradient(135deg,
-    rgba(3,102,214,0.18) 0%,
-    rgba(255,180,100,0.06) 35%,
-    rgba(214,40,40,0.06) 60%,
-    rgba(0,0,0,0.28) 100%);
-  pointer-events:none;
-  mix-blend-mode: soft-light;
-}
-
-/* Subtle dark vignette for depth and contrast */
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:2;
-  background: radial-gradient(60% 60% at 50% 35%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0.45) 100%);
-  pointer-events:none;
-}
-
-/* Hero content card (translucent light card so black text reads crisply) */
+/* Hero content sits above the graded video. No translucent card or highlight overlay. */
 .hero-content{
   position:relative;
   z-index:3;
   max-width:900px;
-  padding:28px 36px;
+  padding:0 24px;
   margin-top:20px;
-  background: rgba(255,255,255,0.92); /* near-white card to allow true black text */
-  border-radius:12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  /* NO background here — text sits directly on the graded video */
+  text-align:center;
   animation: fadeUp 1.1s ease forwards;
   opacity:0;
   transform: translateY(18px);
 }
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 
-/* Typography: super black text */
+/* Typography: super black text directly over the video */
 .hero h1{
   font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight:800;
@@ -202,11 +193,13 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
 
 <!-- HERO -->
 <section id="hero" class="hero" aria-label="Hero section showcasing engineering work">
-  <!-- Background video -->
-  <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="newwallpaper.png">
-    <source src="wallpapervid.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <!-- Video wrapper with gradient background; video blends with it to produce the graded lighting -->
+  <div class="video-wrap" aria-hidden="true">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="newwallpaper.png">
+      <source src="wallpapervid.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
   <div class="hero-content" role="region" aria-label="Hero content">
     <h1>
