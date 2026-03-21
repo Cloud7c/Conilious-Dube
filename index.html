@@ -189,3 +189,58 @@
       box-shadow: 0 10px 20px rgba(3, 102, 214, 0.4);
       background: #024da3;
     }
+
+    @media (max-width: 900px) {
+      .logo-icon { height: 40px; }
+      .logo-text .name { font-size: 1.2rem; }
+      .logo-text .tagline { font-size: 0.8rem; }
+      .hero h1 { font-size: 2.6rem; }
+      .hero p { font-size: 1.1rem; }
+      .software-badges { margin-top: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="logo">
+        <img src="logo.png" alt="Logo" class="logo-icon">
+        <div class="logo-text">
+          <span class="name">Conilious Dube</span>
+          <span class="tagline">Product Design & Engineering</span>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="cta-btn">Start a Project</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1>
+        <span class="red-accent">Product &</span>
+        <span class="blue-accent">Mechanical</span>
+        <span class="red-accent">CAD</span>
+        <span class="neutral-accent">Design for Real-World Applications</span>
+      </h1>
+      <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
+      
+      <div class="software-badges">
+        <span class="badge">Siemens NX</span>
+        <span class="badge">Creo Parametric</span>
+        <span class="badge">Ansys</span>
+        <span class="badge">Fusion 360</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
