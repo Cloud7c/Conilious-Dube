@@ -164,6 +164,26 @@ section { scroll-margin-top: 100px; width: 100%; }
 .about-content-col p{ margin-bottom:24px; font-size:1.15rem; line-height:1.8; color:var(--text-gray); }
 .about-content-col strong { color: var(--super-black); font-weight: 600; }
 
+/* About badges */
+.about-badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:24px;
+}
+
+.about-badge{
+  background:rgba(3,102,214,0.08);
+  color:var(--primary);
+  border:1px solid rgba(3,102,214,0.14);
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:0.95rem;
+  font-weight:600;
+  line-height:1;
+  box-shadow:0 4px 12px rgba(0,0,0,0.03);
+}
+
 /* REVIEWS */
 .testimonials-section { padding: 120px 5%; background: var(--bg-offwhite); border-top: 1px solid var(--border-light); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; max-width: 1200px; margin: 0 auto; }
@@ -244,13 +264,35 @@ section { scroll-margin-top: 100px; width: 100%; }
   .navbar { pointer-events: auto; }
   
   .logo { 
-    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
     padding: 4px 10px 4px 4px;
-    border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
   }
   
-  .logo-text { max-width: 100%; opacity: 1; overflow: visible; margin-left: 12px; visibility: visible;} 
-  .logo:hover { background: rgba(255, 255, 255, 1); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .logo-text {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-left: 0;
+    visibility: visible;
+    transform: translateX(-10px);
+    transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, transform 0.35s ease, margin-left 0.35s ease;
+  }
+
+  .logo:hover,
+  .logo:focus-visible { background: rgba(255, 255, 255, 1); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .logo:hover .logo-text,
+  .logo:focus-visible .logo-text {
+    max-width: 280px;
+    opacity: 1;
+    transform: translateX(0);
+    margin-left: 12px;
+  }
   
   .menu-toggle { display: block; width: 56px; height: 56px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.3s ease; }
   .menu-toggle:hover { background: rgba(255, 255, 255, 1); transform: scale(1.05); }
@@ -263,7 +305,31 @@ section { scroll-margin-top: 100px; width: 100%; }
 }
 
 /* MOBILE ONLY */
-@media (max-width:1024px) { .project-container, .contact-grid { flex-direction: column; gap: 30px; padding: 30px; } .project-details { padding-left: 0; } .about-grid { gap: 40px; } .about-image-col img { height: 500px; } }
+@media (max-width:1024px) {
+  .project-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px;
+  }
+
+  .project-details {
+    padding-left: 0;
+  }
+
+  .about-grid {
+    gap: 40px;
+  }
+
+  .about-image-col img {
+    height: 500px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
 @media (max-width:900px){
   .site-header{ background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: none; box-shadow: none; height: var(--header-height-mobile); }
   .navbar{ padding:8px 5%; }
@@ -424,6 +490,13 @@ section { scroll-margin-top: 100px; width: 100%; }
     <div class="about-image-col reveal"><img src="me.png" alt="Conilious Dube - Mechanical Engineer"></div>
     <div class="about-content-col reveal">
       <h2>About Me</h2>
+
+      <div class="about-badges">
+        <div class="about-badge">30+ Projects Delivered</div>
+        <div class="about-badge">Global Clients</div>
+        <div class="about-badge">CAD & Simulation Focus</div>
+      </div>
+
       <p>Delivered 30+ projects for clients worldwide, specializing in precise, production-ready CAD designs, detailed assemblies, and engineering-focused simulation work.</p>
       <p>I specialize in transforming concepts into precise, production-ready designs that meet rigorous real-world performance requirements. My work involves managing complex assemblies, conducting structural validation, and performing fluid flow analysis to ensure reliability, efficiency, and durability.</p>
       <p>I approach every project with an uncompromising engineering mindset—balancing sleek design, raw functionality, and practical manufacturability. Leveraging industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>, I architect and optimize mechanical systems from the ground up.</p>
@@ -476,7 +549,7 @@ section { scroll-margin-top: 100px; width: 100%; }
     <div class="contact-info reveal">
       <div class="status-badge">
         <div class="status-dot"></div>
-        Available for Freelance Projects
+        Accepting Freelance Projects
       </div>
       <h2>Let's build something great together.</h2>
       <p>Have an engineering challenge, a product idea, or need high-fidelity CAD models? Send me a message, and let's discuss how we can bring your project to life.</p>
