@@ -201,7 +201,35 @@ section { scroll-margin-top: 100px; width: 100%; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; align-items: center; }
 .contact-info h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--super-black); margin-bottom: 20px; letter-spacing: -0.02em; }
 .contact-info p { font-size: 1.15rem; color: var(--text-gray); line-height: 1.8; margin-bottom: 40px; }
-.status-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(3, 102, 214, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; margin-bottom: 24px; border: 1px solid rgba(3, 102, 214, 0.2); }
+.status-badge {
+  display: inline-flex; align-items: center; gap: 10px; background: rgba(3, 102, 214, 0.1); color: var(--primary);
+  padding: 8px 16px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; margin-bottom: 24px;
+  border: 1px solid rgba(3, 102, 214, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: freelanceBadgePulse 2.8s ease-in-out infinite;
+}
+.status-badge::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: freelanceBadgeShine 3.6s ease-in-out infinite;
+}
+.status-badge > *{
+  position: relative;
+  z-index: 1;
+}
+@keyframes freelanceBadgePulse {
+  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 0 rgba(3,102,214,0); }
+  50% { transform: translateY(-2px) scale(1.01); box-shadow: 0 10px 24px rgba(3,102,214,0.10); }
+}
+@keyframes freelanceBadgeShine {
+  0% { transform: translateX(-120%); }
+  35% { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
 .status-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px rgba(34, 197, 94, 0.6); animation: pulse 2s infinite; }
 .contact-details-list { list-style: none; padding: 0; margin: 0; }
 .contact-details-list li { margin-bottom: 24px; }
@@ -549,11 +577,21 @@ section { scroll-margin-top: 100px; width: 100%; }
     <div class="contact-info reveal">
       <div class="status-badge">
         <div class="status-dot"></div>
-        Accepting Freelance Projects
+        Available for New Engineering Projects
       </div>
       <h2>Let's build something great together.</h2>
       <p>Have an engineering challenge, a product idea, or need high-fidelity CAD models? Send me a message, and let's discuss how we can bring your project to life.</p>
-      
+
+      <p style="font-size:0.95rem; color: var(--text-gray); margin-top:-20px; margin-bottom:30px;">
+        ⚡ Typically responds within a few hours • Clear communication • Engineering-focused solutions
+      </p>
+
+      <ul style="list-style:none; padding:0; margin-top:20px; color:var(--text-gray); font-size:0.95rem;">
+        <li>→ Share your idea or requirement</li>
+        <li>→ I review and suggest the best approach</li>
+        <li>→ You receive a clear plan or quote</li>
+      </ul>
+
       <ul class="contact-details-list">
         <li>
           <span>Email</span>
@@ -573,7 +611,10 @@ section { scroll-margin-top: 100px; width: 100%; }
     <div class="wizard-trigger-card reveal">
       <h3>Ready to start?</h3>
       <p>Launch the interactive project wizard to specify your CAD software and project details.</p>
-      <button class="cta-btn open-modal-btn">Open Project Wizard</button>
+      <p style="font-size:0.9rem; color: var(--text-gray); margin-top:-10px;">
+        Not sure yet? Just share your idea — I’ll help you define the requirements.
+      </p>
+      <button class="cta-btn open-modal-btn">Get Your Design Started →</button>
     </div>
   </div>
 </section>
