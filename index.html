@@ -8,7 +8,6 @@
 <style>
 :root{
   --primary: #0366d6;
-  --dark: #0a0c10;
   --accent-red: #d62828;
   --accent-blue: #0366d6;
   --super-black: #000000;
@@ -16,7 +15,7 @@
 
 /* Reset & base */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa;color:var(--dark);scroll-behavior:smooth}
+html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa;color:var(--super-black);scroll-behavior:smooth}
 
 /* HEADER */
 .site-header{
@@ -46,37 +45,66 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
   justify-content:center;
   text-align:center;
   padding:120px 10% 80px;
-  color:#ffffff;
   overflow:hidden;
+  color:var(--super-black);
 }
 
-/* Video wrapper: gradient background that will color-grade the video */
+/* Video wrapper: gradient highlight from top converging to center */
 .video-wrap{
   position:absolute;
   inset:0;
   z-index:0;
-  display:block;
-  /* Diagonal blue-orange gradient tuned to match the uploaded image lighting */
-  background: linear-gradient(135deg,
-    rgba(3,102,214,0.20) 0%,
-    rgba(255,170,90,0.08) 30%,
-    rgba(214,40,40,0.06) 60%,
-    rgba(0,0,0,0.18) 100%);
   overflow:hidden;
+  background: transparent;
 }
 
-/* The video sits above the gradient background but uses mix-blend-mode to blend with it,
-   producing the graded look directly on the video pixels while keeping the DOM simple. */
+/* Top-to-center white convergence: pseudo element sits above the gradient and blends with the video */
+.video-wrap::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  /* radial highlight starting near the top and converging toward the center */
+  background:
+    radial-gradient(circle at 50% 18%,
+      rgba(255,255,255,0.72) 0%,
+      rgba(255,255,255,0.48) 8%,
+      rgba(255,255,255,0.28) 18%,
+      rgba(255,255,255,0.12) 30%,
+      rgba(255,255,255,0.00) 45%);
+  mix-blend-mode: screen; /* brightens the video where the white highlight is applied */
+  transform: translateZ(0);
+}
+
+/* Secondary subtle color grading to emulate premium blue-orange industrial lighting,
+   applied as another pseudo element so it converges visually with the white highlight. */
+.video-wrap::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(3,102,214,0.14) 0%,
+    rgba(255,170,90,0.06) 28%,
+    rgba(214,40,40,0.04) 60%,
+    rgba(0,0,0,0.00) 100%);
+  mix-blend-mode: overlay;
+  transform: translateZ(0);
+}
+
+/* The video itself */
 .hero-video{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  /* Blend the video with the gradient behind it to emulate the exact lighting feel */
-  mix-blend-mode: multiply;
-  z-index:1;
-  filter: brightness(0.95) contrast(1.08) saturate(1.05);
+  z-index:0;
+  /* sharpened, high-clarity look via filters */
+  filter: brightness(1.03) contrast(1.12) saturate(1.08);
+  will-change: filter;
   transform: translateZ(0);
 }
 
@@ -87,7 +115,6 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
   max-width:900px;
   padding:0 24px;
   margin-top:20px;
-  /* NO background here — text sits directly on the graded video */
   text-align:center;
   animation: fadeUp 1.1s ease forwards;
   opacity:0;
@@ -99,8 +126,8 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
 .hero h1{
   font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight:800;
-  line-height:1.15;
-  margin:0 0 18px;
+  line-height:1.12;
+  margin:0 0 14px;
   color: var(--super-black);
   letter-spacing:-0.6px;
 }
@@ -109,8 +136,8 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
 .neutral-accent{color:var(--super-black)}
 
 .hero p{
-  font-size: clamp(1rem, 2.2vw, 1.3rem);
-  margin:0 auto 20px;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  margin:0 auto 18px;
   line-height:1.6;
   color: var(--super-black);
   font-weight:600;
@@ -193,7 +220,7 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa
 
 <!-- HERO -->
 <section id="hero" class="hero" aria-label="Hero section showcasing engineering work">
-  <!-- Video wrapper with gradient background; video blends with it to produce the graded lighting -->
+  <!-- Video wrapper with top-to-center white convergence and color grading -->
   <div class="video-wrap" aria-hidden="true">
     <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="newwallpaper.png">
       <source src="wallpapervid.mp4" type="video/mp4">
