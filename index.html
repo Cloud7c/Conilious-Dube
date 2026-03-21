@@ -331,34 +331,6 @@
   </section>
 
   <!-- ADDED SECTION -->
-<!-- FEATURED PROJECT: Jet Engine -->
-<section class="featured-project">
-  <div class="section-header">
-    <h2>Featured Engineering Work</h2>
-    <p>A selection of mechanical design and simulation projects demonstrating real-world engineering capability.</p>
-  </div>
-
-  <div class="project-container">
-    <div class="project-image">
-      <img src="jet%20engine.png" alt="Jet Engine Assembly Render">
-    </div>
-
-    <div class="project-details">
-      <h3>Jet Engine Assembly & Design Study</h3>
-      <p>
-        Developed a detailed jet engine assembly to understand component integration, airflow structure, and mechanical relationships.
-        Focused on precision 3D modeling and assembly techniques using Creo.
-      </p>
-      <ul class="project-highlights">
-        <li>Full multi-component assembly design</li>
-        <li>Detailed part modeling and alignment</li>
-        <li>Exploration of internal structure and system layout</li>
-        <li>Built using Creo Parametric</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
 <!-- FEATURED PROJECT: V6 ENGINE -->
 <section class="featured-project">
   <div class="section-header">
@@ -421,6 +393,9 @@
 
 <!-- ABOUT ME SECTION -->
 <section id="about" class="about">
+  <div class="about-image">
+    <img src="me.png" alt="Conilious at CAD desk">
+  </div>
   <div class="about-content">
     <p>
       I am a mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.
@@ -495,21 +470,22 @@
 
 /* ABOUT */
 .about {
-  position: relative;
   padding: 80px 10% 100px;
-  background: url('me.png') no-repeat center top;
-  background-size: contain;   /* show full image without zoom */
-  background-repeat: no-repeat;
-  background-color: #000;     /* fallback color behind image */
-  color: #ffffff;
   text-align: center;
+}
+.about-image img {
+  max-width: 100%;
+  height: auto;   /* keeps proportions */
+  border-radius: 12px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 .about-content {
   max-width: 800px;
   margin: auto;
   font-size: 1.05rem;
   line-height: 1.8;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  color: #333;
 }
 .about-content p {
   margin-bottom: 20px;
@@ -522,7 +498,6 @@
   }
   .about {
     padding: 60px 5%;
-    background-size: cover; /* on small screens, fill section */
   }
   .about-heading h2 {
     font-size: 2rem;
