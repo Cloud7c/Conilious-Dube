@@ -190,7 +190,7 @@
       background: #024da3;
     }
 
-    /* FEATURED PROJECTS */
+    /* NEW FEATURED SECTION */
     .featured-project {
       padding: 100px 10%;
       background: #f4f7fa;
@@ -320,6 +320,7 @@
         <span class="neutral-accent">Design for Real-World Applications</span>
       </h1>
       <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
+      
       <div class="software-badges">
         <span class="badge">Siemens NX</span>
         <span class="badge">Creo Parametric</span>
@@ -329,54 +330,189 @@
     </div>
   </section>
 
-  <!-- FEATURED PROJECT: V6 ENGINE -->
-  <section class="featured-project">
-    <div class="section-header">
-      <h2>Advanced Engine Modeling</h2>
-      <p>High-fidelity V6 engine assembly created in Creo Parametric, showcasing complex part integration and realistic visualization.</p>
-    </div>
-    <div class="project-container">
-      <div class="project-image">
-        <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/v6_engine.png" alt="V6 Engine CAD Model">
-      </div>
-      <div class="project-details">
-        <h3>V6 Internal Combustion Engine</h3>
-        <p>
-          Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold.
-          The model emphasizes manufacturability and simulation-readiness for engineering analysis.
-        </p>
-        <ul class="project-highlights">
-          <li>Multi-body assembly with realistic constraints</li>
-          <li>Color-coded components for clarity and presentation</li>
-          <li>Built using Creo Parametric</li>
-          <li>Includes intake, exhaust, and turbo subsystems</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <!-- ADDED SECTION -->
+<!-- FEATURED PROJECT: V6 ENGINE -->
+<section class="featured-project">
+  <div class="section-header">
+    <h2>Advanced Engine Modeling</h2>
+    <p>High-fidelity V6 engine assembly created in Creo Parametric, showcasing complex part integration and realistic visualization.</p>
+  </div>
 
-  <!-- FEATURED PROJECT: JET ENGINE -->
-  <section class="featured-project">
-    <div class="section-header">
-      <h2>High-Performance Jet Engine</h2>
-      <p>Complex jet engine assembly designed with detailed turbine and combustion components using Siemens NX, demonstrating aerodynamic and thermal simulation readiness.</p>
+  <div class="project-container">
+    <div class="project-image">
+      <img src="v6_engine.png" alt="V6 Engine CAD Model">
     </div>
-    <div class="project-container">
-      <div class="project-image">
-        <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/jet%20engine.png" alt="Jet Engine CAD Model">
-      </div>
-      <div class="project-details">
-        <h3>Turbojet Engine Assembly</h3>
-        <p>Complete turbojet engine model with compressor, turbine, combustion chamber, and nozzle. Designed for simulation and manufacturability with accurate material assignments and constraints.</p>
-        <ul class="project-highlights">
-          <li>Multi-stage compressor and turbine modeling</li>
-          <li>Color-coded subsystems for clarity</li>
-          <li>Optimized for CFD and thermal analysis</li>
-          <li>Created in Siemens NX</li>
-        </ul>
-      </div>
-    </div>
-  </section>
 
-  <!-- SERVICES SECTION -->
-  <!-- …rest of your code continues… -->
+    <div class="project-details">
+      <h3>V6 Internal Combustion Engine</h3>
+      <p>
+        Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold.
+        The model emphasizes manufacturability and simulation-readiness for engineering analysis.
+      </p>
+      <ul class="project-highlights">
+        <li>Multi-body assembly with realistic constraints</li>
+        <li>Color-coded components for clarity and presentation</li>
+        <li>Built using Creo Parametric</li>
+        <li>Includes intake, exhaust, and turbo subsystems</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section id="services" class="services">
+  <div class="section-header">
+    <h2>Engineering Services</h2>
+    <p>Specialized mechanical design and simulation services for startups and engineering teams.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <h3>3D CAD Modeling</h3>
+      <p>High-precision part and assembly design with production-ready standards using industry-leading CAD tools.</p>
+    </div>
+    <div class="service-card">
+      <h3>FEA & Simulation</h3>
+      <p>Structural, stress, and thermal analysis to validate designs and ensure performance under real-world conditions.</p>
+    </div>
+    <div class="service-card">
+      <h3>CFD Analysis</h3>
+      <p>Fluid flow and thermal optimization to improve efficiency and performance of complex systems.</p>
+    </div>
+    <div class="service-card">
+      <h3>Design for Manufacturing</h3>
+      <p>Optimizing designs for cost-effective production, reduced complexity, and efficient assembly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUB HEADING: ABOUT ME -->
+<div class="section-header about-heading">
+  <h2>About Me</h2>
+</div>
+
+<!-- ABOUT ME SECTION -->
+<section id="about" class="about">
+  <div class="about-overlay">
+    <img src="me.png" alt="Conilious at CAD desk" class="about-image">
+    <div class="about-text">
+      <p>
+        I am a mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.
+      </p>
+      <p>
+        I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements. My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.
+      </p>
+      <p>
+        I approach every project with an engineering mindset—balancing design, functionality, and manufacturability. Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>, I design, analyze, and optimize mechanical systems for startups and engineering teams.
+      </p>
+      <p>
+        I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+/* SERVICES */
+.services {
+  padding: 100px 10%;
+  background: #f4f7fa;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+.service-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+.service-card h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #0366d6;
+}
+.service-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ABOUT HEADING */
+.about-heading h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0366d6;
+  margin: 60px auto 20px;
+  position: relative;
+  display: inline-block;
+}
+.about-heading h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #0366d6;
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* ABOUT */
+.about {
+  position: relative;
+  text-align: center;
+}
+.about-overlay {
+  position: relative;
+}
+.about-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.about-text {
+  position: absolute;
+  top: 0;              /* overlay starts at top */
+  bottom: 0;           /* overlay reaches bottom */
+  left: 10%;           /* keep side gaps */
+  right: 10%;          /* keep side gaps */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* center text vertically */
+  color: #fff;
+  font-size: 1.2rem;   /* bigger text */
+  line-height: 1.9;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.35); /* full-height overlay */
+  padding: 40px;
+  border-radius: 12px;
+}
+.about-text p {
+  margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .services {
+    padding: 60px 5%;
+  }
+  .about-text {
+    font-size: 1rem;
+    padding: 20px;
+  }
+  .about-heading h2 {
+    font-size: 2rem;
+  }
+}
+</style>
+
+</body>
+</html>
