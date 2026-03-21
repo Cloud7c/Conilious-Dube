@@ -1,3 +1,7 @@
+use this version
+
+look the header part here is not optimized for a mobile please optimize it everything else is perfect
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,26 +16,18 @@
   --accent-red: #d62828;
   --accent-blue: #0366d6;
   --super-black: #000000;
-
-  /* header height used to reserve space so hero doesn't sit under fixed header */
-  --header-height-desktop: 96px;
-  --header-height-mobile: 88px;
 }
 
 /* Reset & base */
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa;color:var(--super-black);scroll-behavior:smooth}
 
-/* Reserve space for fixed header so content never sits underneath it */
-body { padding-top: var(--header-height-desktop); }
-
 /* HEADER */
 .site-header{
   background: rgba(255,255,255,0.9);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid #e1e4e8;
-  position: fixed; top:0; left:0; right:0; z-index:1000;
-  height: var(--header-height-desktop);
+  position: fixed; top:0; width:100%; z-index:1000;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 .navbar{
@@ -41,7 +37,6 @@ body { padding-top: var(--header-height-desktop); }
   flex-wrap:wrap;
   padding:10px 5%;
   gap:10px;
-  height:100%;
 }
 .logo{
   display:flex;
@@ -97,7 +92,6 @@ body { padding-top: var(--header-height-desktop); }
   align-items: flex-start;
   justify-content: center;
   text-align: center;
-  /* keep a comfortable top padding; body padding-top already reserves header space */
   padding: 120px 10% 80px;
   color: #ffffff;
   overflow: hidden;
@@ -144,7 +138,7 @@ body { padding-top: var(--header-height-desktop); }
 }
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 
-/* Typography: keep H1 super-black; paragraph should be white with dark shadow on all viewports */
+/* Typography: super black text directly over the video */
 .hero h1{
   font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight:800;
@@ -157,17 +151,14 @@ body { padding-top: var(--header-height-desktop); }
 .blue-accent{color:var(--accent-blue)}
 .neutral-accent{color:var(--super-black)}
 
-/* FIX: paragraph white on desktop and mobile, with the same dark shadow for clarity */
 .hero p{
   font-size: clamp(1rem, 2.2vw, 1.3rem);
   margin:0 auto 20px;
   line-height:1.6;
-  color: #ffffff;            /* white on all viewports */
+  color: var(--super-black);
   font-weight:600;
   max-width:700px;
-  text-shadow:
-    0 1px 0 rgba(0,0,0,0.85),
-    0 4px 10px rgba(0,0,0,0.55);
+  text-shadow: none;
 }
 
 /* Badges */
@@ -234,13 +225,9 @@ body { padding-top: var(--header-height-desktop); }
 
 /* RESPONSIVE */
 @media (max-width:900px){
-  /* ensure body padding matches mobile header height */
-  body { padding-top: var(--header-height-mobile); }
-  .site-header{ height: var(--header-height-mobile); }
-
-  .hero { padding: 140px 5% 80px; } /* shift hero content down a bit more on mobile */
+  .hero { padding:120px 5% 80px; }
   .hero h1 { font-size:2.6rem; }
-  .hero p { font-size:1.1rem; } /* paragraph already white globally */
+  .hero p { font-size:1.1rem; color:#ffffff; text-shadow: 0 1px 0 rgba(0,0,0,0.85), 0 4px 10px rgba(0,0,0,0.55); }
   .software-badges { margin-top:60px; }
   .project-container { flex-direction:column; padding:20px; }
   .project-image img { max-width:100%; }
@@ -277,6 +264,7 @@ body { padding-top: var(--header-height-desktop); }
 
 <!-- HERO -->
 <section id="hero" class="hero" aria-label="Hero section showcasing engineering work">
+  <!-- Video wrapper with gradient background; video blends with it to produce the graded lighting -->
   <div class="video-wrap" aria-hidden="true">
     <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="newwallpaper.png">
       <source src="wallpapervid.mp4" type="video/mp4">
@@ -292,7 +280,7 @@ body { padding-top: var(--header-height-desktop); }
       <span class="neutral-accent">Design for Real-World Applications</span>
     </h1>
     <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
-    <div class="software-badges" aria-hidden="true">
+    <div class="software-badges">
       <span class="badge">Siemens NX</span>
       <span class="badge">Creo Parametric</span>
       <span class="badge">Ansys</span>
@@ -301,6 +289,109 @@ body { padding-top: var(--header-height-desktop); }
   </div>
 </section>
 
-<!-- Remaining content unchanged -->
+<!-- FEATURED PROJECT: Jet Engine -->
+<section class="featured-project">
+  <div class="section-header">
+    <h2>Featured Engineering Work</h2>
+    <p>A selection of mechanical design and simulation projects demonstrating real-world engineering capability.</p>
+  </div>
+  <div class="project-container">
+    <div class="project-image">
+      <img src="jet%20engine.png" alt="Jet Engine Assembly Render">
+    </div>
+    <div class="project-details">
+      <h3>Jet Engine Assembly & Design Study</h3>
+      <p>
+        Developed a detailed jet engine assembly to understand component integration, airflow structure, and mechanical relationships.
+        Focused on precision 3D modeling and assembly techniques using Creo.
+      </p>
+      <ul class="project-highlights">
+        <li>Full multi-component assembly design</li>
+        <li>Detailed part modeling and alignment</li>
+        <li>Exploration of internal structure and system layout</li>
+        <li>Built using Creo Parametric</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT: V6 ENGINE -->
+<section class="featured-project">
+  <div class="section-header">
+    <h2>Advanced Engine Modeling</h2>
+    <p>High-fidelity V6 engine assembly created in Creo Parametric, showcasing complex part integration and realistic visualization.</p>
+  </div>
+  <div class="project-container">
+    <div class="project-image">
+      <img src="v6_engine.png" alt="V6 Engine CAD Model">
+    </div>
+    <div class="project-details">
+      <h3>V6 Internal Combustion Engine</h3>
+      <p>
+        Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold.
+        The model emphasizes manufacturability and simulation-readiness for engineering analysis.
+      </p>
+      <ul class="project-highlights">
+        <li>Multi-body assembly with realistic constraints</li>
+        <li>Color-coded components for clarity and presentation</li>
+        <li>Built using Creo Parametric Educational Edition</li>
+        <li>Includes intake, exhaust, and turbo subsystems</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services">
+  <div class="section-header">
+    <h2>Engineering Services</h2>
+    <p>Specialized mechanical design and simulation services for startups and engineering teams.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <h3>3D CAD Modeling</h3>
+      <p>High-precision part and assembly design with production-ready standards using industry-leading CAD tools.</p>
+    </div>
+    <div class="service-card">
+      <h3>FEA & Simulation</h3>
+      <p>Structural, stress, and thermal analysis to validate designs and ensure performance under real-world conditions.</p>
+    </div>
+    <div class="service-card">
+      <h3>CFD Analysis</h3>
+      <p>Fluid flow and thermal optimization to improve efficiency and performance of complex systems.</p>
+    </div>
+    <div class="service-card">
+      <h3>Design for Manufacturing</h3>
+      <p>Optimizing designs for cost-effective production, reduced complexity, and efficient assembly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT ME -->
+<section id="about-wrapper" class="about-section-wrapper">
+  <div class="section-header">
+    <h2>About Me</h2>
+    <p>Mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.</p>
+  </div>
+  <div class="about">
+    <div class="about-overlay">
+      <div class="about-content">
+        <p>
+          I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements.
+          My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.
+        </p>
+        <p>
+          I approach every project with an engineering mindset—balancing design, functionality, and manufacturability.
+          Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>,
+          I design, analyze, and optimize mechanical systems for startups and engineering teams.
+        </p>
+        <p>
+          I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>
