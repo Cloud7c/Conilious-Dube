@@ -87,7 +87,7 @@
       text-decoration: none;
     }
 
-    /* HERO */
+    /* HERO (UNCHANGED) */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -141,7 +141,8 @@
 
     /* FEATURED WORK */
     .featured-project {
-      padding: 80px 10%;
+      padding: 100px 10%;
+      background: #f4f7fa;
     }
 
     .section-header {
@@ -177,16 +178,23 @@
     .project-container {
       display: flex;
       gap: 40px;
-      background: white;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
       padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      align-items: center;
+      transition: 0.3s ease;
+    }
+
+    .project-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
     }
 
     .project-image img {
       width: 100%;
-      max-width: 450px;
-      border-radius: 10px;
+      max-width: 500px;
+      border-radius: 12px;
     }
 
     .project-details {
@@ -194,8 +202,25 @@
     }
 
     .project-details h3 {
-      color: var(--accent-blue);
+      font-size: 1.8rem;
+      font-weight: 800;
       margin-bottom: 15px;
+      color: var(--accent-blue);
+    }
+
+    .project-details p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-highlights {
+      list-style: none;
+      padding: 0;
+    }
+
+    .project-highlights li {
+      margin-bottom: 8px;
     }
 
     /* CONTACT */
@@ -205,20 +230,23 @@
     }
 
     /* RESPONSIVE */
-    @media(max-width:900px){
+    @media (max-width: 900px) {
       .project-container {
         flex-direction: column;
+        padding: 30px;
       }
 
       .hero h1 {
         font-size: 2.2rem;
       }
     }
+
   </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="site-header">
   <nav class="navbar">
     <div class="logo">
@@ -239,6 +267,7 @@
   </nav>
 </header>
 
+<!-- HERO -->
 <section id="hero" class="hero">
   <div class="hero-content">
     <h1>
@@ -259,6 +288,7 @@
   </div>
 </section>
 
+<!-- FEATURED WORK -->
 <section id="projects" class="featured-project">
 
   <div class="section-header">
@@ -278,7 +308,7 @@
         Developed a detailed jet engine assembly to understand component integration and mechanical structure using Creo.
       </p>
 
-      <ul>
+      <ul class="project-highlights">
         <li>Multi-component assembly</li>
         <li>Precision CAD modeling</li>
         <li>System structure study</li>
@@ -289,6 +319,7 @@
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact" class="contact">
   <h2>Let’s Work Together</h2>
   <p>Have a project? Let’s build it.</p>
