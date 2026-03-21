@@ -35,19 +35,18 @@
 
     .navbar {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 5%;
-      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 5%;
+      gap: 10px;
     }
 
     .logo {
       display: flex;
       align-items: center;
       gap: 10px;
-      flex: 1 1 auto;
-      min-width: 0;
+      flex-shrink: 0;
     }
 
     .logo-icon {
@@ -59,16 +58,12 @@
       display: flex;
       flex-direction: column;
       line-height: 1.1;
-      min-width: 0;
     }
 
     .logo-text .name {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: var(--accent-red);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .logo-text .tagline {
@@ -76,9 +71,6 @@
       font-weight: 600;
       color: var(--accent-blue);
       letter-spacing: 0.5px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .nav-links {
@@ -88,8 +80,7 @@
       margin: 0;
       padding: 0;
       flex-wrap: wrap;
-      justify-content: flex-end;
-      flex: 2 1 auto;
+      justify-content: center;
     }
 
     .nav-links li a {
@@ -97,6 +88,7 @@
       font-weight: 600;
       color: #0a0c10;
       transition: color 0.3s ease;
+      white-space: nowrap;
     }
 
     .nav-links li a:hover {
@@ -106,12 +98,12 @@
     .cta-btn {
       background: var(--primary);
       color: #fff;
-      padding: 10px 22px;
+      padding: 10px 20px;
       border-radius: 8px;
       font-weight: 700;
       text-decoration: none;
       transition: 0.3s ease;
-      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .cta-btn:hover {
@@ -127,7 +119,7 @@
       align-items: flex-start;
       justify-content: center;
       text-align: center;
-      padding: 120px 5% 80px;
+      padding: 120px 10% 80px;
       background-image: url('newwallpaper.png');
       background-size: cover;
       background-position: center center;
@@ -139,7 +131,7 @@
       position: relative;
       z-index: 1;
       max-width: 900px;
-      padding: 20px 30px;
+      padding: 20px 40px;
       animation: fadeUp 1.2s ease forwards;
       opacity: 0;
       transform: translateY(30px);
@@ -157,25 +149,27 @@
       font-weight: 800;
       line-height: 1.2;
       margin-bottom: 24px;
+      letter-spacing: -1px;
     }
 
     .red-accent { color: var(--accent-red); }
     .blue-accent { color: var(--accent-blue); }
-    .neutral-accent { color: #000; }
+    .neutral-accent { color: #000000; }
 
     .hero p {
       font-size: 1.3rem;
-      margin-bottom: 30px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
       color: #e0e0e0;
       font-weight: 600;
       max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 4px 12px rgba(0,0,0,0.8);
+      text-shadow: 0 2px 6px rgba(0,0,0,0.9),
+                   0 4px 12px rgba(0,0,0,0.8),
+                   0 6px 18px rgba(0,0,0,0.7);
     }
 
     .software-badges {
-      margin-top: 100px;
+      margin-top: 120px;
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
@@ -185,19 +179,19 @@
     .badge {
       background: var(--primary);
       color: #fff;
-      padding: 10px 24px;
+      padding: 12px 28px;
       border-radius: 12px;
       font-size: 1rem;
       font-weight: 700;
       text-decoration: none;
       display: inline-block;
-      box-shadow: 0 6px 14px rgba(3,102,214,0.25);
-      transition: 0.3s cubic-bezier(0.165,0.84,0.44,1);
+      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 6px 14px rgba(3, 102, 214, 0.25);
     }
 
     .badge:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(3,102,214,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.4);
       background: #024da3;
     }
 
@@ -209,7 +203,7 @@
 
     .section-header {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 60px;
     }
 
     .section-header h2 {
@@ -220,7 +214,7 @@
     }
 
     .section-header p {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       color: #555;
       max-width: 700px;
       margin: 0 auto;
@@ -245,25 +239,22 @@
 
     .project-image img {
       width: 100%;
-      max-width: 450px;
+      max-width: 500px;
       border-radius: 12px;
-    }
-
-    .project-details {
-      flex: 1;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     }
 
     .project-details h3 {
       font-size: 1.6rem;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       color: #0366d6;
     }
 
     .project-details p {
-      font-size: 1rem;
+      font-size: 1.05rem;
       line-height: 1.6;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       color: #333;
     }
 
@@ -272,7 +263,7 @@
       padding: 0;
       margin: 0;
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.8;
       color: #444;
     }
 
@@ -304,7 +295,7 @@
     .service-card {
       background: #fff;
       border-radius: 14px;
-      padding: 25px;
+      padding: 30px;
       box-shadow: 0 12px 28px rgba(0,0,0,0.06);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -315,9 +306,9 @@
     }
 
     .service-card h3 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       color: #0366d6;
     }
 
@@ -331,14 +322,19 @@
     .about {
       position: relative;
       padding: 120px 5%;
-      background: url('me.png') no-repeat center center/cover;
       color: #fff;
+      background-image: url('me.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover; /* desktop */
+      min-height: 400px;
+      border-radius: 16px;
     }
 
     .about-overlay {
       background: rgba(0,0,0,0.55);
-      padding: 40px;
-      border-radius: 12px;
+      padding: 60px;
+      border-radius: 16px;
       max-width: 900px;
       margin: 0 auto;
     }
@@ -355,33 +351,62 @@
       font-size: 1.05rem;
       line-height: 1.8;
       color: #f4f4f4;
-      margin-top: 20px;
     }
 
     .about-content p {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
+      .hero {
+        padding: 120px 5% 80px;
+      }
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
+      .software-badges {
+        margin-top: 60px;
+      }
+
+      .project-container {
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .project-image img {
+        max-width: 100%;
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+      }
+
+      /* ABOUT IMAGE FIX */
+      .about {
+        background-size: contain; /* show full image */
+        background-position: top center;
+        min-height: 300px;
+      }
+
+      /* Header adaptation */
       .navbar {
         flex-direction: column;
         align-items: flex-start;
-        padding: 12px 5%;
+        gap: 10px;
       }
-      .logo-text .name { font-size: 1.2rem; }
-      .logo-text .tagline { font-size: 0.8rem; }
-      .nav-links { justify-content: flex-start; gap: 12px; }
-      .cta-btn { padding: 8px 16px; margin-top: 8px; }
-      .hero h1 { font-size: 2.5rem; }
-      .hero p { font-size: 1rem; }
-      .software-badges { margin-top: 60px; }
-      .project-container { flex-direction: column; padding: 20px; }
-      .project-image img { max-width: 100%; }
-      .section-header h2 { font-size: 2rem; }
-      .about { padding: 60px 5%; background-position: center center; }
-      .about-overlay { padding: 20px; }
-      .about-content { font-size: 0.95rem; }
+
+      .nav-links {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .cta-btn {
+        align-self: flex-start;
+      }
     }
   </style>
 </head>
@@ -427,7 +452,7 @@
     </div>
   </section>
 
-  <!-- FEATURED PROJECT: Jet Engine -->
+  <!-- FEATURED PROJECT: JET ENGINE -->
   <section class="featured-project">
     <div class="section-header">
       <h2>Featured Engineering Work</h2>
@@ -481,7 +506,7 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
+  <!-- SERVICES SECTION -->
   <section id="services" class="services">
     <div class="section-header">
       <h2>Engineering Services</h2>
@@ -508,13 +533,14 @@
     </div>
   </section>
 
-  <!-- ABOUT ME -->
+  <!-- ABOUT ME SECTION -->
   <section id="about" class="about">
     <div class="about-overlay">
       <div class="section-header">
         <h2>About Me</h2>
         <p>Mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.</p>
       </div>
+
       <div class="about-content">
         <p>
           I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements.
