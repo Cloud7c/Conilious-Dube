@@ -332,6 +332,65 @@
 
   <!-- ADDED SECTION -->
 <!-- FEATURED PROJECT: Jet Engine -->
+<!-- FEATURED PROJECT: Jet Engine -->
+<section class="featured-project">
+  <div class="section-header">
+    <h2>Featured Engineering Work</h2>
+    <p>A selection of mechanical design and simulation projects demonstrating real-world engineering capability.</p>
+  </div>
+
+  <div class="project-container">
+    <div class="project-image">
+      <!-- Note: file name has a space, so encode it as %20 -->
+      <img src="jet%20engine.png" alt="Jet Engine Assembly Render">
+    </div>
+
+    <div class="project-details">
+      <h3>Jet Engine Assembly & Design Study</h3>
+      <p>
+        Developed a detailed jet engine assembly to understand component integration, airflow structure, and mechanical relationships.
+        Focused on precision 3D modeling and assembly techniques using Creo.
+      </p>
+
+      <ul class="project-highlights">
+        <li>Full multi-component assembly design</li>
+        <li>Detailed part modeling and alignment</li>
+        <li>Exploration of internal structure and system layout</li>
+        <li>Built using Creo Parametric</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT: V6 ENGINE -->
+<section class="featured-project">
+  <div class="section-header">
+    <h2>Advanced Engine Modeling</h2>
+    <p>High-fidelity V6 engine assembly created in Creo Parametric, showcasing complex part integration and realistic visualization.</p>
+  </div>
+
+  <div class="project-container">
+    <div class="project-image">
+      <img src="v6_engine.png" alt="V6 Engine CAD Model">
+    </div>
+
+    <div class="project-details">
+      <h3>V6 Internal Combustion Engine</h3>
+      <p>
+        Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold.
+        The model emphasizes manufacturability and simulation-readiness for engineering analysis.
+      </p>
+
+      <ul class="project-highlights">
+        <li>Multi-body assembly with realistic constraints</li>
+        <li>Color-coded components for clarity and presentation</li>
+        <li>Built using Creo Parametric Educational Edition</li>
+        <li>Includes intake, exhaust, and turbo subsystems</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- SERVICES SECTION -->
 <section id="services" class="services">
   <div class="section-header">
@@ -340,25 +399,21 @@
   </div>
 
   <div class="services-grid">
-    <!-- Service Card 1 -->
     <div class="service-card">
       <h3>3D CAD Modeling</h3>
       <p>High-precision part and assembly design with production-ready standards using industry-leading CAD tools.</p>
     </div>
 
-    <!-- Service Card 2 -->
     <div class="service-card">
       <h3>FEA & Simulation</h3>
       <p>Structural, stress, and thermal analysis to validate designs and ensure performance under real-world conditions.</p>
     </div>
 
-    <!-- Service Card 3 -->
     <div class="service-card">
       <h3>CFD Analysis</h3>
       <p>Fluid flow and thermal optimization to improve efficiency and performance of complex systems.</p>
     </div>
 
-    <!-- Service Card 4 -->
     <div class="service-card">
       <h3>Design for Manufacturing</h3>
       <p>Optimizing designs for cost-effective production, reduced complexity, and efficient assembly.</p>
@@ -367,30 +422,95 @@
 </section>
 
 <style>
-/* SERVICES SECTION */
-.services {
+/* Shared styling for projects and services */
+.featured-project {
   padding: 100px 10%;
   background: #f4f7fa;
 }
 
-.services .section-header {
+.section-header {
   text-align: center;
   margin-bottom: 60px;
 }
 
-.services .section-header h2 {
+.section-header h2 {
   font-size: 2.4rem;
   font-weight: 800;
-  color: var(--accent-blue);
+  color: #0366d6;
   margin-bottom: 12px;
 }
 
-.services .section-header p {
+.section-header p {
   font-size: 1.1rem;
   color: #555;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
+}
+
+.project-container {
+  display: flex;
+  gap: 40px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  padding: 40px;
+  align-items: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.project-container:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+}
+
+.project-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.project-details h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #0366d6;
+}
+
+.project-details p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.project-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+.project-highlights li {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 18px;
+}
+
+.project-highlights li::before {
+  content: "•";
+  color: #0366d6;
+  position: absolute;
+  left: 0;
+}
+
+/* SERVICES SECTION */
+.services {
+  padding: 100px 10%;
+  background: #f4f7fa;
 }
 
 .services-grid {
@@ -416,13 +536,32 @@
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 16px;
-  color: var(--accent-blue);
+  color: #0366d6;
 }
 
 .service-card p {
   font-size: 1rem;
   line-height: 1.6;
   color: #333;
+}
+
+@media (max-width: 900px) {
+  .project-container {
+    flex-direction: column;
+    padding: 30px;
+  }
+
+  .project-image img {
+    max-width: 100%;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+  }
+
+  .project-details h3 {
+    font-size: 1.4rem;
+  }
 }
 </style>
 
