@@ -96,30 +96,36 @@ section { scroll-margin-top: 120px; }
 .project-highlights li{margin-bottom:12px;position:relative;padding-left:24px}
 .project-highlights li::before{content:"→";color:var(--primary);position:absolute;left:0;font-weight:bold;}
 
-/* NEW: PREMIUM GALLERY TRIGGER BANNER (Tucked inside Projects) */
+/* NEW: CLEAN, SOFT-TINT GALLERY TRIGGER */
 .gallery-trigger-card {
-  width: 100%; max-width: 1200px; margin: 40px auto 0; padding: 60px 40px; border-radius: 24px; text-align: center;
+  width: 100%; max-width: 1200px; margin: 40px auto 0; padding: 50px 40px; border-radius: 24px; text-align: center;
   cursor: pointer; position: relative; overflow: hidden;
-  background: linear-gradient(135deg, #0a0c10 0%, #03449e 50%, #0a0c10 100%);
-  background-size: 200% 200%; animation: gradientLiquid 8s ease infinite;
-  box-shadow: 0 20px 50px rgba(3, 102, 214, 0.15); border: 1px solid rgba(255,255,255,0.1);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.02);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
-@keyframes gradientLiquid { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-.gallery-trigger-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(3, 102, 214, 0.3); }
-.gallery-trigger-content { position: relative; z-index: 2; }
-.gallery-trigger-card h2 { color: #ffffff; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
-.gallery-trigger-card p { color: rgba(255,255,255,0.8); font-size: 1.15rem; font-weight: 500; margin-bottom: 30px; }
+.gallery-trigger-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(3, 102, 214, 0.08);
+  border-color: rgba(3, 102, 214, 0.3); /* Subtle premium blue glow border */
+}
+.gallery-trigger-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+.gallery-trigger-card h2 { color: var(--super-black); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em; }
+.gallery-trigger-card p { color: var(--text-gray); font-size: 1.15rem; font-weight: 500; margin-bottom: 24px; }
+
+/* Mimicking the highly successful "Freelance Badge" aesthetic */
 .gallery-pulsing-btn {
-  display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 14px 32px;
-  border-radius: 50px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(3, 102, 214, 0.1); color: var(--primary);
+  padding: 12px 24px; border-radius: 50px; font-weight: 600; font-size: 1.05rem;
+  border: 1px solid rgba(3, 102, 214, 0.2); transition: all 0.3s ease;
 }
-.gallery-trigger-card:hover .gallery-pulsing-btn { background: #ffffff; color: var(--super-black); }
-.radar-dot { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: relative; }
-.radar-dot::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #fff; animation: radarPulse 1.5s infinite; }
-.gallery-trigger-card:hover .radar-dot { background: var(--primary); }
-.gallery-trigger-card:hover .radar-dot::after { border-color: var(--primary); }
+.gallery-trigger-card:hover .gallery-pulsing-btn { background: var(--primary); color: #fff; }
+.radar-dot { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: relative; }
+.radar-dot::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--primary); animation: radarPulse 1.5s infinite; }
+.gallery-trigger-card:hover .radar-dot { background: #fff; }
+.gallery-trigger-card:hover .radar-dot::after { border-color: #fff; }
 @keyframes radarPulse { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
 
 /* CINEMATIC DARK MODE LIGHTBOX */
@@ -171,7 +177,7 @@ section { scroll-margin-top: 120px; }
 .author-info h4 { margin: 0; font-size: 1rem; color: var(--super-black); font-weight: 700; }
 .author-info span { font-size: 0.85rem; color: var(--text-gray); }
 
-/* RESTORED: PREMIUM CONTACT SECTION (Badge + Hidden Wizard Trigger) */
+/* CONTACT SECTION */
 .contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid var(--border-light); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; align-items: center; }
 .contact-info h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--super-black); margin-bottom: 20px; letter-spacing: -0.02em; }
@@ -281,7 +287,7 @@ section { scroll-margin-top: 120px; }
   .hero h1{ font-size:1.9rem; }
   .hero p{ font-size:1rem; }
   .about-image-col img { height: 300px; }
-  .project-container, .testimonial-card, .modal-header, .modal-body, .modal-footer, .wizard-trigger-card { padding: 20px; }
+  .project-container, .testimonial-card, .modal-header, .modal-body, .modal-footer, .wizard-trigger-card, .gallery-trigger-card { padding: 20px; }
   .software-grid { grid-template-columns: 1fr; }
   .software-card.full-width { grid-column: span 1; }
   .modal-footer { flex-direction: column-reverse; }
