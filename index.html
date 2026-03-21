@@ -156,7 +156,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .service-card p{font-size:1.05rem;line-height:1.7;color:var(--text-gray);margin:0;}
 
 /* ABOUT ME */
-.about-section-wrapper{padding:120px 5%;background:#ffffff; border-top: 1px solid var(--border-light);}
+.about-section-wrapper{padding:120px 5%;background:#ffffff; border-top: 1px solid var(--border-light);} 
 .about-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; align-items: center; }
 .about-image-col { position: relative; }
 .about-image-col img { width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
@@ -164,24 +164,30 @@ section { scroll-margin-top: 100px; width: 100%; }
 .about-content-col p{ margin-bottom:24px; font-size:1.15rem; line-height:1.8; color:var(--text-gray); }
 .about-content-col strong { color: var(--super-black); font-weight: 600; }
 
-/* About badges */
-.about-badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-bottom:24px;
+/* Stats Counter */
+.about-stats {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 30px;
 }
-
-.about-badge{
-  background:rgba(3,102,214,0.08);
-  color:var(--primary);
-  border:1px solid rgba(3,102,214,0.14);
-  padding:10px 14px;
-  border-radius:999px;
-  font-size:0.95rem;
-  font-weight:600;
-  line-height:1;
-  box-shadow:0 4px 12px rgba(0,0,0,0.03);
+.stat {
+  text-align: left;
+}
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+.plus {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-left: 2px;
+}
+.stat p {
+  margin: 5px 0 0;
+  font-size: 0.95rem;
+  color: var(--text-gray);
 }
 
 /* REVIEWS */
@@ -518,11 +524,11 @@ section { scroll-margin-top: 100px; width: 100%; }
     <div class="about-image-col reveal"><img src="me.png" alt="Conilious Dube - Mechanical Engineer"></div>
     <div class="about-content-col reveal">
       <h2>About Me</h2>
-
-      <div class="about-badges">
-        <div class="about-badge">30+ Projects Delivered</div>
-        <div class="about-badge">Global Clients</div>
-        <div class="about-badge">CAD & Simulation Focus</div>
+      <div class="about-stats" role="status" aria-live="polite">
+        <div class="stat">
+          <span class="stat-number" data-target="30">0</span><span class="plus">+</span>
+          <p>Projects Delivered</p>
+        </div>
       </div>
 
       <p>Delivered 30+ projects for clients worldwide, specializing in precise, production-ready CAD designs, detailed assemblies, and engineering-focused simulation work.</p>
@@ -869,32 +875,38 @@ section { scroll-margin-top: 100px; width: 100%; }
       indicator2.classList.remove('active');
     });
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault(); 
-      if(!form.checkValidity()) return;
-
-      submitBtn.innerText = 'Sending...';
-      submitBtn.disabled = true;
-
-      const data = new FormData(form);
-      fetch(form.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } })
-      .then(response => {
-        if (response.ok) {
-          step2.classList.remove('is-active');
-          step3.classList.add('is-active');
-          document.querySelector('.progress-bar').style.display = 'none';
-        } else {
-          alert("Oops! There was a problem submitting your form.");
-          submitBtn.innerText = 'Submit Request';
-          submitBtn.disabled = false;
+    // COUNTING STAT ANIMATION
+    const counters = document.querySelectorAll('.stat-number');
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const counter = entry.target;
+        const target = +counter.getAttribute('data-target');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          // No animation for reduced motion
+          counter.innerText = target;
+          observer.unobserve(counter);
+          return;
         }
-      })
-      .catch(error => {
-        alert("Oops! Network error. Please try again.");
-        submitBtn.innerText = 'Submit Request';
-        submitBtn.disabled = false;
+        let count = 0;
+        const duration = 1000; // in ms
+        const startTime = performance.now();
+        function update() {
+          const now = performance.now();
+          const progress = Math.min((now - startTime) / duration, 1);
+          count = Math.ceil(progress * target);
+          counter.innerText = count;
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            counter.innerText = target;
+          }
+        }
+        update();
+        observer.unobserve(counter);
       });
-    });
+    }, { threshold: 0.6 });
+    counters.forEach(counter => counterObserver.observe(counter));
   });
 </script>
 
