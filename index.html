@@ -41,9 +41,9 @@ body { padding-top: var(--header-height-desktop); }
 }
 .navbar{
   width:100%;
-  max-width:100%; /* Changed to 100% for a premium edge-to-edge layout */
+  max-width:100%;
   margin:0 auto;
-  padding:10px 60px; /* Wider padding to keep it off the extreme edges on desktop */
+  padding:10px 60px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -66,9 +66,9 @@ body { padding-top: var(--header-height-desktop); }
 .nav-group {
   display: flex;
   align-items: center;
-  gap: 40px; /* Increased gap for better desktop breathing room */
+  gap: 40px;
 }
-.nav-links{display:flex;gap:32px;list-style:none;margin:0;padding:0;align-items:center} /* Increased link spacing */
+.nav-links{display:flex;gap:32px;list-style:none;margin:0;padding:0;align-items:center}
 .nav-links a{text-decoration:none;color:#0a0c10;font-weight:600;white-space:nowrap;transition:color .18s}
 .nav-links a:hover{color:var(--primary)}
 .cta-btn{background:var(--primary);color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;text-decoration:none}
@@ -115,9 +115,41 @@ body { padding-top: var(--header-height-desktop); }
   overflow:hidden;
 }
 
-/* Video wrapper and grading */
-.video-wrap{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg, rgba(3,102,214,0.20) 0%, rgba(255,170,90,0.08) 30%, rgba(214,40,40,0.06) 60%, rgba(0,0,0,0.18) 100%);overflow:hidden}
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;z-index:1;filter:brightness(0.95) contrast(1.08) saturate(1.05)}
+/* Video wrapper and premium grading */
+.video-wrap{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:#000; /* Solid fallback behind video */
+  overflow:hidden;
+}
+
+/* The Premium White Convergence Overlay */
+.video-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* 1st gradient: Solid white at the top center, fading out completely by the middle. 
+    2nd gradient: A very subtle dark vignette at the bottom so your white paragraph text remains legible against bright video scenes.
+  */
+  background: 
+    radial-gradient(ellipse 150% 100% at 50% 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 15%, rgba(255,255,255,0) 55%),
+    linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 40%);
+  pointer-events: none;
+}
+
+/* Crystal clear video styling */
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+  /* Removed multiply blend mode. Slightly bumped contrast and saturation for a vivid, modern look */
+  filter: contrast(1.1) saturate(1.15) brightness(1.02);
+}
 
 /* Hero content */
 .hero-content{position:relative;z-index:3;max-width:900px;padding:0 24px;margin-top:20px;animation:fadeUp 1.1s ease forwards;opacity:0;transform:translateY(18px)}
