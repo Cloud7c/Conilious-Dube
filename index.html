@@ -27,7 +27,7 @@ html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#ffffff
 /* Reserve space for fixed header so hero never sits underneath it */
 body { padding-top: var(--header-height-desktop); }
 
-/* HEADER - Base Styles */
+/* HEADER - Base Styles (Completely invisible, no lines, no backgrounds) */
 .site-header{
   position:fixed;
   top:0;
@@ -37,6 +37,9 @@ body { padding-top: var(--header-height-desktop); }
   z-index:1000;
   display:flex;
   align-items:center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 .navbar{
   width:100%;
@@ -68,7 +71,7 @@ body { padding-top: var(--header-height-desktop); }
 .cta-btn{background:var(--primary);color:#fff;border-radius:8px;font-weight:600;text-decoration:none;transition:all .2s ease}
 .cta-btn:hover{background:#024da3;}
 
-/* Hamburger Menu Button base */
+/* Hamburger Menu Button base (The 3 horizontal lines) */
 .menu-toggle {
   background: none;
   border: none;
@@ -160,10 +163,10 @@ body { padding-top: var(--header-height-desktop); }
 /* Premium Deep Blue Glassmorphism Badges */
 .software-badges{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .badge{
-  background:rgba(3, 102, 214, 0.75); /* Deep premium blue overlay */
+  background:rgba(3, 102, 214, 0.75); 
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  border:1px solid rgba(255, 255, 255, 0.3); /* Crisp white border */
+  border:1px solid rgba(255, 255, 255, 0.3); 
   color:#fff;
   padding:10px 20px;
   border-radius:12px;
@@ -230,6 +233,8 @@ body { padding-top: var(--header-height-desktop); }
 @media (min-width: 901px) {
   .site-header {
     background: transparent;
+    border: none;
+    box-shadow: none;
     pointer-events: none; /* Allows clicking through the empty header space onto the video */
   }
   .navbar { pointer-events: auto; } /* Re-enables clicking on the nav items */
@@ -324,11 +329,14 @@ body { padding-top: var(--header-height-desktop); }
 
 @media (max-width:900px){
   body { padding-top: var(--header-height-mobile); }
+  
+  /* Kept mobile header styling clean and line-free as well to be safe */
   .site-header{ 
     background: rgba(255,255,255,0.94);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
+    border-bottom: none; 
+    box-shadow: none;
     height: var(--header-height-mobile); 
   }
   .navbar{ padding:8px 5%; }
