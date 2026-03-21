@@ -11,20 +11,26 @@
   --accent-red: #d62828;
   --accent-blue: #0366d6;
   --super-black: #000000;
-  /* header height reserved for layout; adjusts on small screens */
-  --header-height: 72px;
+
+  /* Desktop header size (kept as you liked) */
+  --header-height-desktop: 96px;
+  --logo-height-desktop: 72px;
 }
 
-/* Responsive header height: slightly taller on mobile to avoid clipping */
+/* On mobile, header and logo scale down to avoid clipping */
 @media (max-width:900px){
-  :root { --header-height: 96px; }
+  :root{
+    --header-height-desktop: 84px; /* slightly reduced header height on mobile */
+    --logo-height-desktop: 56px;   /* smaller logo on mobile */
+  }
 }
 
 /* Reset & base */
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa;color:var(--super-black);scroll-behavior:smooth}
+
 /* Reserve space for fixed header so content never sits underneath it */
-body { padding-top: var(--header-height); }
+body { padding-top: var(--header-height-desktop); }
 
 /* HEADER */
 .site-header{
@@ -35,7 +41,7 @@ body { padding-top: var(--header-height); }
   top: 0;
   left: 0;
   right: 0;
-  height: var(--header-height);
+  height: var(--header-height-desktop);
   z-index:1000;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   display:flex;
@@ -51,6 +57,7 @@ body { padding-top: var(--header-height); }
   padding:10px 5%;
   gap:10px;
   margin:0 auto;
+  max-width:1400px;
 }
 
 /* Logo block: stack name and tagline vertically */
@@ -61,10 +68,10 @@ body { padding-top: var(--header-height); }
   flex-shrink:0;
 }
 
-/* Enlarged logo on desktop */
+/* Logo image size controlled by CSS variable so it keeps desktop size and scales on mobile */
 .logo-icon{
-  height:72px;
-  width:auto;
+  height: var(--logo-height-desktop);
+  width: auto;
   display:block;
 }
 
@@ -131,7 +138,6 @@ body { padding-top: var(--header-height); }
   align-items:flex-start;
   justify-content:center;
   text-align:center;
-  /* keep original visual spacing; body padding-top prevents overlap */
   padding:120px 10% 80px;
   overflow:hidden;
   color:var(--super-black);
@@ -263,23 +269,22 @@ body { padding-top: var(--header-height); }
 .about-overlay{background:rgba(0,0,0,0.55);padding:40px;border-radius:16px;max-width:900px;text-align:center}
 .about-content p{margin-bottom:20px;font-size:1.05rem;line-height:1.8}
 
-/* Responsive adjustments */
+/* Mobile-specific adjustments to ensure header content never clips */
 @media (max-width:900px){
-  /* stack header elements vertically on very small screens if needed */
-  .navbar{padding:8px 5%}
-  .logo-icon{height:56px}
-  .logo-text .name{font-size:1.25rem}
-  .logo-text .tagline{font-size:0.9rem}
-  .nav-links{gap:12px}
-  .hero{padding:120px 5% 80px}
-  .hero h1{font-size:2.6rem}
-  .hero p{font-size:1.1rem}
-  .software-badges{margin-top:12px}
-  .project-container{flex-direction:column;padding:20px}
-  .project-image img{max-width:100%}
-  .section-header h2{font-size:2rem}
-  .about{min-height:300px;padding:30px}
-  .hero-video{object-position:center 40%}
+  .navbar{padding:8px 5%;}
+  .logo-icon{height:var(--logo-height-desktop);} /* uses mobile variable value */
+  .logo-text .name{font-size:1.25rem;}
+  .logo-text .tagline{font-size:0.9rem;}
+  .nav-links{gap:12px;}
+  .hero{padding:120px 5% 80px;}
+  .hero h1{font-size:2.6rem;}
+  .hero p{font-size:1.1rem;}
+  .software-badges{margin-top:12px;}
+  .project-container{flex-direction:column;padding:20px;}
+  .project-image img{max-width:100%;}
+  .section-header h2{font-size:2rem;}
+  .about{min-height:300px;padding:30px;}
+  .hero-video{object-position:center 40%;}
 }
 </style>
 </head>
