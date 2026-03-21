@@ -423,61 +423,26 @@
     <h2>About Me</h2>
   </div>
 
-  <div class="about-overlay">
-    <div class="about-content">
-      <p>
-        I am a mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.
-      </p>
-      <p>
-        I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements.
-        My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.
-      </p>
-      <p>
-        I approach every project with an engineering mindset—balancing design, functionality, and manufacturability.
-        Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>,
-        I design, analyze, and optimize mechanical systems for startups and engineering teams.
-      </p>
-      <p>
-        I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.
-      </p>
-    </div>
+  <div class="about-content">
+    <p>
+      I am a mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.
+    </p>
+    <p>
+      I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements.
+      My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.
+    </p>
+    <p>
+      I approach every project with an engineering mindset—balancing design, functionality, and manufacturability.
+      Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>,
+      I design, analyze, and optimize mechanical systems for startups and engineering teams.
+    </p>
+    <p>
+      I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.
+    </p>
   </div>
 </section>
 
 <style>
-/* SERVICES */
-.services {
-  padding: 100px 10%;
-  background: #f4f7fa;
-}
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-}
-.service-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 30px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-}
-.service-card h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: #0366d6;
-}
-.service-card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-}
-
 /* ABOUT */
 .about {
   position: relative;
@@ -486,6 +451,7 @@
   color: #ffffff;
   text-align: center;
 }
+
 .about .section-header h2 {
   font-size: 2.5rem;
   font-weight: 800;
@@ -495,6 +461,7 @@
   display: inline-block;
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
+
 .about .section-header h2::after {
   content: "";
   display: block;
@@ -504,14 +471,7 @@
   margin: 12px auto 0;
   border-radius: 2px;
 }
-.about-overlay {
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(6px);
-  padding: 40px;
-  border-radius: 16px;
-  max-width: 900px;
-  margin: auto;
-}
+
 .about-content {
   max-width: 800px;
   margin: auto;
@@ -519,24 +479,18 @@
   line-height: 1.8;
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
+
 .about-content p {
   margin-bottom: 20px;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
-  .project-container {
-    flex-direction: column;
-    padding: 30px;
-  }
-  .project-image img {
-    max-width: 100%;
+  .about {
+    padding: 80px 5%;
   }
   .section-header h2 {
     font-size: 2rem;
-  }
-  .about {
-    padding: 80px 5%;
   }
 }
 </style>
