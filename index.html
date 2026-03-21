@@ -33,7 +33,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 }
 .navbar{ width:100%; max-width:100%; margin:0 auto; padding:10px 60px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
-/* Logo block */
+/* Logo block - Default Mobile */
 .logo{ display:flex; align-items:center; flex-shrink:0; text-decoration: none; }
 .logo-icon{height:72px;width:auto;display:block}
 .logo-text{display:flex;flex-direction:column;line-height:1.02;white-space:nowrap;}
@@ -95,7 +95,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .project-highlights li{margin-bottom:12px;position:relative;padding-left:24px}
 .project-highlights li::before{content:"→";color:var(--primary);position:absolute;left:0;font-weight:bold;}
 
-/* CLEAN, SOFT-TINT GALLERY TRIGGER */
+/* GALLERY TRIGGER CARD */
 .gallery-trigger-card {
   width: 100%; max-width: 1200px; margin: 40px auto 0; padding: 50px 40px; border-radius: 24px; text-align: center;
   cursor: pointer; position: relative; overflow: hidden;
@@ -112,6 +112,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .gallery-trigger-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
 .gallery-trigger-card h2 { color: var(--super-black); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em; }
 .gallery-trigger-card p { color: var(--text-gray); font-size: 1.15rem; font-weight: 500; margin-bottom: 24px; }
+
 .gallery-pulsing-btn {
   display: inline-flex; align-items: center; gap: 10px;
   background: rgba(3, 102, 214, 0.1); color: var(--primary);
@@ -125,7 +126,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .gallery-trigger-card:hover .radar-dot::after { border-color: #fff; }
 @keyframes radarPulse { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
 
-/* CINEMATIC DARK MODE LIGHTBOX */
+/* LIGHTBOX */
 .lightbox-overlay {
   position: fixed; inset: 0; background: rgba(10, 12, 16, 0.98); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   z-index: 10000; display: flex; align-items: center; justify-content: center;
@@ -253,52 +254,65 @@ section { scroll-margin-top: 100px; width: 100%; }
 .form-input, .form-textarea { width: 100%; padding: 14px 16px; border: 1px solid var(--border-light); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--super-black); transition: all 0.2s; }
 .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(3, 102, 214, 0.1); }
 .form-textarea { resize: vertical; min-height: 120px; }
-
-/* NEW: File Dropzone Styles */
-.file-dropzone { 
-  border: 2px dashed var(--border-light); border-radius: 12px; padding: 30px 20px; 
-  text-align: center; cursor: pointer; transition: all 0.3s ease; 
-  background: var(--bg-offwhite); position: relative; 
-}
-.file-dropzone:hover, .file-dropzone.dragover { border-color: var(--primary); background: rgba(3,102,214,0.05); }
-.file-dropzone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-.file-icon { font-size: 2.2rem; margin-bottom: 12px; display: block; opacity: 0.8; }
-.file-text { font-size: 0.95rem; color: var(--text-gray); font-weight: 500; }
-.file-text strong { color: var(--primary); }
-.file-name-display { margin-top: 12px; font-size: 0.85rem; color: var(--super-black); font-weight: 600; background: #e5e7eb; padding: 6px 12px; border-radius: 20px; display: inline-block; }
-
 .modal-footer { padding: 20px 40px 30px; display: flex; justify-content: space-between; gap: 16px; }
 .btn-secondary { padding: 14px 24px; border: 1px solid var(--border-light); background: #fff; color: var(--super-black); border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; width: 30%; text-align: center; }
 .btn-secondary:hover { background: var(--bg-offwhite); border-color: #cbd5e1; }
 .btn-primary { padding: 14px 24px; border: none; background: var(--super-black); color: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; flex: 1; text-align: center; }
 .btn-primary:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(3,102,214,0.2); }
 .btn-primary:disabled { background: var(--border-light); color: var(--text-gray); cursor: not-allowed; transform: none; box-shadow: none; }
+.success-content { text-align: center; padding: 20px 0; }
+.success-icon { width: 64px; height: 64px; background: #22c55e; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 24px; animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 
-/* NEW: Premium Success Screen */
-.success-content { text-align: center; padding: 30px 0 10px; }
-.success-ring { 
-  width: 80px; height: 80px; border-radius: 50%; border: 3px solid #22c55e; 
-  display: flex; align-items: center; justify-content: center; font-size: 2.5rem; 
-  color: #22c55e; margin: 0 auto 24px; position: relative; 
-  animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 0 20px rgba(34,197,94,0.2); 
-}
-.success-ring::after { content: ''; position: absolute; inset: -10px; border-radius: 50%; border: 1px solid rgba(34,197,94,0.5); animation: ripple 2s infinite ease-out; }
-@keyframes ripple { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
-.success-content h3 { font-size: 1.6rem; color: var(--super-black); margin-bottom: 12px; }
-.success-content p { color: var(--text-gray); line-height: 1.7; font-size: 1.05rem; }
 
-/* DESKTOP ONLY: HEADER */
+/* =========================================
+   DESKTOP ONLY: RESTORED EXPANDING LOGO
+   ========================================= */
 @media (min-width: 901px) {
   .site-header { background: transparent; border: none; box-shadow: none; pointer-events: none; }
   .navbar { pointer-events: auto; }
   
+  /* THE LOGO CONTAINER - Expands on Hover */
   .logo { 
-    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
-    padding: 6px 16px 6px 8px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); 
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    /* Tight initial padding for premium look */
+    padding: 6px 8px 6px 8px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    /* Transition everything smoothly, including padding/width */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     overflow: hidden;
   }
-  .logo-text { max-width: 100%; opacity: 1; overflow: visible; margin-left: 12px; visibility: visible; }
-  .logo:hover, .logo:focus-visible { background: rgba(255, 255, 255, 1); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  
+  /* THE LOGO TEXT - Initially Hidden */
+  .logo-text {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-left: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* CONTAINER HOVER STATE */
+  .logo:hover,
+  .logo:focus-visible { 
+    background: rgba(255, 255, 255, 1); 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1); 
+    padding-right: 18px; /* Expand right padding smoothly */
+  }
+  
+  /* TEXT REVEAL STATE */
+  .logo:hover .logo-text,
+  .logo:focus-visible .logo-text {
+    max-width: 300px;
+    opacity: 1;
+    transform: translateX(0);
+    margin-left: 12px;
+    visibility: visible;
+  }
   
   .menu-toggle { display: block; width: 56px; height: 56px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.3s ease; }
   .menu-toggle:hover { background: rgba(255, 255, 255, 1); transform: scale(1.05); }
@@ -310,9 +324,15 @@ section { scroll-margin-top: 100px; width: 100%; }
   .cta-btn { margin-top: 10px; padding: 14px 28px; }
 }
 
-/* MOBILE ONLY */
+/* =========================================
+   TABLET & MOBILE
+   ========================================= */
 @media (max-width:1024px) {
-  .project-container { flex-direction: column; gap: 30px; padding: 30px; }
+  .project-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px;
+  }
   .project-details { padding-left: 0; }
   .about-grid { gap: 40px; }
   .about-image-col img { height: 500px; }
@@ -339,7 +359,6 @@ section { scroll-margin-top: 100px; width: 100%; }
   .lightbox-controls { padding: 0 10px; }
   .lightbox-btn { width: 45px; height: 45px; font-size: 1.2rem; }
 }
-
 @media (max-width:420px){
   .logo-icon{ height:48px; }
   .logo-text .name{ font-size:1.02rem; }
@@ -530,7 +549,7 @@ section { scroll-margin-top: 100px; width: 100%; }
         <div class="author-avatar">R</div>
         <div class="author-info"><h4>robertomurer</h4><span>Italy</span></div>
       </div>
-    </div>
+        </div>
   </div>
 </section>
 
@@ -608,7 +627,7 @@ section { scroll-margin-top: 100px; width: 100%; }
       </div>
     </div>
 
-    <form id="wizardForm" action="https://formspree.io/f/mbdzeyny" method="POST" enctype="multipart/form-data">
+    <form id="wizardForm" action="https://formspree.io/f/mbdzeyny" method="POST">
       
       <div class="wizard-step is-active" id="step1">
         <div class="modal-body">
@@ -647,25 +666,19 @@ section { scroll-margin-top: 100px; width: 100%; }
 
       <div class="wizard-step" id="step3">
         <div class="modal-body">
-          <h3>Project Requirements</h3>
+          <h3>Tell me about your project</h3>
           <div class="form-group">
+            <label for="clientDetails">Project Requirements</label>
             <textarea id="clientDetails" name="Project_Details" class="form-textarea" placeholder="Briefly describe what you need modeled or simulated..." required></textarea>
           </div>
-          
           <div class="form-group">
-            <label>Upload Reference Files (Optional)</label>
-            <div class="file-dropzone" id="dropzone">
-              <input type="file" name="Reference_File" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.step,.stp,.igs,.stl">
-              <span class="file-icon">📁</span>
-              <div class="file-text"><strong>Click to upload</strong> or drag and drop</div>
-              <div class="file-text" style="font-size:0.8rem; margin-top:4px;">CAD files, PDFs, or Images (Max 10MB)</div>
-              <div class="file-name-display" id="fileNameDisplay" style="display:none;"></div>
-            </div>
+            <label for="clientImage">Reference Image (Optional URL)</label>
+            <input type="url" id="clientImage" name="Reference_Image_URL" class="form-input" placeholder="https://example.com/my-sketch.png">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn-secondary" id="backBtn2">&larr; Back</button>
-          <button type="submit" class="btn-primary" id="submitBtn">Secure Submit</button>
+          <button type="submit" class="btn-primary" id="submitBtn">Submit Request</button>
         </div>
       </div>
 
@@ -673,7 +686,7 @@ section { scroll-margin-top: 100px; width: 100%; }
         <div class="modal-body success-content">
           <div class="success-ring">&#10003;</div>
           <h3>Request Secured</h3>
-          <p>Your requirements and files have been successfully transmitted. I will review your details and <strong>reply to your email within 24 hours.</strong></p>
+          <p>Thank you for reaching out. I have successfully received your requirements. I will review your details and <strong>reply to your email within 24 hours.</strong></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn-primary" id="finishBtn" style="width: 100%;">Close Window</button>
@@ -777,7 +790,7 @@ section { scroll-margin-top: 100px; width: 100%; }
       }
     });
 
-    // 3-STEP WIZARD MODAL LOGIC
+    // WIZARD MODAL LOGIC
     const modalOverlay = document.getElementById('wizardModal');
     const openBtns = document.querySelectorAll('.open-modal-btn');
     const closeBtn = document.getElementById('closeModalBtn');
@@ -801,20 +814,6 @@ section { scroll-margin-top: 100px; width: 100%; }
 
     const softwareCards = document.querySelectorAll('.software-card');
     const hiddenSoftwareInput = document.getElementById('softwareSelection');
-    
-    // File Input Logic
-    const fileInput = document.getElementById('fileInput');
-    const dropzone = document.getElementById('dropzone');
-    const fileNameDisplay = document.getElementById('fileNameDisplay');
-
-    fileInput.addEventListener('change', function() {
-      if(this.files && this.files.length > 0) {
-        fileNameDisplay.textContent = "Attached: " + this.files[0].name;
-        fileNameDisplay.style.display = 'inline-block';
-      } else {
-        fileNameDisplay.style.display = 'none';
-      }
-    });
 
     openBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -839,8 +838,7 @@ section { scroll-margin-top: 100px; width: 100%; }
         indicator2.classList.remove('active');
         indicator3.classList.remove('active');
         form.reset();
-        fileNameDisplay.style.display = 'none';
-        submitBtn.innerText = 'Secure Submit';
+        submitBtn.innerText = 'Submit Request';
         submitBtn.disabled = false;
         
         softwareCards.forEach(c => c.classList.remove('selected'));
@@ -870,11 +868,8 @@ section { scroll-margin-top: 100px; width: 100%; }
 
     nextBtn2.addEventListener('click', () => {
       // Validate Step 2 before moving to Step 3
-      const nameInput = document.getElementById('clientName');
-      const emailInput = document.getElementById('clientEmail');
-      if(!nameInput.checkValidity() || !emailInput.checkValidity()) {
-        nameInput.reportValidity();
-        emailInput.reportValidity();
+      if(!document.getElementById('clientName').checkValidity() || !document.getElementById('clientEmail').checkValidity()) {
+        document.getElementById('wizardForm').reportValidity();
         return;
       }
       step2.classList.remove('is-active');
@@ -899,7 +894,7 @@ section { scroll-margin-top: 100px; width: 100%; }
       e.preventDefault(); 
       if(!form.checkValidity()) return;
 
-      submitBtn.innerText = 'Transmitting...';
+      submitBtn.innerText = 'Submitting...';
       submitBtn.disabled = true;
 
       const data = new FormData(form);
@@ -911,13 +906,13 @@ section { scroll-margin-top: 100px; width: 100%; }
           document.querySelector('.progress-bar').style.display = 'none';
         } else {
           alert("Oops! There was a problem submitting your form.");
-          submitBtn.innerText = 'Secure Submit';
+          submitBtn.innerText = 'Submit Request';
           submitBtn.disabled = false;
         }
       })
       .catch(error => {
         alert("Oops! Network error. Please try again.");
-        submitBtn.innerText = 'Secure Submit';
+        submitBtn.innerText = 'Submit Request';
         submitBtn.disabled = false;
       });
     });
