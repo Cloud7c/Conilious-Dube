@@ -59,7 +59,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:#f4f7fa}
 .hero{
   position:relative;
   min-height:100vh;
-  padding:160px 10% 80px;
+  padding:160px 10% 80px; /* FIXED spacing */
   text-align:center;
 }
 
@@ -75,33 +75,17 @@ body{margin:0;font-family:'Inter',sans-serif;background:#f4f7fa}
 
 .hero-content{position:relative;z-index:2;max-width:900px;margin:auto}
 
-.hero h1{
-  font-size:clamp(2rem,5vw,4rem);
-  color:#000;
-}
-
-/* ✅ FIXED PARAGRAPH */
-.hero p{
-  font-size: clamp(1rem, 2.2vw, 1.3rem);
-  margin: 0 auto 20px;
-  line-height: 1.6;
-  color: rgba(0,0,0,0.75); /* softer on desktop */
-  font-weight: 600;
-  max-width: 700px;
-}
+.hero h1{font-size:clamp(2rem,5vw,4rem);color:#000}
+.hero p{color:#000}
 
 /* PROJECTS */
 .featured-project{padding:100px 5%}
 .section-header{text-align:center;margin-bottom:50px}
-
 .project-container{
   display:flex;gap:30px;background:#fff;
   padding:30px;border-radius:16px;
 }
-
-.project-container img{
-  max-width:400px;width:100%;
-}
+.project-container img{max-width:400px;width:100%}
 
 /* SERVICES */
 .services{padding:100px 5%}
@@ -110,11 +94,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:#f4f7fa}
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:20px;
 }
-.service-card{
-  background:#fff;
-  padding:20px;
-  border-radius:12px;
-}
+.service-card{background:#fff;padding:20px;border-radius:12px}
 
 /* ABOUT */
 .about-section-wrapper{padding:100px 5%}
@@ -144,17 +124,7 @@ body{margin:0;font-family:'Inter',sans-serif;background:#f4f7fa}
   }
 
   .hero{
-    padding-top:190px; /* prevents overlap */
-  }
-
-  .hero h1{
-    font-size:2.2rem;
-  }
-
-  /* ✅ MOBILE PERFECT VERSION */
-  .hero p{
-    color:#ffffff;
-    text-shadow:0 2px 10px rgba(0,0,0,0.6);
+    padding-top:190px; /* FIX: no overlap */
   }
 
   .project-container{
@@ -196,16 +166,8 @@ body{margin:0;font-family:'Inter',sans-serif;background:#f4f7fa}
   </div>
 
   <div class="hero-content">
-    <h1>
-      <span style="color:#d62828;">Product &</span>
-      <span style="color:#0366d6;">Mechanical</span>
-      <span style="color:#d62828;">CAD</span>
-      <span>Design for Real-World Applications</span>
-    </h1>
-
-    <p>
-      Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.
-    </p>
+    <h1>Product & Mechanical CAD Design</h1>
+    <p>Design manufacturable 3D CAD models and simulations</p>
   </div>
 </section>
 
