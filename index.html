@@ -11,8 +11,6 @@
   --accent-red: #d62828;
   --accent-blue: #0366d6;
   --super-black: #000000;
-
-  /* header heights to reserve space for fixed header */
   --header-height-desktop: 96px;
   --header-height-mobile: 88px;
 }
@@ -20,8 +18,6 @@
 /* Reset & base */
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:'Inter',sans-serif;background:#f4f7fa;color:var(--super-black);-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
-
-/* Reserve space for fixed header so hero never sits underneath it */
 body { padding-top: var(--header-height-desktop); }
 
 /* HEADER */
@@ -39,18 +35,17 @@ body { padding-top: var(--header-height-desktop); }
   display:flex;
   align-items:center;
 }
+
 .navbar{
   width:100%;
   max-width:1400px;
   margin:0 auto;
-  padding:10px 5%;
+  padding:0 5%;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  justify-content: space-between; /* Pushes Logo left, Nav-Group right */
 }
 
-/* Logo block stacked vertically */
 .logo{
   display:flex;
   align-items:center;
@@ -58,23 +53,34 @@ body { padding-top: var(--header-height-desktop); }
   flex-shrink:0;
 }
 .logo-icon{height:72px;width:auto;display:block}
-.logo-text{display:flex;flex-direction:column;line-height:1.02;white-space:normal}
+.logo-text{display:flex;flex-direction:column;line-height:1.02;white-space:nowrap}
 .logo-text .name{font-size:1.45rem;font-weight:800;color:var(--accent-red);line-height:1}
 .logo-text .tagline{font-size:0.92rem;font-weight:600;color:var(--accent-blue);margin-top:2px}
 
-/* Navigation Group & Links */
+/* Desktop Nav Group - Always Visible */
 .nav-group {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 40px;
 }
-.nav-links{display:flex;gap:18px;list-style:none;margin:0;padding:0;align-items:center}
+
+.nav-links{display:flex;gap:28px;list-style:none;margin:0;padding:0;align-items:center}
 .nav-links a{text-decoration:none;color:#0a0c10;font-weight:600;white-space:nowrap;transition:color .18s}
 .nav-links a:hover{color:var(--primary)}
-.cta-btn{background:var(--primary);color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;text-decoration:none}
-.cta-btn:hover{transform:translateY(-2px);background:#024da3}
 
-/* Hamburger Menu Button (Hidden on Desktop) */
+.cta-btn{
+  background:var(--primary);
+  color:#fff;
+  padding:12px 24px;
+  border-radius:8px;
+  font-weight:700;
+  text-decoration:none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.cta-btn:hover{transform:translateY(-2px);background:#024da3;box-shadow: 0 4px 12px rgba(3,102,214,0.2)}
+
+/* Mobile Toggle - Hidden on Desktop */
 .menu-toggle {
   display: none;
   background: none;
@@ -82,9 +88,6 @@ body { padding-top: var(--header-height-desktop); }
   cursor: pointer;
   padding: 10px;
   z-index: 1001;
-  width: 45px;
-  height: 45px;
-  position: relative;
 }
 .hamburger, .hamburger::before, .hamburger::after {
   display: block;
@@ -92,60 +95,31 @@ body { padding-top: var(--header-height-desktop); }
   height: 3px;
   background-color: var(--super-black);
   transition: all 0.3s ease-in-out;
-  position: absolute;
-  left: 10px;
+  position: relative;
 }
-.hamburger { top: 50%; transform: translateY(-50%); }
-.hamburger::before { content: ''; top: -8px; left: 0; }
-.hamburger::after { content: ''; top: 8px; left: 0; }
+.hamburger::before { content: ''; position: absolute; top: -8px; left: 0; }
+.hamburger::after { content: ''; position: absolute; top: 8px; left: 0; }
 
 .menu-toggle.is-active .hamburger { background-color: transparent; }
 .menu-toggle.is-active .hamburger::before { top: 0; transform: rotate(45deg); }
 .menu-toggle.is-active .hamburger::after { top: 0; transform: rotate(-45deg); }
 
 /* HERO */
-.hero{
-  position:relative;
-  min-height:100vh;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  text-align:center;
-  padding:120px 10% 80px;
-  overflow:hidden;
-}
-
-/* Video wrapper and grading */
+.hero{position:relative;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;text-align:center;padding:120px 10% 80px;overflow:hidden}
 .video-wrap{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg, rgba(3,102,214,0.20) 0%, rgba(255,170,90,0.08) 30%, rgba(214,40,40,0.06) 60%, rgba(0,0,0,0.18) 100%);overflow:hidden}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;z-index:1;filter:brightness(0.95) contrast(1.08) saturate(1.05)}
-
-/* Hero content */
 .hero-content{position:relative;z-index:3;max-width:900px;padding:0 24px;margin-top:20px;animation:fadeUp 1.1s ease forwards;opacity:0;transform:translateY(18px)}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-
-/* Headline and paragraph */
 .hero h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.15;margin:0 0 18px;color:var(--super-black);letter-spacing:-0.6px}
 .red-accent{color:var(--accent-red)}
 .blue-accent{color:var(--accent-blue)}
 .neutral-accent{color:var(--super-black)}
-
-/* FIX: paragraph white on desktop and mobile with dark shadow for clarity */
-.hero p{
-  font-size:clamp(1rem,2.2vw,1.3rem);
-  margin:0 auto 20px;
-  line-height:1.6;
-  color:#ffffff;
-  font-weight:600;
-  max-width:700px;
-  text-shadow:0 1px 0 rgba(0,0,0,0.85), 0 4px 10px rgba(0,0,0,0.55);
-}
-
-/* Badges */
+.hero p{font-size:clamp(1rem,2.2vw,1.3rem);margin:0 auto 20px;line-height:1.6;color:#ffffff;font-weight:600;max-width:700px;text-shadow:0 1px 0 rgba(0,0,0,0.85), 0 4px 10px rgba(0,0,0,0.55)}
 .software-badges{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .badge{background:var(--primary);color:#fff;padding:10px 20px;border-radius:12px;font-size:1rem;font-weight:700;display:inline-block;box-shadow:0 6px 14px rgba(3,102,214,0.22)}
 .badge:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(3,102,214,0.36);background:#024da3}
 
-/* FEATURED PROJECTS */
+/* PROJECTS */
 .featured-project{padding:100px 5%;background:#f4f7fa}
 .section-header{text-align:center;margin-bottom:60px}
 .section-header h2{font-size:2.4rem;font-weight:800;color:#0366d6;margin-bottom:12px}
@@ -167,7 +141,7 @@ body { padding-top: var(--header-height-desktop); }
 .service-card h3{font-size:1.4rem;font-weight:700;margin-bottom:16px;color:#0366d6}
 .service-card p{font-size:1rem;line-height:1.6;color:#333}
 
-/* ABOUT ME */
+/* ABOUT */
 .about-section-wrapper{padding:100px 5%;background:#fff}
 .about-section-wrapper .section-header{margin-bottom:30px}
 .about-section-wrapper .section-header h2{font-size:2.4rem;color:#0366d6}
@@ -176,18 +150,17 @@ body { padding-top: var(--header-height-desktop); }
 .about-overlay{background:rgba(0,0,0,0.55);padding:40px;border-radius:16px;max-width:900px;text-align:center}
 .about-content p{margin-bottom:20px;font-size:1.05rem;line-height:1.8}
 
-/* RESPONSIVE */
-@media (max-width:900px){
-  /* ensure body padding matches mobile header height */
+/* RESPONSIVE - Only touches mobile, keeps desktop layout strictly separate */
+@media (max-width:960px){
   body { padding-top: var(--header-height-mobile); }
   .site-header{ height: var(--header-height-mobile); }
-
   .navbar{ padding:8px 5%; }
   .logo-icon{ height:56px; }
 
-  /* New Mobile Menu Styles */
+  /* Activate Hamburger on Mobile */
   .menu-toggle { display: block; }
   
+  /* Convert Nav Group into a Drawer on Mobile */
   .nav-group {
     position: absolute;
     top: var(--header-height-mobile);
@@ -197,52 +170,40 @@ body { padding-top: var(--header-height-desktop); }
     backdrop-filter: blur(8px);
     flex-direction: column;
     padding: 30px 5%;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.06);
-    /* Use clip-path for a smooth dropdown animation */
+    gap: 24px;
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); 
     transition: clip-path 0.4s ease-in-out;
+    pointer-events: none; /* Prevents clicking links when hidden */
   }
   
   .nav-group.is-open {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    pointer-events: all;
   }
   
-  .nav-links {
-    flex-direction: column;
-    width: 100%;
-    gap: 20px;
-    text-align: center;
-  }
-  
-  .nav-links a { font-size: 1.1rem; display: block; padding: 5px; }
-  .cta-btn { margin-top: 10px; width: 100%; text-align: center; }
+  .nav-links { flex-direction: column; width: 100%; gap: 20px; text-align: center; }
+  .cta-btn { width: 100%; text-align: center; }
 
-  /* Unchanged original responsive styles */
+  /* Hero Mobile Tweak */
   .hero{ padding:140px 5% 80px; }
   .hero h1{ font-size:2.6rem; }
-  .hero p{ font-size:1.1rem; }
-  .software-badges{ margin-top:60px; }
   .project-container{ flex-direction:column; padding:20px; }
-  .project-image img{ max-width:100%; }
-  .section-header h2{ font-size:2rem; }
   .about{ min-height:300px; padding:30px; }
 }
 
-/* very small screens */
 @media (max-width:420px){
   .logo-icon{ height:48px; }
   .logo-text .name{ font-size:1.02rem; }
   .logo-text .tagline{ font-size:0.78rem; }
   .hero h1{ font-size:1.9rem; }
-  .hero p{ font-size:0.95rem; }
 }
 </style>
 </head>
 <body>
 
 <header class="site-header" role="banner">
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="logo" aria-hidden="false">
+  <nav class="navbar" role="navigation">
+    <div class="logo">
       <img src="logo.png" alt="Logo" class="logo-icon">
       <div class="logo-text">
         <span class="name">Conilious Dube</span>
@@ -250,41 +211,37 @@ body { padding-top: var(--header-height-desktop); }
       </div>
     </div>
 
-    <button class="menu-toggle" aria-label="Toggle mobile menu">
+    <button class="menu-toggle" aria-label="Toggle menu">
       <span class="hamburger"></span>
     </button>
 
     <div class="nav-group">
-      <ul class="nav-links" role="menubar">
-        <li role="none"><a role="menuitem" href="#hero">Home</a></li>
-        <li role="none"><a role="menuitem" href="#services">Services</a></li>
-        <li role="none"><a role="menuitem" href="#about-wrapper">About Me</a></li>
-        <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about-wrapper">About Me</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
       <a href="#contact" class="cta-btn">Start a Project</a>
     </div>
   </nav>
 </header>
 
-<section id="hero" class="hero" aria-label="Hero section showcasing engineering work">
-  <div class="video-wrap" aria-hidden="true">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="newwallpaper.png">
+<section id="hero" class="hero">
+  <div class="video-wrap">
+    <video class="hero-video" autoplay muted loop playsinline poster="newwallpaper.png">
       <source src="wallpapervid.mp4" type="video/mp4">
-      Your browser does not support the video tag.
     </video>
   </div>
-
-  <div class="hero-content" role="region" aria-label="Hero content">
+  <div class="hero-content">
     <h1>
       <span class="red-accent">Product &</span>
       <span class="blue-accent">Mechanical</span>
       <span class="red-accent">CAD</span>
       <span class="neutral-accent">Design for Real-World Applications</span>
     </h1>
-
     <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
-
-    <div class="software-badges" aria-hidden="true">
+    <div class="software-badges">
       <span class="badge">Siemens NX</span>
       <span class="badge">Creo Parametric</span>
       <span class="badge">Ansys</span>
@@ -298,21 +255,15 @@ body { padding-top: var(--header-height-desktop); }
     <h2>Featured Engineering Work</h2>
     <p>A selection of mechanical design and simulation projects demonstrating real-world engineering capability.</p>
   </div>
-
   <div class="project-container">
     <div class="project-image">
-      <img src="jet%20engine.png" alt="Jet Engine Assembly Render">
+      <img src="jet%20engine.png" alt="Jet Engine">
     </div>
     <div class="project-details">
       <h3>Jet Engine Assembly & Design Study</h3>
-      <p>
-        Developed a detailed jet engine assembly to understand component integration, airflow structure, and mechanical relationships.
-        Focused on precision 3D modeling and assembly techniques using Creo.
-      </p>
+      <p>Developed a detailed jet engine assembly to understand component integration and airflow structure.</p>
       <ul class="project-highlights">
         <li>Full multi-component assembly design</li>
-        <li>Detailed part modeling and alignment</li>
-        <li>Exploration of internal structure and system layout</li>
         <li>Built using Creo Parametric</li>
       </ul>
     </div>
@@ -320,26 +271,16 @@ body { padding-top: var(--header-height-desktop); }
 </section>
 
 <section class="featured-project">
-  <div class="section-header">
-    <h2>Advanced Engine Modeling</h2>
-    <p>High-fidelity V6 engine assembly created in Creo Parametric, showcasing complex part integration and realistic visualization.</p>
-  </div>
-
   <div class="project-container">
     <div class="project-image">
-      <img src="v6_engine.png" alt="V6 Engine CAD Model">
+      <img src="v6_engine.png" alt="V6 Engine">
     </div>
     <div class="project-details">
       <h3>V6 Internal Combustion Engine</h3>
-      <p>
-        Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold.
-        The model emphasizes manufacturability and simulation-readiness for engineering analysis.
-      </p>
+      <p>Designed a full V6 engine assembly focusing on manufacturability and simulation-readiness.</p>
       <ul class="project-highlights">
         <li>Multi-body assembly with realistic constraints</li>
-        <li>Color-coded components for clarity and presentation</li>
-        <li>Built using Creo Parametric Educational Edition</li>
-        <li>Includes intake, exhaust, and turbo subsystems</li>
+        <li>Built using Creo Parametric</li>
       </ul>
     </div>
   </div>
@@ -348,24 +289,23 @@ body { padding-top: var(--header-height-desktop); }
 <section id="services" class="services">
   <div class="section-header">
     <h2>Engineering Services</h2>
-    <p>Specialized mechanical design and simulation services for startups and engineering teams.</p>
   </div>
   <div class="services-grid">
     <div class="service-card">
       <h3>3D CAD Modeling</h3>
-      <p>High-precision part and assembly design with production-ready standards using industry-leading CAD tools.</p>
+      <p>High-precision part and assembly design with production-ready standards.</p>
     </div>
     <div class="service-card">
       <h3>FEA & Simulation</h3>
-      <p>Structural, stress, and thermal analysis to validate designs and ensure performance under real-world conditions.</p>
+      <p>Structural, stress, and thermal analysis to validate designs.</p>
     </div>
     <div class="service-card">
       <h3>CFD Analysis</h3>
-      <p>Fluid flow and thermal optimization to improve efficiency and performance of complex systems.</p>
+      <p>Fluid flow and thermal optimization to improve efficiency.</p>
     </div>
     <div class="service-card">
       <h3>Design for Manufacturing</h3>
-      <p>Optimizing designs for cost-effective production, reduced complexity, and efficient assembly.</p>
+      <p>Optimizing designs for cost-effective production and assembly.</p>
     </div>
   </div>
 </section>
@@ -373,41 +313,30 @@ body { padding-top: var(--header-height-desktop); }
 <section id="about-wrapper" class="about-section-wrapper">
   <div class="section-header">
     <h2>About Me</h2>
-    <p>Mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.</p>
   </div>
   <div class="about">
     <div class="about-overlay">
       <div class="about-content">
-        <p>
-          I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements.
-          My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.
-        </p>
-        <p>
-          I approach every project with an engineering mindset—balancing design, functionality, and manufacturability.
-          Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>,
-          I design, analyze, and optimize mechanical systems for startups and engineering teams.
-        </p>
-        <p>
-          I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.
-        </p>
+        <p>I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements.</p>
+        <p>Using industry-standard tools like <strong>Siemens NX</strong> and <strong>Ansys</strong>, I optimize mechanical systems for efficiency and durability.</p>
       </div>
     </div>
   </div>
 </section>
 
 <script>
+  // Handlers for mobile menu interactions
   document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector('.menu-toggle');
     const navGroup = document.querySelector('.nav-group');
     const navLinks = document.querySelectorAll('.nav-links a, .cta-btn');
 
-    // Toggle menu open/close
     menuToggle.addEventListener('click', () => {
       menuToggle.classList.toggle('is-active');
       navGroup.classList.toggle('is-open');
     });
 
-    // Close menu when a link is clicked
+    // Closes the menu when a link is clicked
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         menuToggle.classList.remove('is-active');
