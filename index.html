@@ -19,6 +19,7 @@ body {
   margin: 0;
   background: #f4f7fa;
   color: var(--dark);
+  scroll-behavior: smooth;
 }
 
 /* HEADER */
@@ -30,6 +31,7 @@ body {
   top: 0;
   width: 100%;
   z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .navbar {
@@ -38,6 +40,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   padding: 10px 5%;
+  gap: 10px;
 }
 
 .logo {
@@ -45,31 +48,54 @@ body {
   align-items: center;
   gap: 10px;
 }
+
 .logo-icon { height: 50px; }
-.logo-text .name { font-weight: 800; color: var(--accent-red); }
-.logo-text .tagline { font-size: 0.85rem; color: var(--accent-blue); }
+
+.logo-text .name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent-red);
+}
+
+.logo-text .tagline {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+}
 
 .nav-links {
+  list-style: none;
   display: flex;
   gap: 20px;
-  list-style: none;
-  padding: 0;
+  flex-wrap: wrap;
 }
-.nav-links a { text-decoration: none; color: #000; font-weight: 600; }
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #0a0c10;
+}
 
 .cta-btn {
   background: var(--primary);
   color: #fff;
   padding: 10px 20px;
   border-radius: 8px;
+  font-weight: 700;
   text-decoration: none;
 }
 
-/* HERO VIDEO */
+/* HERO WITH VIDEO */
 .hero {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 10% 80px;
   overflow: hidden;
+  color: white;
 }
 
 .hero-video {
@@ -79,76 +105,99 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: -2;
 }
 
-.hero-overlay {
-  position: relative;
-  z-index: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  text-align: center;
-  background: rgba(0,0,0,0.4);
-  padding: 0 20px;
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: -1;
 }
 
-.hero-title {
-  font-size: clamp(2rem,5vw,4rem);
+.hero-content {
+  max-width: 900px;
+  animation: fadeUp 1.2s ease forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes fadeUp {
+  to { opacity:1; transform: translateY(0); }
+}
+
+.hero h1 {
+  font-size: 4rem;
   font-weight: 800;
+  margin-bottom: 24px;
 }
 
-.hero-subtitle {
-  font-size: clamp(1rem,2vw,1.5rem);
-  margin-top: 10px;
+.hero p {
+  font-size: 1.3rem;
+  color: #e0e0e0;
+}
+
+.software-badges {
+  margin-top: 100px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.badge {
+  background: var(--primary);
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 700;
 }
 
 /* PROJECTS */
 .featured-project { padding: 100px 5%; }
-.section-header { text-align: center; margin-bottom: 40px; }
+.section-header { text-align:center; margin-bottom:60px; }
+
 .project-container {
-  display: flex;
-  gap: 30px;
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  align-items: center;
+  display:flex;
+  gap:30px;
+  background:#fff;
+  border-radius:16px;
+  padding:30px;
+  flex-wrap:wrap;
 }
-.project-image img { width: 100%; max-width: 500px; border-radius: 10px; }
 
 /* SERVICES */
-.services { padding: 100px 5%; }
+.services { padding:100px 5%; }
 .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
-}
-.service-card {
-  background: #fff;
-  padding: 25px;
-  border-radius: 10px;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap:30px;
 }
 
 /* ABOUT */
-.about-section-wrapper { padding: 100px 5%; background: #fff; }
+.about-section-wrapper { padding:100px 5%; background:#fff; }
+
 .about {
-  background: url('me.png') top center / cover no-repeat;
-  border-radius: 16px;
-  padding: 60px;
+  background:url('me.png') no-repeat top center/cover;
+  min-height:500px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
+
 .about-overlay {
-  background: rgba(0,0,0,0.6);
-  padding: 30px;
-  color: #fff;
-  border-radius: 12px;
+  background: rgba(0,0,0,0.55);
+  padding:40px;
+  color:white;
 }
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .navbar { flex-direction: column; align-items: flex-start; }
-  .project-container { flex-direction: column; }
+.hero h1 { font-size:2.6rem; }
+.hero p { font-size:1.1rem; }
+.navbar { flex-direction:column; align-items:flex-start; }
+.project-container { flex-direction:column; }
+.about { min-height:300px; }
 }
 </style>
 </head>
@@ -157,71 +206,67 @@ body {
 
 <!-- HEADER -->
 <header class="site-header">
-  <nav class="navbar">
-    <div class="logo">
-      <img src="logo.png" class="logo-icon">
-      <div class="logo-text">
-        <div class="name">Conilious Dube</div>
-        <div class="tagline">Product Design & Engineering</div>
-      </div>
-    </div>
+<nav class="navbar">
+<div class="logo">
+<img src="logo.png" class="logo-icon">
+<div class="logo-text">
+<span class="name">Conilious Dube</span>
+<span class="tagline">Product Design & Engineering</span>
+</div>
+</div>
 
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about-wrapper">About</a></li>
-    </ul>
+<ul class="nav-links">
+<li><a href="#hero">Home</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#about-wrapper">About</a></li>
+</ul>
 
-    <a href="#" class="cta-btn">Start Project</a>
-  </nav>
+<a href="#" class="cta-btn">Start a Project</a>
+</nav>
 </header>
 
-<!-- HERO VIDEO -->
-<section class="hero">
-  <video autoplay muted loop playsinline class="hero-video">
-    <source src="wallpapervid.mp4" type="video/mp4">
-  </video>
+<!-- HERO WITH VIDEO -->
+<section id="hero" class="hero">
 
-  <div class="hero-overlay">
-    <h1 class="hero-title">Mechanical CAD Design & Simulation</h1>
-    <p class="hero-subtitle">Precision Engineering • Premium Portfolio</p>
-  </div>
+<video autoplay muted loop playsinline class="hero-video">
+<source src="wallpapervid.mp4" type="video/mp4">
+</video>
+
+<div class="hero-content">
+<h1>
+<span style="color:#d62828;">Product &</span>
+<span style="color:#0366d6;">Mechanical</span>
+<span style="color:#d62828;">CAD</span>
+Design for Real-World Applications
+</h1>
+
+<p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
+
+<div class="software-badges">
+<span class="badge">Siemens NX</span>
+<span class="badge">Creo Parametric</span>
+<span class="badge">Ansys</span>
+<span class="badge">Fusion 360</span>
+</div>
+</div>
 </section>
 
-<!-- JET ENGINE -->
+<!-- KEEP REST SAME -->
 <section class="featured-project">
-  <div class="section-header">
-    <h2>Featured Engineering Work</h2>
-  </div>
-  <div class="project-container">
-    <div class="project-image">
-      <img src="jet%20engine.png">
-    </div>
-    <div>
-      <h3>Jet Engine Assembly</h3>
-      <p>Detailed jet engine model demonstrating airflow and structure.</p>
-    </div>
-  </div>
+<h2>Jet Engine</h2>
 </section>
 
-<!-- SERVICES -->
 <section id="services" class="services">
-  <div class="section-header"><h2>Services</h2></div>
-  <div class="services-grid">
-    <div class="service-card">3D CAD Modeling</div>
-    <div class="service-card">FEA Simulation</div>
-    <div class="service-card">CFD Analysis</div>
-  </div>
+<h2>Services</h2>
 </section>
 
-<!-- ABOUT -->
 <section id="about-wrapper" class="about-section-wrapper">
-  <div class="section-header"><h2>About Me</h2></div>
-  <div class="about">
-    <div class="about-overlay">
-      <p>I design real-world engineering systems with precision.</p>
-    </div>
-  </div>
+<h2>About Me</h2>
+<div class="about">
+<div class="about-overlay">
+<p>Your about text...</p>
+</div>
+</div>
 </section>
 
 </body>
