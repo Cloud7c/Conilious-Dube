@@ -96,33 +96,25 @@ section { scroll-margin-top: 120px; }
 .project-highlights li{margin-bottom:12px;position:relative;padding-left:24px}
 .project-highlights li::before{content:"→";color:var(--primary);position:absolute;left:0;font-weight:bold;}
 
-/* NEW: CLEAN, SOFT-TINT GALLERY TRIGGER */
+/* CLEAN, SOFT-TINT GALLERY TRIGGER */
 .gallery-trigger-card {
   width: 100%; max-width: 1200px; margin: 40px auto 0; padding: 50px 40px; border-radius: 24px; text-align: center;
-  cursor: pointer; position: relative; overflow: hidden;
-  background: #ffffff;
-  border: 1px solid var(--border-light);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.02);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  cursor: pointer; position: relative; overflow: hidden; background: #ffffff; border: 1px solid var(--border-light);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.02); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
-.gallery-trigger-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(3, 102, 214, 0.08);
-  border-color: rgba(3, 102, 214, 0.3); /* Subtle premium blue glow border */
-}
+.gallery-trigger-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(3, 102, 214, 0.08); border-color: rgba(3, 102, 214, 0.3); }
 .gallery-trigger-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
 .gallery-trigger-card h2 { color: var(--super-black); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em; }
 .gallery-trigger-card p { color: var(--text-gray); font-size: 1.15rem; font-weight: 500; margin-bottom: 24px; }
 
-/* Mimicking the highly successful "Freelance Badge" aesthetic */
+/* Enlarged Gallery Button */
 .gallery-pulsing-btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: rgba(3, 102, 214, 0.1); color: var(--primary);
-  padding: 12px 24px; border-radius: 50px; font-weight: 600; font-size: 1.05rem;
+  display: inline-flex; align-items: center; gap: 10px; background: rgba(3, 102, 214, 0.1); color: var(--primary);
+  padding: 14px 28px; border-radius: 50px; font-weight: 600; font-size: 1.25rem; /* Enlarged font size */
   border: 1px solid rgba(3, 102, 214, 0.2); transition: all 0.3s ease;
 }
 .gallery-trigger-card:hover .gallery-pulsing-btn { background: var(--primary); color: #fff; }
-.radar-dot { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: relative; }
+.radar-dot { width: 12px; height: 12px; background: var(--primary); border-radius: 50%; position: relative; }
 .radar-dot::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--primary); animation: radarPulse 1.5s infinite; }
 .gallery-trigger-card:hover .radar-dot { background: #fff; }
 .gallery-trigger-card:hover .radar-dot::after { border-color: #fff; }
@@ -131,13 +123,11 @@ section { scroll-margin-top: 120px; }
 /* CINEMATIC DARK MODE LIGHTBOX */
 .lightbox-overlay {
   position: fixed; inset: 0; background: rgba(10, 12, 16, 0.98); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  z-index: 10000; display: flex; align-items: center; justify-content: center;
-  opacity: 0; visibility: hidden; transition: opacity 0.4s ease;
+  z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease;
 }
 .lightbox-overlay.is-active { opacity: 1; visibility: visible; }
 .lightbox-close {
-  position: absolute; top: 30px; right: 40px; background: none; border: none; color: #fff;
-  font-size: 3rem; font-weight: 300; cursor: pointer; transition: transform 0.3s ease; line-height: 1; z-index: 10001;
+  position: absolute; top: 30px; right: 40px; background: none; border: none; color: #fff; font-size: 3rem; font-weight: 300; cursor: pointer; transition: transform 0.3s ease; line-height: 1; z-index: 10001;
 }
 .lightbox-close:hover { transform: scale(1.1) rotate(90deg); }
 .lightbox-content { position: relative; max-width: 90vw; max-height: 85vh; display: flex; align-items: center; justify-content: center; }
@@ -177,7 +167,7 @@ section { scroll-margin-top: 120px; }
 .author-info h4 { margin: 0; font-size: 1rem; color: var(--super-black); font-weight: 700; }
 .author-info span { font-size: 0.85rem; color: var(--text-gray); }
 
-/* CONTACT SECTION */
+/* RESTORED FULL CONTACT SECTION + WIZARD BUTTON */
 .contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid var(--border-light); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; align-items: center; }
 .contact-info h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--super-black); margin-bottom: 20px; letter-spacing: -0.02em; }
@@ -311,6 +301,7 @@ section { scroll-margin-top: 120px; }
       <ul class="nav-links" role="menubar">
         <li role="none"><a role="menuitem" href="#hero">Home</a></li>
         <li role="none"><a role="menuitem" href="#projects">Work</a></li>
+        <li role="none"><a role="menuitem" href="#" id="navGalleryBtn">Gallery</a></li>
         <li role="none"><a role="menuitem" href="#services">Services</a></li>
         <li role="none"><a role="menuitem" href="#about-wrapper">About Me</a></li>
         <li role="none"><a role="menuitem" href="#testimonials">Reviews</a></li>
@@ -581,10 +572,10 @@ section { scroll-margin-top: 120px; }
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Nav
+    // Nav Logic
     const menuToggle = document.querySelector('.menu-toggle');
     const navGroup = document.querySelector('.nav-group');
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navLinks = document.querySelectorAll('.nav-links a:not(.open-modal-btn)'); // exclude cta if needed
 
     menuToggle.addEventListener('click', () => {
       menuToggle.classList.toggle('is-active');
@@ -612,6 +603,7 @@ section { scroll-margin-top: 120px; }
 
     // LIGHTBOX GALLERY LOGIC
     const openGalleryBtn = document.getElementById('openGalleryBtn');
+    const navGalleryBtn = document.getElementById('navGalleryBtn'); // New Nav Link Connection
     const lightboxOverlay = document.getElementById('lightboxOverlay');
     const closeLightboxBtn = document.getElementById('closeLightboxBtn');
     const nextImageBtn = document.getElementById('nextImageBtn');
@@ -619,10 +611,17 @@ section { scroll-margin-top: 120px; }
     const images = document.querySelectorAll('.lightbox-img');
     let currentImageIndex = 0;
 
-    openGalleryBtn.addEventListener('click', () => {
+    const openGallery = (e) => {
+      if(e) e.preventDefault();
       lightboxOverlay.classList.add('is-active');
       document.body.style.overflow = 'hidden'; 
-    });
+      // Close mobile menu if opened from there
+      menuToggle.classList.remove('is-active');
+      navGroup.classList.remove('is-open');
+    };
+
+    openGalleryBtn.addEventListener('click', openGallery);
+    if(navGalleryBtn) navGalleryBtn.addEventListener('click', openGallery);
 
     const closeLightbox = () => {
       lightboxOverlay.classList.remove('is-active');
