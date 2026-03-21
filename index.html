@@ -399,17 +399,14 @@
       <h3>3D CAD Modeling</h3>
       <p>High-precision part and assembly design with production-ready standards using industry-leading CAD tools.</p>
     </div>
-
     <div class="service-card">
       <h3>FEA & Simulation</h3>
       <p>Structural, stress, and thermal analysis to validate designs and ensure performance under real-world conditions.</p>
     </div>
-
     <div class="service-card">
       <h3>CFD Analysis</h3>
       <p>Fluid flow and thermal optimization to improve efficiency and performance of complex systems.</p>
     </div>
-
     <div class="service-card">
       <h3>Design for Manufacturing</h3>
       <p>Optimizing designs for cost-effective production, reduced complexity, and efficient assembly.</p>
@@ -443,6 +440,39 @@
 </section>
 
 <style>
+/* SERVICES */
+.services {
+  padding: 100px 10%;
+  background: #f4f7fa;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+.service-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+.service-card h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #0366d6;
+}
+.service-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
 /* ABOUT */
 .about {
   position: relative;
@@ -451,7 +481,6 @@
   color: #ffffff;
   text-align: center;
 }
-
 .about .section-header h2 {
   font-size: 2.5rem;
   font-weight: 800;
@@ -461,7 +490,6 @@
   display: inline-block;
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
-
 .about .section-header h2::after {
   content: "";
   display: block;
@@ -471,7 +499,6 @@
   margin: 12px auto 0;
   border-radius: 2px;
 }
-
 .about-content {
   max-width: 800px;
   margin: auto;
@@ -479,18 +506,24 @@
   line-height: 1.8;
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
-
 .about-content p {
   margin-bottom: 20px;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
-  .about {
-    padding: 80px 5%;
+  .project-container {
+    flex-direction: column;
+    padding: 30px;
+  }
+  .project-image img {
+    max-width: 100%;
   }
   .section-header h2 {
     font-size: 2rem;
+  }
+  .about {
+    padding: 80px 5%;
   }
 }
 </style>
