@@ -47,7 +47,7 @@
     }
 
     .logo-icon {
-      height: 60px;   /* bigger logo size */
+      height: 60px;
       width: auto;
     }
 
@@ -60,13 +60,13 @@
     .logo-text .name {
       font-size: 1.6rem;
       font-weight: 800;
-      color: var(--accent-red); /* red accent for name */
+      color: var(--accent-red);
     }
 
     .logo-text .tagline {
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--accent-blue); /* blue for tagline */
+      color: var(--accent-blue);
       letter-spacing: 0.5px;
     }
 
@@ -190,6 +190,66 @@
       background: #024da3;
     }
 
+    /* FEATURED PROJECT */
+    .featured-project {
+      padding: 100px 10%;
+      background: #f4f7fa;
+    }
+
+    .project-container {
+      display: flex;
+      gap: 40px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      padding: 40px;
+      align-items: center;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .project-container:hover {
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+      transform: translateY(-4px);
+    }
+
+    .project-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .project-details {
+      flex: 1;
+    }
+
+    .project-details h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--accent-blue);
+    }
+
+    .project-details p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .project-highlights {
+      list-style: none;
+      padding: 0;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    .project-highlights li {
+      margin-bottom: 8px;
+    }
+
+    /* Responsive */
     @media (max-width: 900px) {
       .logo-icon { height: 40px; }
       .logo-text .name { font-size: 1.2rem; }
@@ -197,6 +257,24 @@
       .hero h1 { font-size: 2.6rem; }
       .hero p { font-size: 1.1rem; }
       .software-badges { margin-top: 60px; }
+
+      .project-container {
+        flex-direction: column;
+        padding: 30px;
+      }
+
+      .project-image img {
+        max-width: 100%;
+      }
+
+      .project-details h2 {
+        font-size: 1.6rem;
+      }
+
+      .project-details p,
+      .project-highlights {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -216,31 +294,3 @@
         <li><a href="#hero">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#about">About Me</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <a href="#contact" class="cta-btn">Start a Project</a>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="hero-content">
-      <h1>
-        <span class="red-accent">Product &</span>
-        <span class="blue-accent">Mechanical</span>
-        <span class="red-accent">CAD</span>
-        <span class="neutral-accent">Design for Real-World Applications</span>
-      </h1>
-      <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
-      
-      <div class="software-badges">
-        <span class="badge">Siemens NX</span>
-        <span class="badge">Creo Parametric</span>
-        <span class="badge">Ansys</span>
-        <span class="badge">Fusion 360</span>
-      </div>
-    </div>
-  </section>
-
-</body>
-</html>
