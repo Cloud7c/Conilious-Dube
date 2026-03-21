@@ -1,371 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conilious Dube | Mechanical CAD Design & Simulation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #0366d6;
-      --dark: #0a0c10;
-      --accent-red: #d62828;
-      --accent-blue: #0366d6;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conilious Dube | Mechanical CAD Design & Simulation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0366d6;
+  --dark: #0a0c10;
+  --accent-red: #d62828;
+  --accent-blue: #0366d6;
+}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: #f4f7fa;
-      color: var(--dark);
-      scroll-behavior: smooth;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #f4f7fa;
+  color: var(--dark);
+  scroll-behavior: smooth;
+}
 
-    /* HEADER */
-    .site-header {
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #e1e4e8;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
+/* HEADER */
+.site-header {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e1e4e8;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 10%;
-    }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 10%;
+}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
-    .logo-icon {
-      height: 60px;
-      width: auto;
-    }
+.logo-icon { height: 60px; }
+.logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+.logo-text .name { font-size: 1.6rem; font-weight: 800; color: var(--accent-red); }
+.logo-text .tagline { font-size: 0.95rem; font-weight: 600; color: var(--accent-blue); letter-spacing: 0.5px; }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
+.nav-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+.nav-links li a { text-decoration: none; font-weight: 600; color: #0a0c10; transition: color 0.3s ease; }
+.nav-links li a:hover { color: var(--primary); }
 
-    .logo-text .name {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--accent-red);
-    }
+.cta-btn {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+.cta-btn:hover { background: #024da3; transform: translateY(-2px); }
 
-    .logo-text .tagline {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--accent-blue);
-      letter-spacing: 0.5px;
-    }
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 10% 80px;
+  background-image: url('newwallpaper.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 30px;
-      margin: 0;
-      padding: 0;
-    }
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  padding: 20px 40px;
+  animation: fadeUp 1.2s ease forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    .nav-links li a {
-      text-decoration: none;
-      font-weight: 600;
-      color: #0a0c10;
-      transition: color 0.3s ease;
-    }
+.hero h1 { font-size: 4.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 24px; letter-spacing: -1px; }
+.red-accent { color: var(--accent-red); }
+.blue-accent { color: var(--accent-blue); }
+.neutral-accent { color: #000000; }
 
-    .nav-links li a:hover {
-      color: var(--primary);
-    }
+.hero p {
+  font-size: 1.4rem;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+  color: #e0e0e0;
+  font-weight: 600;
+  max-width: 700px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 4px 12px rgba(0,0,0,0.8), 0 6px 18px rgba(0,0,0,0.7);
+}
 
-    .cta-btn {
-      background: var(--primary);
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
+.software-badges {
+  margin-top: 120px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.badge {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-block;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 14px rgba(3,102,214,0.25);
+}
+.badge:hover { transform: translateY(-4px); box-shadow:0 10px 20px rgba(3,102,214,0.4); background:#024da3; }
 
-    .cta-btn:hover {
-      background: #024da3;
-      transform: translateY(-2px);
-    }
+/* FEATURED PROJECTS */
+.featured-project { padding: 100px 10%; background: #f4f7fa; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-header h2 { font-size: 2.4rem; font-weight: 800; color: #0366d6; margin-bottom: 12px; }
+.section-header p { font-size: 1.1rem; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6; }
 
-    /* HERO */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      text-align: center;
-      padding: 100px 10% 80px;
-      background-image: url('newwallpaper.png');
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      color: #ffffff;
-    }
+.project-container {
+  display: flex;
+  gap: 40px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  padding: 40px;
+  align-items: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.project-container:hover { box-shadow:0 16px 40px rgba(0,0,0,0.12); transform: translateY(-4px); }
+.project-image img { width: 100%; max-width: 500px; border-radius: 12px; box-shadow:0 8px 24px rgba(0,0,0,0.15); }
+.project-details h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; color: #0366d6; }
+.project-details p { font-size: 1.05rem; line-height:1.6; margin-bottom:20px; color:#333; }
+.project-highlights { list-style:none; padding:0; margin:0; font-size:1rem; line-height:1.8; color:#444; }
+.project-highlights li { margin-bottom:8px; position:relative; padding-left:18px; }
+.project-highlights li::before { content:"•"; color:#0366d6; position:absolute; left:0; }
 
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      padding: 20px 40px;
-      animation: fadeUp 1.2s ease forwards;
-      opacity: 0;
-      transform: translateY(30px);
-    }
+/* SERVICES */
+.services { padding:100px 10%; background:#f4f7fa; }
+.services-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:30px; }
+.service-card { background:#fff; border-radius:14px; padding:30px; box-shadow:0 12px 28px rgba(0,0,0,0.06); transition:transform 0.3s ease, box-shadow 0.3s ease; }
+.service-card:hover { transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.12); }
+.service-card h3 { font-size:1.4rem; font-weight:700; margin-bottom:16px; color:#0366d6; }
+.service-card p { font-size:1rem; line-height:1.6; color:#333; }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+/* ABOUT ME */
+.about { position:relative; padding:120px 10%; background:url('me.png') no-repeat center/cover; color:#fff; }
+.about-overlay { background:rgba(0,0,0,0.55); padding:60px; border-radius:16px; }
+.about .section-header h2 { color:#fff; }
+.about .section-header p { color:#ddd; }
+.about-content { max-width:900px; margin:0 auto; font-size:1.05rem; line-height:1.8; color:#f4f4f4; }
+.about-content p { margin-bottom:20px; }
 
-    .hero h1 {
-      font-size: 4.2rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 24px;
-      letter-spacing: -1px;
-      color: #ffffff;
-    }
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero h1 { font-size:2.6rem; }
+  .hero p { font-size:1.1rem; }
+  .software-badges { margin-top:60px; }
 
-    .red-accent { color: var(--accent-red); }
-    .blue-accent { color: var(--accent-blue); }
-    .neutral-accent { color: #000000; }
+  .project-container { flex-direction:column; padding:30px; }
+  .project-image img { max-width:100%; }
+  .section-header h2 { font-size:2rem; }
 
-    .hero p {
-      font-size: 1.4rem;
-      margin: 0 auto 30px;
-      line-height: 1.6;
-      color: #e0e0e0;
-      font-weight: 600;
-      max-width: 700px;
-      text-shadow: 
-        0 2px 6px rgba(0,0,0,0.9),
-        0 4px 12px rgba(0,0,0,0.8),
-        0 6px 18px rgba(0,0,0,0.7);
-    }
+  .services { padding:60px 5%; }
+  .about { padding:80px 5%; }
+  .about-overlay { padding:30px; }
+  .about-content { font-size:1rem; }
+}
 
-    .software-badges {
-      margin-top: 120px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+@media (max-width:480px){
+  .hero h1 { font-size:2rem; }
+  .hero p { font-size:1rem; }
+  .software-badges { margin-top:40px; gap:8px; }
 
-    .badge {
-      background: var(--primary);
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-block;
-      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 6px 14px rgba(3, 102, 214, 0.25);
-    }
-
-    .badge:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(3, 102, 214, 0.4);
-      background: #024da3;
-    }
-
-    /* NEW FEATURED SECTION */
-    .featured-project {
-      padding: 100px 10%;
-      background: #f4f7fa;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .section-header h2 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-header h2::after {
-      content: "";
-      display: block;
-      width: 60%;
-      height: 4px;
-      background: var(--accent-blue);
-      margin: 8px auto 0;
-      border-radius: 2px;
-    }
-
-    .section-header p {
-      font-size: 1rem;
-      color: #555;
-      max-width: 600px;
-      margin: 10px auto 0;
-    }
-
-    .project-container {
-      display: flex;
-      gap: 40px;
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-      padding: 40px;
-      align-items: center;
-      transition: 0.3s ease;
-    }
-
-    .project-container:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-    }
-
-    .project-image img {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 12px;
-    }
-
-    .project-details {
-      flex: 1;
-    }
-
-    .project-details h3 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 15px;
-      color: var(--accent-blue);
-    }
-
-    .project-details p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .project-highlights {
-      list-style: none;
-      padding: 0;
-    }
-
-    .project-highlights li {
-      margin-bottom: 8px;
-    }
-
-    @media (max-width: 900px) {
-      .logo-icon { height: 40px; }
-      .logo-text .name { font-size: 1.2rem; }
-      .logo-text .tagline { font-size: 0.8rem; }
-      .hero h1 { font-size: 2.6rem; }
-      .hero p { font-size: 1.1rem; }
-      .software-badges { margin-top: 60px; }
-
-      .project-container {
-        flex-direction: column;
-      }
-    }
-  </style>
+  .project-details h3 { font-size:1.3rem; }
+  .project-details p, .project-highlights li { font-size:0.95rem; }
+  .about-content { font-size:0.9rem; }
+}
+</style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <nav class="navbar">
-      <div class="logo">
-        <img src="logo.png" alt="Logo" class="logo-icon">
-        <div class="logo-text">
-          <span class="name">Conilious Dube</span>
-          <span class="tagline">Product Design & Engineering</span>
-        </div>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <a href="#contact" class="cta-btn">Start a Project</a>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="hero-content">
-      <h1>
-        <span class="red-accent">Product &</span>
-        <span class="blue-accent">Mechanical</span>
-        <span class="red-accent">CAD</span>
-        <span class="neutral-accent">Design for Real-World Applications</span>
-      </h1>
-      <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
-      
-      <div class="software-badges">
-        <span class="badge">Siemens NX</span>
-        <span class="badge">Creo Parametric</span>
-        <span class="badge">Ansys</span>
-        <span class="badge">Fusion 360</span>
+<!-- HEADER -->
+<header class="site-header">
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="Logo" class="logo-icon">
+      <div class="logo-text">
+        <span class="name">Conilious Dube</span>
+        <span class="tagline">Product Design & Engineering</span>
       </div>
     </div>
-  </section>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="cta-btn">Start a Project</a>
+  </nav>
+</header>
 
-  <!-- ADDED SECTION -->
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="hero-content">
+    <h1>
+      <span class="red-accent">Product &</span>
+      <span class="blue-accent">Mechanical</span>
+      <span class="red-accent">CAD</span>
+      <span class="neutral-accent">Design for Real-World Applications</span>
+    </h1>
+    <p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
+    <div class="software-badges">
+      <span class="badge">Siemens NX</span>
+      <span class="badge">Creo Parametric</span>
+      <span class="badge">Ansys</span>
+      <span class="badge">Fusion 360</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECT: JET ENGINE -->
+<section class="featured-project">
+  <div class="section-header">
+    <h2>Featured Engineering Work</h2>
+    <p>A selection of mechanical design and simulation projects demonstrating real-world engineering capability.</p>
+  </div>
+  <div class="project-container">
+    <div class="project-image">
+      <img src="jet%20engine.png" alt="Jet Engine Assembly Render">
+    </div>
+    <div class="project-details">
+      <h3>Jet Engine Assembly & Design Study</h3>
+      <p>Developed a detailed jet engine assembly to understand component integration, airflow structure, and mechanical relationships. Focused on precision 3D modeling and assembly techniques using Creo.</p>
+      <ul class="project-highlights">
+        <li>Full multi-component assembly design</li>
+        <li>Detailed part modeling and alignment</li>
+        <li>Exploration of internal structure and system layout</li>
+        <li>Built using Creo Parametric</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- FEATURED PROJECT: V6 ENGINE -->
 <section class="featured-project">
   <div class="section-header">
     <h2>Advanced Engine Modeling</h2>
     <p>High-fidelity V6 engine assembly created in Creo Parametric, showcasing complex part integration and realistic visualization.</p>
   </div>
-
   <div class="project-container">
     <div class="project-image">
       <img src="v6_engine.png" alt="V6 Engine CAD Model">
     </div>
-
     <div class="project-details">
       <h3>V6 Internal Combustion Engine</h3>
-      <p>
-        Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold.
-        The model emphasizes manufacturability and simulation-readiness for engineering analysis.
-      </p>
+      <p>Designed a full V6 engine assembly with detailed components including cylinder block, pistons, crankshaft, turbo system, and exhaust manifold. The model emphasizes manufacturability and simulation-readiness for engineering analysis.</p>
       <ul class="project-highlights">
         <li>Multi-body assembly with realistic constraints</li>
         <li>Color-coded components for clarity and presentation</li>
-        <li>Built using Creo Parametric</li>
+        <li>Built using Creo Parametric Educational Edition</li>
         <li>Includes intake, exhaust, and turbo subsystems</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- SERVICES SECTION -->
+<!-- SERVICES -->
 <section id="services" class="services">
   <div class="section-header">
     <h2>Engineering Services</h2>
     <p>Specialized mechanical design and simulation services for startups and engineering teams.</p>
   </div>
-
   <div class="services-grid">
     <div class="service-card">
       <h3>3D CAD Modeling</h3>
@@ -386,133 +308,20 @@
   </div>
 </section>
 
-<!-- SUB HEADING: ABOUT ME -->
-<div class="section-header about-heading">
-  <h2>About Me</h2>
-</div>
-
-<!-- ABOUT ME SECTION -->
+<!-- ABOUT ME -->
 <section id="about" class="about">
   <div class="about-overlay">
-    <img src="me.png" alt="Conilious at CAD desk" class="about-image">
-    <div class="about-text">
-      <p>
-        I am a mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.
-      </p>
-      <p>
-        I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements. My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.
-      </p>
-      <p>
-        I approach every project with an engineering mindset—balancing design, functionality, and manufacturability. Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>, I design, analyze, and optimize mechanical systems for startups and engineering teams.
-      </p>
-      <p>
-        I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.
-      </p>
+    <div class="section-header">
+      <h2>About Me</h2>
+      <p>Mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.</p>
+    </div>
+    <div class="about-content">
+      <p>I specialize in transforming concepts into precise, production-ready designs that meet real-world performance requirements. My work involves complex assemblies, structural validation, and fluid flow analysis to ensure reliability, efficiency, and durability.</p>
+      <p>I approach every project with an engineering mindset—balancing design, functionality, and manufacturability. Using industry-standard tools including <strong>Siemens NX</strong>, <strong>Creo Parametric</strong>, <strong>Ansys</strong>, and <strong>Fusion 360</strong>, I design, analyze, and optimize mechanical systems for startups and engineering teams.</p>
+      <p>I am continuously refining my skills and taking on challenging projects to deliver efficient, practical, and high-performance engineering solutions.</p>
     </div>
   </div>
 </section>
-
-<style>
-/* SERVICES */
-.services {
-  padding: 100px 10%;
-  background: #f4f7fa;
-}
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-}
-.service-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 30px;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-}
-.service-card h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: #0366d6;
-}
-.service-card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-}
-
-/* ABOUT HEADING */
-.about-heading h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #0366d6;
-  margin: 60px auto 20px;
-  position: relative;
-  display: inline-block;
-}
-.about-heading h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: #0366d6;
-  margin: 12px auto 0;
-  border-radius: 2px;
-}
-
-/* ABOUT */
-.about {
-  position: relative;
-  text-align: center;
-}
-.about-overlay {
-  position: relative;
-}
-.about-image {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.about-text {
-  position: absolute;
-  top: 0;              /* overlay starts at top */
-  bottom: 0;           /* overlay reaches bottom */
-  left: 10%;           /* keep side gaps */
-  right: 10%;          /* keep side gaps */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* center text vertically */
-  color: #fff;
-  font-size: 1.2rem;   /* bigger text */
-  line-height: 1.9;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
-  background: rgba(0,0,0,0.35); /* full-height overlay */
-  padding: 40px;
-  border-radius: 12px;
-}
-.about-text p {
-  margin-bottom: 20px;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .services {
-    padding: 60px 5%;
-  }
-  .about-text {
-    font-size: 1rem;
-    padding: 20px;
-  }
-  .about-heading h2 {
-    font-size: 2rem;
-  }
-}
-</style>
 
 </body>
 </html>
