@@ -22,7 +22,9 @@
 
 /* Reset & base */
 *{box-sizing:border-box}
-html,body{height:100%; width:100%; margin:0; padding:0; overflow-x:hidden; font-family:'Inter',sans-serif; background:#ffffff; color:var(--super-black); -webkit-font-smoothing:antialiased; scroll-behavior:smooth;}
+
+/* FIX: Removed height: 100% so mobile anchor links can scroll smoothly */
+html,body{width:100%; margin:0; padding:0; overflow-x:hidden; font-family:'Inter',sans-serif; background:#ffffff; color:var(--super-black); -webkit-font-smoothing:antialiased; scroll-behavior:smooth;}
 body { padding-top: var(--header-height-desktop); }
 section { scroll-margin-top: 100px; width: 100%; }
 
@@ -95,7 +97,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .project-highlights li{margin-bottom:12px;position:relative;padding-left:24px}
 .project-highlights li::before{content:"→";color:var(--primary);position:absolute;left:0;font-weight:bold;}
 
-/* GALLERY TRIGGER CARD */
+/* CLEAN, SOFT-TINT GALLERY TRIGGER */
 .gallery-trigger-card {
   width: 100%; max-width: 1200px; margin: 40px auto 0; padding: 50px 40px; border-radius: 24px; text-align: center;
   cursor: pointer; position: relative; overflow: hidden;
@@ -113,6 +115,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .gallery-trigger-card h2 { color: var(--super-black); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em; }
 .gallery-trigger-card p { color: var(--text-gray); font-size: 1.15rem; font-weight: 500; margin-bottom: 24px; }
 
+/* Mimicking the highly successful "Freelance Badge" aesthetic */
 .gallery-pulsing-btn {
   display: inline-flex; align-items: center; gap: 10px;
   background: rgba(3, 102, 214, 0.1); color: var(--primary);
@@ -126,7 +129,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .gallery-trigger-card:hover .radar-dot::after { border-color: #fff; }
 @keyframes radarPulse { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
 
-/* LIGHTBOX */
+/* CINEMATIC DARK MODE LIGHTBOX */
 .lightbox-overlay {
   position: fixed; inset: 0; background: rgba(10, 12, 16, 0.98); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   z-index: 10000; display: flex; align-items: center; justify-content: center;
@@ -227,7 +230,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .site-footer { background: #fff; padding: 40px 5%; border-top: 1px solid var(--border-light); text-align: center; }
 .site-footer p { color: var(--text-gray); font-size: 0.95rem; font-weight: 500; margin: 0; }
 
-/* PROJECT WIZARD STYLES */
+/* PROJECT WIZARD MODAL */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 12, 16, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; padding: 20px; }
 .modal-overlay.is-active { opacity: 1; visibility: visible; }
 .modal-container { background: #ffffff; width: 100%; max-width: 600px; border-radius: 24px; box-shadow: 0 24px 60px rgba(0,0,0,0.2); position: relative; transform: translateY(20px) scale(0.98); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; max-height: 90vh; overflow-y: auto; }
@@ -286,7 +289,6 @@ section { scroll-margin-top: 100px; width: 100%; }
 @keyframes ripple { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
 .success-content h3 { font-size: 1.6rem; color: var(--super-black); margin-bottom: 12px; }
 .success-content p { color: var(--text-gray); line-height: 1.7; font-size: 1.05rem; }
-
 
 /* DESKTOP ONLY: HEADER */
 @media (min-width: 901px) {
@@ -353,8 +355,18 @@ section { scroll-margin-top: 100px; width: 100%; }
   .logo-icon{ height:56px; }
   .menu-toggle { display: block; width: 45px; height: 45px; padding: 10px; }
   .hamburger { left: 10px; top: 50%; transform: translateY(-50%); }
-  .nav-group { position: absolute; top: var(--header-height-mobile); left: 0; width: 100%; background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); flex-direction: column; padding: 30px 5%; box-shadow: 0 10px 20px rgba(0,0,0,0.06); clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.4s ease-in-out; border-bottom: 1px solid var(--border-light); display: flex; }
-  .nav-group.is-open { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  
+  /* FIX: Bulletproof mobile hiding */
+  .nav-group { 
+    position: absolute; top: var(--header-height-mobile); left: 0; width: 100%; 
+    background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
+    flex-direction: column; padding: 30px 5%; box-shadow: 0 10px 20px rgba(0,0,0,0.06); 
+    border-bottom: 1px solid var(--border-light); display: flex; 
+    opacity: 0; visibility: hidden; transform: translateY(-15px);
+    transition: all 0.3s ease-in-out;
+  }
+  .nav-group.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+  
   .nav-links { flex-direction: column; width: 100%; gap: 24px; text-align: center; }
   .nav-links a { font-size: 1.15rem; display: block; padding: 5px; }
   .cta-btn { margin-top: 10px; width: 100%; text-align: center; padding: 12px 24px;}
@@ -700,7 +712,7 @@ section { scroll-margin-top: 100px; width: 100%; }
         <div class="modal-body success-content">
           <div class="success-ring">&#10003;</div>
           <h3>Request Secured</h3>
-          <p>Your requirements and files have been successfully transmitted. I will review your details and <strong>reply to your email within 24 hours.</strong></p>
+          <p style="color: var(--text-gray); line-height: 1.6;">Your requirements have been successfully transmitted. I will review your details and <strong>reply to your email within 24 hours.</strong></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn-primary" id="finishBtn" style="width: 100%;">Close Window</button>
@@ -712,6 +724,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Nav
     const menuToggle = document.querySelector('.menu-toggle');
     const navGroup = document.querySelector('.nav-group');
     const navLinks = document.querySelectorAll('.nav-links a:not(.open-modal-btn)');
@@ -727,6 +740,7 @@ section { scroll-margin-top: 100px; width: 100%; }
       });
     });
 
+    // Reveal Animation
     const revealElements = document.querySelectorAll('.reveal');
     const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
     const revealOnScroll = new IntersectionObserver(function(entries, observer) {
@@ -739,6 +753,7 @@ section { scroll-margin-top: 100px; width: 100%; }
     }, revealOptions);
     revealElements.forEach(el => revealOnScroll.observe(el));
 
+    // LIGHTBOX GALLERY LOGIC
     const openGalleryBtn = document.getElementById('openGalleryBtn');
     const navGalleryBtn = document.getElementById('navGalleryBtn');
     const lightboxOverlay = document.getElementById('lightboxOverlay');
@@ -801,6 +816,7 @@ section { scroll-margin-top: 100px; width: 100%; }
       }
     });
 
+    // WIZARD MODAL LOGIC
     const modalOverlay = document.getElementById('wizardModal');
     const openBtns = document.querySelectorAll('.open-modal-btn');
     const closeBtn = document.getElementById('closeModalBtn');
@@ -809,7 +825,7 @@ section { scroll-margin-top: 100px; width: 100%; }
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
-    const step4 = document.getElementById('step4'); 
+    const step4 = document.getElementById('step4'); // Success Screen
     
     const indicator1 = document.getElementById('indicator1');
     const indicator2 = document.getElementById('indicator2');
@@ -825,18 +841,20 @@ section { scroll-margin-top: 100px; width: 100%; }
     const softwareCards = document.querySelectorAll('.software-card');
     const hiddenSoftwareInput = document.getElementById('softwareSelection');
     
+    // File Input Logic
     const fileInput = document.getElementById('fileInput');
-    const dropzone = document.getElementById('dropzone');
     const fileNameDisplay = document.getElementById('fileNameDisplay');
 
-    fileInput.addEventListener('change', function() {
-      if(this.files && this.files.length > 0) {
-        fileNameDisplay.textContent = "Attached: " + this.files[0].name;
-        fileNameDisplay.style.display = 'inline-block';
-      } else {
-        fileNameDisplay.style.display = 'none';
-      }
-    });
+    if(fileInput) {
+      fileInput.addEventListener('change', function() {
+        if(this.files && this.files.length > 0) {
+          fileNameDisplay.textContent = "Attached: " + this.files[0].name;
+          fileNameDisplay.style.display = 'inline-block';
+        } else {
+          fileNameDisplay.style.display = 'none';
+        }
+      });
+    }
 
     openBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -861,7 +879,7 @@ section { scroll-margin-top: 100px; width: 100%; }
         indicator2.classList.remove('active');
         indicator3.classList.remove('active');
         form.reset();
-        fileNameDisplay.style.display = 'none';
+        if(fileNameDisplay) fileNameDisplay.style.display = 'none';
         submitBtn.innerText = 'Secure Submit';
         submitBtn.disabled = false;
         
@@ -883,6 +901,7 @@ section { scroll-margin-top: 100px; width: 100%; }
       });
     });
 
+    // Step Navigation
     nextBtn1.addEventListener('click', () => {
       step1.classList.remove('is-active');
       step2.classList.add('is-active');
@@ -890,11 +909,8 @@ section { scroll-margin-top: 100px; width: 100%; }
     });
 
     nextBtn2.addEventListener('click', () => {
-      const nameInput = document.getElementById('clientName');
-      const emailInput = document.getElementById('clientEmail');
-      if(!nameInput.checkValidity() || !emailInput.checkValidity()) {
-        nameInput.reportValidity();
-        emailInput.reportValidity();
+      if(!document.getElementById('clientName').checkValidity() || !document.getElementById('clientEmail').checkValidity()) {
+        document.getElementById('wizardForm').reportValidity();
         return;
       }
       step2.classList.remove('is-active');
@@ -914,6 +930,7 @@ section { scroll-margin-top: 100px; width: 100%; }
       indicator3.classList.remove('active');
     });
 
+    // Form Submission
     form.addEventListener('submit', (e) => {
       e.preventDefault(); 
       if(!form.checkValidity()) return;
@@ -941,6 +958,7 @@ section { scroll-margin-top: 100px; width: 100%; }
       });
     });
 
+    // COUNTING STAT ANIMATION
     const counters = document.querySelectorAll('.stat-number');
     const counterObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
