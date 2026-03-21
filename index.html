@@ -29,28 +29,10 @@ section { scroll-margin-top: 120px; }
 
 /* HEADER - Base Styles */
 .site-header{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  height:var(--header-height-desktop);
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  position:fixed; top:0; left:0; right:0; height:var(--header-height-desktop);
+  z-index:1000; display:flex; align-items:center; background: transparent; border: none; box-shadow: none;
 }
-.navbar{
-  width:100%;
-  max-width:100%;
-  margin:0 auto;
-  padding:10px 60px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
+.navbar{ width:100%; max-width:100%; margin:0 auto; padding:10px 60px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
 
 /* Logo block */
 .logo{ display:flex; align-items:center; flex-shrink:0; text-decoration: none; }
@@ -114,6 +96,63 @@ section { scroll-margin-top: 120px; }
 .project-highlights li{margin-bottom:12px;position:relative;padding-left:24px}
 .project-highlights li::before{content:"→";color:var(--primary);position:absolute;left:0;font-weight:bold;}
 
+/* =========================================
+   NEW: PREMIUM GALLERY TRIGGER BANNER
+   ========================================= */
+.gallery-trigger-section { padding: 40px 5% 100px; background: #ffffff; display: flex; justify-content: center; }
+.gallery-trigger-card {
+  width: 100%; max-width: 1200px; padding: 60px 40px; border-radius: 24px; text-align: center;
+  cursor: pointer; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #0a0c10 0%, #03449e 50%, #0a0c10 100%);
+  background-size: 200% 200%; animation: gradientLiquid 8s ease infinite;
+  box-shadow: 0 20px 50px rgba(3, 102, 214, 0.15); border: 1px solid rgba(255,255,255,0.1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+@keyframes gradientLiquid { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.gallery-trigger-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(3, 102, 214, 0.3); }
+.gallery-trigger-content { position: relative; z-index: 2; }
+.gallery-trigger-card h2 { color: #ffffff; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+.gallery-trigger-card p { color: rgba(255,255,255,0.8); font-size: 1.15rem; font-weight: 500; margin-bottom: 30px; }
+.gallery-pulsing-btn {
+  display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 14px 32px;
+  border-radius: 50px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease;
+}
+.gallery-trigger-card:hover .gallery-pulsing-btn { background: #ffffff; color: var(--super-black); }
+.radar-dot { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: relative; }
+.radar-dot::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #fff; animation: radarPulse 1.5s infinite; }
+.gallery-trigger-card:hover .radar-dot { background: var(--primary); }
+.gallery-trigger-card:hover .radar-dot::after { border-color: var(--primary); }
+@keyframes radarPulse { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+
+/* =========================================
+   NEW: CINEMATIC DARK MODE LIGHTBOX
+   ========================================= */
+.lightbox-overlay {
+  position: fixed; inset: 0; background: rgba(10, 12, 16, 0.98); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  z-index: 10000; display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: opacity 0.4s ease;
+}
+.lightbox-overlay.is-active { opacity: 1; visibility: visible; }
+.lightbox-close {
+  position: absolute; top: 30px; right: 40px; background: none; border: none; color: #fff;
+  font-size: 3rem; font-weight: 300; cursor: pointer; transition: transform 0.3s ease; line-height: 1; z-index: 10001;
+}
+.lightbox-close:hover { transform: scale(1.1) rotate(90deg); }
+
+.lightbox-content { position: relative; max-width: 90vw; max-height: 85vh; display: flex; align-items: center; justify-content: center; }
+.lightbox-img { max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); display: none; user-select: none; }
+.lightbox-img.active { display: block; animation: imageFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes imageFadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+.lightbox-controls { position: absolute; top: 50%; left: 0; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; padding: 0 2vw; z-index: 10001; }
+.lightbox-btn {
+  pointer-events: auto; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: #fff; width: 60px; height: 60px; border-radius: 50%; font-size: 1.5rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; backdrop-filter: blur(4px);
+}
+.lightbox-btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
+
 /* SERVICES */
 .services{padding:120px 5%;background:var(--bg-offwhite); border-top: 1px solid var(--border-light);}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;max-width: 1200px;margin: 0 auto;}
@@ -155,26 +194,12 @@ section { scroll-margin-top: 120px; }
 .site-footer p { color: var(--text-gray); font-size: 0.95rem; font-weight: 500; margin: 0; }
 
 /* =========================================
-   FIXED: PREMIUM MULTI-STEP MODAL WIZARD
+   PROJECT WIZARD MODAL (Reused styles)
    ========================================= */
-.modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(10, 12, 16, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  z-index: 9999; display: flex; align-items: center; justify-content: center;
-  opacity: 0; visibility: hidden; transition: all 0.4s ease; padding: 20px;
-}
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 12, 16, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; padding: 20px; }
 .modal-overlay.is-active { opacity: 1; visibility: visible; }
-
-.modal-container {
-  background: #ffffff; width: 100%; max-width: 600px; border-radius: 24px;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.2); position: relative; 
-  transform: translateY(20px) scale(0.98); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex; flex-direction: column; 
-  max-height: 90vh; /* Limits height to screen size */
-  overflow-y: auto; /* FIX: Allows the entire modal to scroll if it exceeds screen height */
-}
+.modal-container { background: #ffffff; width: 100%; max-width: 600px; border-radius: 24px; box-shadow: 0 24px 60px rgba(0,0,0,0.2); position: relative; transform: translateY(20px) scale(0.98); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; max-height: 90vh; overflow-y: auto; }
 .modal-overlay.is-active .modal-container { transform: translateY(0) scale(1); }
-
 .modal-header { padding: 30px 40px 20px; border-bottom: 1px solid var(--border-light); position: relative; }
 .modal-close { position: absolute; top: 25px; right: 30px; background: none; border: none; font-size: 1.8rem; color: var(--text-gray); cursor: pointer; transition: color 0.2s; line-height: 1; }
 .modal-close:hover { color: var(--super-black); }
@@ -182,44 +207,31 @@ section { scroll-margin-top: 120px; }
 .progress-bar { display: flex; gap: 8px; margin-top: 16px; }
 .progress-step { height: 4px; flex: 1; background: var(--border-light); border-radius: 4px; transition: background 0.3s; }
 .progress-step.active { background: var(--primary); }
-
 .modal-body { padding: 40px; }
 .wizard-step { display: none; animation: slideIn 0.4s ease forwards; }
 .wizard-step.is-active { display: block; }
 @keyframes slideIn { from { opacity: 0; transform: translateX(15px); } to { opacity: 1; transform: translateX(0); } }
-
 .wizard-step h3 { font-size: 1.25rem; font-weight: 700; margin: 0 0 20px 0; color: var(--super-black); }
-
-/* Step 1: Software Cards */
 .software-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .software-card { border: 2px solid var(--border-light); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; font-weight: 600; color: var(--text-gray); user-select: none; }
 .software-card:hover { border-color: #a8c8eb; background: #f4f9ff; }
 .software-card.selected { border-color: var(--primary); background: rgba(3,102,214,0.05); color: var(--primary); }
 .software-card.full-width { grid-column: span 2; }
-
-/* Step 2: Form Inputs */
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: var(--super-black); }
 .form-input, .form-textarea { width: 100%; padding: 14px 16px; border: 1px solid var(--border-light); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--super-black); transition: all 0.2s; }
 .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(3, 102, 214, 0.1); }
 .form-textarea { resize: vertical; min-height: 120px; }
-
-/* Modal Footer & Buttons */
 .modal-footer { padding: 20px 40px 30px; display: flex; justify-content: space-between; gap: 16px; }
 .btn-secondary { padding: 14px 24px; border: 1px solid var(--border-light); background: #fff; color: var(--super-black); border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; width: 30%; text-align: center; }
 .btn-secondary:hover { background: var(--bg-offwhite); border-color: #cbd5e1; }
 .btn-primary { padding: 14px 24px; border: none; background: var(--super-black); color: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; flex: 1; text-align: center; }
 .btn-primary:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(3,102,214,0.2); }
 .btn-primary:disabled { background: var(--border-light); color: var(--text-gray); cursor: not-allowed; transform: none; box-shadow: none; }
-
-/* Step 3: Success State */
 .success-content { text-align: center; padding: 20px 0; }
 .success-icon { width: 64px; height: 64px; background: #22c55e; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 24px; animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-@keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-/* =========================================
-   DESKTOP ONLY: PREMIUM MINIMALIST HEADER
-   ========================================= */
+/* DESKTOP ONLY: HEADER */
 @media (min-width: 901px) {
   .site-header { background: transparent; border: none; box-shadow: none; pointer-events: none; }
   .navbar { pointer-events: auto; }
@@ -237,15 +249,8 @@ section { scroll-margin-top: 120px; }
   .cta-btn { margin-top: 10px; padding: 14px 28px; }
 }
 
-/* =========================================
-   MOBILE ONLY
-   ========================================= */
-@media (max-width:1024px) {
-  .project-container { flex-direction: column; gap: 30px; padding: 30px; }
-  .project-details { padding-left: 0; }
-  .about-grid { gap: 40px; }
-  .about-image-col img { height: 500px; }
-}
+/* MOBILE ONLY */
+@media (max-width:1024px) { .project-container { flex-direction: column; gap: 30px; padding: 30px; } .project-details { padding-left: 0; } .about-grid { gap: 40px; } .about-image-col img { height: 500px; } }
 @media (max-width:900px){
   .site-header{ background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: none; box-shadow: none; height: var(--header-height-mobile); }
   .navbar{ padding:8px 5%; }
@@ -262,6 +267,9 @@ section { scroll-margin-top: 120px; }
   .about-image-col img { height: 400px; }
   .section-header{ margin-bottom: 40px; }
   .featured-project, .services, .about-section-wrapper, .testimonials-section, .cta-banner-section { padding: 80px 5%; }
+  .lightbox-close { top: 20px; right: 20px; font-size: 2.5rem; }
+  .lightbox-controls { padding: 0 10px; }
+  .lightbox-btn { width: 45px; height: 45px; font-size: 1.2rem; }
 }
 @media (max-width:420px){
   .logo-icon{ height:48px; }
@@ -359,6 +367,19 @@ section { scroll-margin-top: 120px; }
   </div>
 </section>
 
+<section class="gallery-trigger-section reveal">
+  <div class="gallery-trigger-card" id="openGalleryBtn">
+    <div class="gallery-trigger-content">
+      <h2>Explore My Complete Portfolio</h2>
+      <p>View high-resolution renders of mechanical assemblies, parts, and simulations.</p>
+      <div class="gallery-pulsing-btn">
+        <div class="radar-dot"></div>
+        Enter Gallery
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="services" class="services">
   <div class="section-header reveal">
     <h2>Engineering Services</h2>
@@ -447,6 +468,21 @@ section { scroll-margin-top: 120px; }
   <p>&copy; 2026 Conilious Dube. All rights reserved. | <a href="mailto:coniliouskailash3@gmail.com" style="color:var(--text-gray); text-decoration:none;">coniliouskailash3@gmail.com</a></p>
 </footer>
 
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" id="closeLightboxBtn" aria-label="Close Gallery">&times;</button>
+  
+  <div class="lightbox-controls">
+    <button class="lightbox-btn" id="prevImageBtn" aria-label="Previous Image">&larr;</button>
+    <button class="lightbox-btn" id="nextImageBtn" aria-label="Next Image">&rarr;</button>
+  </div>
+
+  <div class="lightbox-content" id="lightboxContent">
+    
+    <img src="jet%20engine.png" class="lightbox-img active" alt="CAD Render">
+    
+    </div>
+</div>
+
 <div class="modal-overlay" id="wizardModal">
   <div class="modal-container">
     <div class="modal-header">
@@ -459,7 +495,6 @@ section { scroll-margin-top: 120px; }
     </div>
 
     <form id="wizardForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      
       <div class="wizard-step is-active" id="step1">
         <div class="modal-body">
           <h3>What software does your project require?</h3>
@@ -509,7 +544,6 @@ section { scroll-margin-top: 120px; }
           <button type="button" class="btn-primary" id="finishBtn">Close Window</button>
         </div>
       </div>
-
     </form>
   </div>
 </div>
@@ -543,24 +577,80 @@ section { scroll-margin-top: 120px; }
     }, revealOptions);
     revealElements.forEach(el => revealOnScroll.observe(el));
 
-    // WIZARD MODAL LOGIC
+    // --- LIGHTBOX GALLERY LOGIC ---
+    const openGalleryBtn = document.getElementById('openGalleryBtn');
+    const lightboxOverlay = document.getElementById('lightboxOverlay');
+    const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+    const nextImageBtn = document.getElementById('nextImageBtn');
+    const prevImageBtn = document.getElementById('prevImageBtn');
+    
+    // Select all images inside the lightbox
+    const images = document.querySelectorAll('.lightbox-img');
+    let currentImageIndex = 0;
+
+    openGalleryBtn.addEventListener('click', () => {
+      lightboxOverlay.classList.add('is-active');
+      document.body.style.overflow = 'hidden'; 
+    });
+
+    const closeLightbox = () => {
+      lightboxOverlay.classList.remove('is-active');
+      document.body.style.overflow = '';
+    };
+
+    closeLightboxBtn.addEventListener('click', closeLightbox);
+    lightboxOverlay.addEventListener('click', (e) => { if(e.target === lightboxOverlay) closeLightbox(); });
+
+    // Gallery Navigation Logic
+    const showImage = (index) => {
+      images.forEach(img => img.classList.remove('active'));
+      images[index].classList.add('active');
+    };
+
+    nextImageBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevents clicking the background overlay
+      if(images.length > 1) {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        showImage(currentImageIndex);
+      }
+    });
+
+    prevImageBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if(images.length > 1) {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        showImage(currentImageIndex);
+      }
+    });
+
+    // Keyboard navigation for gallery
+    document.addEventListener('keydown', (e) => {
+      if (!lightboxOverlay.classList.contains('is-active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight' && images.length > 1) {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        showImage(currentImageIndex);
+      }
+      if (e.key === 'ArrowLeft' && images.length > 1) {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        showImage(currentImageIndex);
+      }
+    });
+
+    // --- WIZARD MODAL LOGIC ---
     const modalOverlay = document.getElementById('wizardModal');
     const openBtns = document.querySelectorAll('.open-modal-btn');
     const closeBtn = document.getElementById('closeModalBtn');
     const finishBtn = document.getElementById('finishBtn');
-    
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
-    
     const indicator1 = document.getElementById('indicator1');
     const indicator2 = document.getElementById('indicator2');
-    
     const nextBtn = document.getElementById('nextBtn');
     const backBtn = document.getElementById('backBtn');
     const submitBtn = document.getElementById('submitBtn');
     const form = document.getElementById('wizardForm');
-
     const softwareCards = document.querySelectorAll('.software-card');
     const hiddenSoftwareInput = document.getElementById('softwareSelection');
 
@@ -587,7 +677,6 @@ section { scroll-margin-top: 120px; }
         form.reset();
         submitBtn.innerText = 'Submit Request';
         submitBtn.disabled = false;
-        
         softwareCards.forEach(c => c.classList.remove('selected'));
         document.querySelector('.software-card[data-value="Not Sure / Please Advise"]').classList.add('selected');
         hiddenSoftwareInput.value = "Not Sure / Please Advise";
@@ -610,7 +699,6 @@ section { scroll-margin-top: 120px; }
       step1.classList.remove('is-active');
       step2.classList.add('is-active');
       indicator2.classList.add('active');
-      // Fix for small screens: ensure modal scrolls back to top when advancing step
       document.querySelector('.modal-container').scrollTop = 0; 
     });
 
@@ -627,7 +715,6 @@ section { scroll-margin-top: 120px; }
       submitBtn.innerText = 'Sending...';
       submitBtn.disabled = true;
 
-      // Smart Bypass: If Formspree ID is missing, just simulate success for testing
       if (form.action.includes("YOUR_FORM_ID")) {
         setTimeout(() => {
           step2.classList.remove('is-active');
@@ -638,11 +725,7 @@ section { scroll-margin-top: 120px; }
       }
 
       const data = new FormData(form);
-      fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      })
+      fetch(form.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } })
       .then(response => {
         if (response.ok) {
           step2.classList.remove('is-active');
