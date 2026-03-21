@@ -1,234 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conilious Dube | Mechanical CAD Design & Simulation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #0366d6;
-      --dark: #0a0c10;
-      --accent-red: #d62828;
-      --accent-blue: #0366d6;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conilious Dube | Mechanical CAD Design & Simulation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: #f4f7fa;
-      color: var(--dark);
-      scroll-behavior: smooth;
-    }
+<style>
+:root {
+  --primary: #0366d6;
+  --dark: #0a0c10;
+  --accent-red: #d62828;
+  --accent-blue: #0366d6;
+}
 
-    /* HEADER */
-    .site-header {
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #e1e4e8;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #f4f7fa;
+  color: var(--dark);
+}
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 12px 5%;
-    }
+/* HEADER */
+.site-header {
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5%;
+  flex-wrap: wrap;
+}
 
-    .logo-icon { height: 50px; }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-icon { height:50px; }
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
+.logo-text .name { font-weight:800; color:var(--accent-red); }
+.logo-text .tagline { font-size:0.8rem; color:var(--accent-blue); }
 
-    .logo-text .name {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--accent-red);
-    }
+.nav-links { display:flex; gap:20px; list-style:none; }
+.nav-links a { text-decoration:none; color:#000; font-weight:600; }
 
-    .logo-text .tagline {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent-blue);
-    }
+.cta-btn {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+}
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+/* HERO VIDEO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 10% 80px;
+  overflow: hidden;
+}
 
-    .nav-links li a {
-      text-decoration: none;
-      font-weight: 600;
-      color: #0a0c10;
-    }
+.hero-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
 
-    .cta-btn {
-      background: var(--primary);
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-    }
+.hero::after {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  top:0;
+  left:0;
+  z-index:-1;
+}
 
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      text-align: center;
-      padding: 100px 10% 80px;
-      background-image: url('newwallpaper.png');
-      background-size: cover;
-      background-position: center;
-      color: #fff;
-    }
+.hero-content { max-width:900px; }
 
-    .hero-content {
-      max-width: 900px;
-      animation: fadeUp 1.2s ease forwards;
-      opacity: 0;
-      transform: translateY(30px);
-    }
+.hero h1 {
+  font-size: 4rem;
+  color:#fff;
+}
 
-    @keyframes fadeUp {
-      to { opacity:1; transform:translateY(0); }
-    }
+.red-accent { color:#d62828; }
+.blue-accent { color:#0366d6; }
+.neutral-accent { color:#000; }
 
-    .hero h1 { font-size:4rem; font-weight:800; }
+.hero p { color:#e0e0e0; }
 
-    .red-accent { color: var(--accent-red); }
-    .blue-accent { color: var(--accent-blue); }
-    .neutral-accent { color: #000; }
+.software-badges {
+  margin-top:60px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+}
 
-    .hero p { color:#e0e0e0; }
+.badge {
+  background:#0366d6;
+  color:#fff;
+  padding:10px 20px;
+  border-radius:10px;
+}
 
-    .software-badges {
-      margin-top:120px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
+/* PROJECTS */
+.featured-project { padding:100px 10%; }
+.project-container {
+  display:flex;
+  gap:30px;
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+}
 
-    .badge {
-      background: var(--primary);
-      color:#fff;
-      padding:12px 28px;
-      border-radius:12px;
-    }
+.project-container img { max-width:400px; }
 
-    /* FEATURED PROJECTS */
-    .featured-project { padding:100px 10%; }
+/* SERVICES */
+.services { padding:100px 10%; }
+.services-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
 
-    .project-container {
-      display:flex;
-      gap:40px;
-      background:#fff;
-      border-radius:16px;
-      padding:40px;
-      flex-wrap:wrap;
-    }
+/* ABOUT */
+.about-section-wrapper { padding:100px 10%; }
 
-    /* SERVICES */
-    .services { padding:100px 10%; }
+.about {
+  background:url('me.png') top center/cover no-repeat;
+  min-height:400px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    /* ✅ FIXED ABOUT (NO IMAGE, SAME LIGHTING) */
-    .about-section-wrapper {
-      padding:100px 5% 50px;
-      background:#fff;
-    }
+.about-overlay {
+  background:rgba(0,0,0,0.55);
+  color:#fff;
+  padding:40px;
+  border-radius:12px;
+}
 
-    .about {
-      position:relative;
-
-      /* IMAGE REMOVED → LIGHTING KEPT */
-      background: linear-gradient(
-        rgba(0,0,0,0.75),
-        rgba(0,0,0,0.65)
-      );
-
-      border-radius:16px;
-      min-height:500px;
-      margin-top:40px;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .about-overlay {
-      padding:40px;
-      max-width:900px;
-      text-align:center;
-      color:#fff;
-    }
-
-    .about-content p {
-      margin-bottom:20px;
-      line-height:1.8;
-    }
-
-    /* RESPONSIVE */
-    @media(max-width:900px){
-      .navbar { flex-direction:column; align-items:flex-start; }
-      .hero h1 { font-size:2.4rem; }
-      .project-container { flex-direction:column; }
-      .about { min-height:400px; padding:30px; }
-    }
-  </style>
+/* MOBILE FIX */
+@media(max-width:900px){
+.hero { padding-top:180px; }
+.hero h1 { font-size:2.2rem; }
+.project-container { flex-direction:column; }
+}
+</style>
 </head>
 
 <body>
 
 <!-- HEADER -->
 <header class="site-header">
-  <nav class="navbar">
-    <div class="logo">
-      <img src="logo.png" class="logo-icon">
-      <div class="logo-text">
-        <span class="name">Conilious Dube</span>
-        <span class="tagline">Product Design & Engineering</span>
-      </div>
-    </div>
-  </nav>
+<nav class="navbar">
+<div class="logo">
+<img src="logo.png" class="logo-icon">
+<div class="logo-text">
+<span class="name">Conilious Dube</span>
+<span class="tagline">Product Design & Engineering</span>
+</div>
+</div>
+
+<ul class="nav-links">
+<li><a href="#hero">Home</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#about-wrapper">About</a></li>
+</ul>
+
+<a href="#" class="cta-btn">Start</a>
+</nav>
 </header>
 
-<!-- ABOUT ME -->
-<section id="about-wrapper" class="about-section-wrapper">
-  <div class="section-header">
-    <h2>About Me</h2>
-    <p>Mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.</p>
-  </div>
+<!-- HERO -->
+<section id="hero" class="hero">
 
-  <div class="about">
-    <div class="about-overlay">
-      <div class="about-content">
-        <p>I specialize in transforming concepts into precise, production-ready designs...</p>
-        <p>I approach every project with an engineering mindset...</p>
-        <p>I am continuously refining my skills...</p>
-      </div>
-    </div>
-  </div>
+<video autoplay muted loop playsinline class="hero-video">
+<source src="wallpapervid.mp4" type="video/mp4">
+</video>
+
+<div class="hero-content">
+<h1>
+<span class="red-accent">Product &</span>
+<span class="blue-accent">Mechanical</span>
+<span class="red-accent">CAD</span>
+<span class="neutral-accent">Design for Real-World Applications</span>
+</h1>
+
+<p>Design manufacturable 3D CAD models and perform simulations.</p>
+
+<div class="software-badges">
+<span class="badge">Siemens NX</span>
+<span class="badge">Creo</span>
+<span class="badge">Ansys</span>
+<span class="badge">Fusion 360</span>
+</div>
+</div>
+
+</section>
+
+<!-- JET ENGINE -->
+<section class="featured-project">
+<h2>Jet Engine</h2>
+<div class="project-container">
+<img src="jet%20engine.png">
+<p>Jet engine assembly project...</p>
+</div>
+</section>
+
+<!-- V6 -->
+<section class="featured-project">
+<h2>V6 Engine</h2>
+<div class="project-container">
+<img src="v6_engine.png">
+<p>V6 engine model...</p>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services">
+<h2>Services</h2>
+<div class="services-grid">
+<div>3D CAD</div>
+<div>FEA</div>
+<div>CFD</div>
+<div>DFM</div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about-wrapper" class="about-section-wrapper">
+<h2>About Me</h2>
+
+<div class="about">
+<div class="about-overlay">
+<p>Your full about text is here and visible again.</p>
+</div>
+</div>
+
 </section>
 
 </body>
