@@ -1,272 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conilious Dube | Mechanical CAD Design & Simulation</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conilious Dube | Mechanical CAD Design & Simulation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0366d6;
+      --dark: #0a0c10;
+      --accent-red: #d62828;
+      --accent-blue: #0366d6;
+    }
 
-<style>
-:root {
-  --primary: #0366d6;
-  --dark: #0a0c10;
-  --accent-red: #d62828;
-  --accent-blue: #0366d6;
-}
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: #f4f7fa;
+      color: var(--dark);
+      scroll-behavior: smooth;
+    }
 
-body {
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  background: #f4f7fa;
-  color: var(--dark);
-  scroll-behavior: smooth;
-}
+    /* HEADER */
+    .site-header {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e1e4e8;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
 
-/* HEADER */
-.site-header {
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #e1e4e8;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 12px 5%;
+    }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 10px 5%;
-  gap: 10px;
-}
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    .logo-icon { height: 50px; }
 
-.logo-icon { height: 50px; }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
 
-.logo-text .name {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--accent-red);
-}
+    .logo-text .name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent-red);
+    }
 
-.logo-text .tagline {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent-blue);
-}
+    .logo-text .tagline {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+    }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-.nav-links a {
-  text-decoration: none;
-  font-weight: 600;
-  color: #0a0c10;
-}
+    .nav-links li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #0a0c10;
+    }
 
-.cta-btn {
-  background: var(--primary);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 700;
-  text-decoration: none;
-}
+    .cta-btn {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+    }
 
-/* HERO WITH VIDEO */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  text-align: center;
-  padding: 120px 10% 80px;
-  overflow: hidden;
-  color: white;
-}
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 10% 80px;
+      background-image: url('newwallpaper.png');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
 
-.hero-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-}
+    .hero-content {
+      max-width: 900px;
+      animation: fadeUp 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: -1;
-}
+    @keyframes fadeUp {
+      to { opacity:1; transform:translateY(0); }
+    }
 
-.hero-content {
-  max-width: 900px;
-  animation: fadeUp 1.2s ease forwards;
-  opacity: 0;
-  transform: translateY(30px);
-}
+    .hero h1 { font-size:4rem; font-weight:800; }
 
-@keyframes fadeUp {
-  to { opacity:1; transform: translateY(0); }
-}
+    .red-accent { color: var(--accent-red); }
+    .blue-accent { color: var(--accent-blue); }
+    .neutral-accent { color: #000; }
 
-.hero h1 {
-  font-size: 4rem;
-  font-weight: 800;
-  margin-bottom: 24px;
-}
+    .hero p { color:#e0e0e0; }
 
-.hero p {
-  font-size: 1.3rem;
-  color: #e0e0e0;
-}
+    .software-badges {
+      margin-top:120px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
 
-.software-badges {
-  margin-top: 100px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    .badge {
+      background: var(--primary);
+      color:#fff;
+      padding:12px 28px;
+      border-radius:12px;
+    }
 
-.badge {
-  background: var(--primary);
-  padding: 12px 28px;
-  border-radius: 12px;
-  font-weight: 700;
-}
+    /* FEATURED PROJECTS */
+    .featured-project { padding:100px 10%; }
 
-/* PROJECTS */
-.featured-project { padding: 100px 5%; }
-.section-header { text-align:center; margin-bottom:60px; }
+    .project-container {
+      display:flex;
+      gap:40px;
+      background:#fff;
+      border-radius:16px;
+      padding:40px;
+      flex-wrap:wrap;
+    }
 
-.project-container {
-  display:flex;
-  gap:30px;
-  background:#fff;
-  border-radius:16px;
-  padding:30px;
-  flex-wrap:wrap;
-}
+    /* SERVICES */
+    .services { padding:100px 10%; }
 
-/* SERVICES */
-.services { padding:100px 5%; }
-.services-grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap:30px;
-}
+    /* ✅ FIXED ABOUT (NO IMAGE, SAME LIGHTING) */
+    .about-section-wrapper {
+      padding:100px 5% 50px;
+      background:#fff;
+    }
 
-/* ABOUT */
-.about-section-wrapper { padding:100px 5%; background:#fff; }
+    .about {
+      position:relative;
 
-.about {
-  background:url('me.png') no-repeat top center/cover;
-  min-height:500px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+      /* IMAGE REMOVED → LIGHTING KEPT */
+      background: linear-gradient(
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.65)
+      );
 
-.about-overlay {
-  background: rgba(0,0,0,0.55);
-  padding:40px;
-  color:white;
-}
+      border-radius:16px;
+      min-height:500px;
+      margin-top:40px;
 
-/* RESPONSIVE */
-@media(max-width:900px){
-.hero h1 { font-size:2.6rem; }
-.hero p { font-size:1.1rem; }
-.navbar { flex-direction:column; align-items:flex-start; }
-.project-container { flex-direction:column; }
-.about { min-height:300px; }
-}
-</style>
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .about-overlay {
+      padding:40px;
+      max-width:900px;
+      text-align:center;
+      color:#fff;
+    }
+
+    .about-content p {
+      margin-bottom:20px;
+      line-height:1.8;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .navbar { flex-direction:column; align-items:flex-start; }
+      .hero h1 { font-size:2.4rem; }
+      .project-container { flex-direction:column; }
+      .about { min-height:400px; padding:30px; }
+    }
+  </style>
 </head>
 
 <body>
 
 <!-- HEADER -->
 <header class="site-header">
-<nav class="navbar">
-<div class="logo">
-<img src="logo.png" class="logo-icon">
-<div class="logo-text">
-<span class="name">Conilious Dube</span>
-<span class="tagline">Product Design & Engineering</span>
-</div>
-</div>
-
-<ul class="nav-links">
-<li><a href="#hero">Home</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#about-wrapper">About</a></li>
-</ul>
-
-<a href="#" class="cta-btn">Start a Project</a>
-</nav>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" class="logo-icon">
+      <div class="logo-text">
+        <span class="name">Conilious Dube</span>
+        <span class="tagline">Product Design & Engineering</span>
+      </div>
+    </div>
+  </nav>
 </header>
 
-<!-- HERO WITH VIDEO -->
-<section id="hero" class="hero">
-
-<video autoplay muted loop playsinline class="hero-video">
-<source src="wallpapervid.mp4" type="video/mp4">
-</video>
-
-<div class="hero-content">
-<h1>
-<span style="color:#d62828;">Product &</span>
-<span style="color:#0366d6;">Mechanical</span>
-<span style="color:#d62828;">CAD</span>
-Design for Real-World Applications
-</h1>
-
-<p>Design manufacturable 3D CAD models and perform high-fidelity simulations for startups and engineering firms.</p>
-
-<div class="software-badges">
-<span class="badge">Siemens NX</span>
-<span class="badge">Creo Parametric</span>
-<span class="badge">Ansys</span>
-<span class="badge">Fusion 360</span>
-</div>
-</div>
-</section>
-
-<!-- KEEP REST SAME -->
-<section class="featured-project">
-<h2>Jet Engine</h2>
-</section>
-
-<section id="services" class="services">
-<h2>Services</h2>
-</section>
-
+<!-- ABOUT ME -->
 <section id="about-wrapper" class="about-section-wrapper">
-<h2>About Me</h2>
-<div class="about">
-<div class="about-overlay">
-<p>Your about text...</p>
-</div>
-</div>
+  <div class="section-header">
+    <h2>About Me</h2>
+    <p>Mechanical design engineer focused on developing high-quality, manufacturable products through advanced 3D CAD modeling and engineering simulation.</p>
+  </div>
+
+  <div class="about">
+    <div class="about-overlay">
+      <div class="about-content">
+        <p>I specialize in transforming concepts into precise, production-ready designs...</p>
+        <p>I approach every project with an engineering mindset...</p>
+        <p>I am continuously refining my skills...</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 </body>
