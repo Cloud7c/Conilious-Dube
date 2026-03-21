@@ -130,12 +130,8 @@ body { padding-top: var(--header-height-desktop); }
   position: absolute;
   inset: 0;
   z-index: 2;
-  /* 1st gradient: Solid white at the top center, fading out completely by the middle. 
-    2nd gradient: A very subtle dark vignette at the bottom so your white paragraph text remains legible against bright video scenes.
-  */
-  background: 
-    radial-gradient(ellipse 150% 100% at 50% 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 15%, rgba(255,255,255,0) 55%),
-    linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 40%);
+  /* 1st gradient ONLY: Solid white at the top center, fading out completely by the middle. No bottom shadow. */
+  background: radial-gradient(ellipse 150% 100% at 50% 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 15%, rgba(255,255,255,0) 55%);
   pointer-events: none;
 }
 
@@ -147,7 +143,6 @@ body { padding-top: var(--header-height-desktop); }
   height:100%;
   object-fit:cover;
   z-index:1;
-  /* Removed multiply blend mode. Slightly bumped contrast and saturation for a vivid, modern look */
   filter: contrast(1.1) saturate(1.15) brightness(1.02);
 }
 
