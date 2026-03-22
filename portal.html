@@ -155,8 +155,12 @@
     
     /* Allow scrolling on mobile, reset heights */
     body { overflow-y: auto; }
-    .view-section { height: auto; min-height: calc(100vh - 80px); margin: 20px auto; }
+    .view-section { height: auto; min-height: calc(100vh - 80px); margin: 20px auto; padding: 0 10px;}
     
+    /* Ensure tables can scroll horizontally so they don't break the layout */
+    .card { padding: 15px; }
+    .card table { display: block; overflow-x: auto; white-space: nowrap; }
+
     /* Inbox Split: Stack the Contacts horizontally above Chat */
     .inbox-split { display: flex; flex-direction: column; height: calc(100vh - 120px); min-height: 500px; }
     .contact-list { display: flex; flex-direction: row; border-right: none; border-bottom: 1px solid var(--border); padding: 10px; gap: 10px; max-height: 100px; overflow-x: auto; white-space: nowrap; align-items: center;}
@@ -557,7 +561,6 @@
       btn.disabled = false;
     }
   });
-
 
   // --- SELLER: LOAD ALL CLIENTS ---
   function loadAdminClientList() {
