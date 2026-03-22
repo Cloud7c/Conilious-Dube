@@ -95,7 +95,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .project-highlights li{margin-bottom:12px;position:relative;padding-left:24px}
 .project-highlights li::before{content:"→";color:var(--primary);position:absolute;left:0;font-weight:bold;}
 
-/* GALLERY TRIGGER CARD */
+/* CLEAN, SOFT-TINT GALLERY TRIGGER */
 .gallery-trigger-card {
   width: 100%; max-width: 1200px; margin: 40px auto 0; padding: 50px 40px; border-radius: 24px; text-align: center;
   cursor: pointer; position: relative; overflow: hidden;
@@ -126,7 +126,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .gallery-trigger-card:hover .radar-dot::after { border-color: #fff; }
 @keyframes radarPulse { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
 
-/* LIGHTBOX */
+/* CINEMATIC DARK MODE LIGHTBOX */
 .lightbox-overlay {
   position: fixed; inset: 0; background: rgba(10, 12, 16, 0.98); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   z-index: 10000; display: flex; align-items: center; justify-content: center;
@@ -182,7 +182,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .author-info h4 { margin: 0; font-size: 1rem; color: var(--super-black); font-weight: 700; }
 .author-info span { font-size: 0.85rem; color: var(--text-gray); }
 
-/* CONTACT SECTION WITH ICON DOCK */
+/* CONTACT SECTION */
 .contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid var(--border-light); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; align-items: center; }
 .contact-info h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--super-black); margin-bottom: 20px; letter-spacing: -0.02em; }
@@ -209,21 +209,23 @@ section { scroll-margin-top: 100px; width: 100%; }
 }
 .status-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px rgba(34, 197, 94, 0.6); animation: pulse 2s infinite; }
 
-/* The New Premium Social Icon Dock */
+/* THE NEW OFFICIAL BRAND ICON DOCK */
 .social-dock { display: flex; gap: 16px; margin-bottom: 40px; }
 .social-icon-btn { 
   display: flex; align-items: center; justify-content: center;
   width: 56px; height: 56px; border-radius: 16px; 
-  background: var(--bg-offwhite); border: 1px solid var(--border-light);
-  color: var(--super-black); text-decoration: none;
+  background: #ffffff; border: 1px solid var(--border-light);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.social-icon-btn svg { width: 24px; height: 24px; transition: transform 0.3s ease; }
-.social-icon-btn:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); background: #ffffff; }
+.social-icon-btn svg { width: 26px; height: 26px; transition: transform 0.3s ease; }
+.social-icon-btn:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
 .social-icon-btn:hover svg { transform: scale(1.1); }
-.social-icon-btn.email:hover { border-color: var(--primary); color: var(--primary); }
-.social-icon-btn.linkedin:hover { border-color: #0077b5; color: #0077b5; }
-.social-icon-btn.whatsapp:hover { border-color: #25D366; color: #25D366; }
+
+/* Exact Official App Colors applied to borders and backgrounds on hover */
+.social-icon-btn.email:hover { border-color: #EA4335; background: rgba(234, 67, 53, 0.05); }
+.social-icon-btn.linkedin:hover { border-color: #0A66C2; background: rgba(10, 102, 194, 0.05); }
+.social-icon-btn.whatsapp:hover { border-color: #25D366; background: rgba(37, 211, 102, 0.05); }
 
 .contact-location span { display: block; font-size: 0.9rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
 .contact-location div { font-size: 1.15rem; font-weight: 600; color: var(--super-black); line-height: 1.5; }
@@ -268,8 +270,14 @@ section { scroll-margin-top: 100px; width: 100%; }
 .form-input, .form-textarea { width: 100%; padding: 14px 16px; border: 1px solid var(--border-light); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--super-black); transition: all 0.2s; }
 .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(3, 102, 214, 0.1); }
 .form-textarea { resize: vertical; min-height: 120px; }
+.modal-footer { padding: 20px 40px 30px; display: flex; justify-content: space-between; gap: 16px; }
+.btn-secondary { padding: 14px 24px; border: 1px solid var(--border-light); background: #fff; color: var(--super-black); border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; width: 30%; text-align: center; }
+.btn-secondary:hover { background: var(--bg-offwhite); border-color: #cbd5e1; }
+.btn-primary { padding: 14px 24px; border: none; background: var(--super-black); color: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; flex: 1; text-align: center; }
+.btn-primary:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(3,102,214,0.2); }
+.btn-primary:disabled { background: var(--border-light); color: var(--text-gray); cursor: not-allowed; transform: none; box-shadow: none; }
 
-/* FILE DROPZONE CSS RESTORED */
+/* FILE DROPZONE CSS */
 .file-dropzone { 
   border: 2px dashed var(--border-light); border-radius: 12px; padding: 30px 20px; 
   text-align: center; cursor: pointer; transition: all 0.3s ease; 
@@ -281,13 +289,6 @@ section { scroll-margin-top: 100px; width: 100%; }
 .file-text { font-size: 0.95rem; color: var(--text-gray); font-weight: 500; }
 .file-text strong { color: var(--primary); }
 .file-name-display { margin-top: 12px; font-size: 0.85rem; color: var(--super-black); font-weight: 600; background: #e5e7eb; padding: 6px 12px; border-radius: 20px; display: inline-block; }
-
-.modal-footer { padding: 20px 40px 30px; display: flex; justify-content: space-between; gap: 16px; }
-.btn-secondary { padding: 14px 24px; border: 1px solid var(--border-light); background: #fff; color: var(--super-black); border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; width: 30%; text-align: center; }
-.btn-secondary:hover { background: var(--bg-offwhite); border-color: #cbd5e1; }
-.btn-primary { padding: 14px 24px; border: none; background: var(--super-black); color: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; flex: 1; text-align: center; }
-.btn-primary:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(3,102,214,0.2); }
-.btn-primary:disabled { background: var(--border-light); color: var(--text-gray); cursor: not-allowed; transform: none; box-shadow: none; }
 
 /* Premium Success Screen */
 .success-content { text-align: center; padding: 30px 0 10px; }
@@ -312,7 +313,7 @@ section { scroll-margin-top: 100px; width: 100%; }
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px); 
-    padding: 6px 16px 6px 8px; /* Tightly hugs icon */
+    padding: 6px 16px 6px 8px;
     border-radius: 50px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -330,20 +331,9 @@ section { scroll-margin-top: 100px; width: 100%; }
   }
 
   .logo:hover,
-  .logo:focus-visible { 
-    background: rgba(255, 255, 255, 1); 
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1); 
-    padding-right: 18px; /* Expands to fit text */
-  }
-  
+  .logo:focus-visible { background: rgba(255, 255, 255, 1); box-shadow: 0 8px 24px rgba(0,0,0,0.1); padding-right: 18px; }
   .logo:hover .logo-text,
-  .logo:focus-visible .logo-text {
-    max-width: 300px;
-    opacity: 1;
-    transform: translateX(0);
-    margin-left: 12px;
-    visibility: visible;
-  }
+  .logo:focus-visible .logo-text { max-width: 300px; opacity: 1; transform: translateX(0); margin-left: 12px; visibility: visible; }
   
   .menu-toggle { display: block; width: 56px; height: 56px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.3s ease; }
   .menu-toggle:hover { background: rgba(255, 255, 255, 1); transform: scale(1.05); }
@@ -398,7 +388,9 @@ section { scroll-margin-top: 100px; width: 100%; }
   .logo-text .name{ font-size: 1.1rem; }
   .logo-text .tagline{ font-size: 0.8rem; }
   .project-container, .testimonial-card, .wizard-trigger-card, .service-card { padding: 25px 20px; }
-  .modal-body, .modal-header, .modal-footer { padding: 20px; }
+  .modal-body { padding: 20px; }
+  .modal-header { padding: 20px 20px 15px; }
+  .modal-footer { padding: 15px 20px 20px; }
 }
 </style>
 </head>
@@ -593,13 +585,13 @@ section { scroll-margin-top: 100px; width: 100%; }
 
       <div class="social-dock">
         <a href="mailto:coniliouskailash3@gmail.com" class="social-icon-btn email" aria-label="Email Me">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <svg viewBox="0 0 24 24" fill="#EA4335"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
         </a>
         <a href="https://linkedin.com/in/conilious-dube15" target="_blank" rel="noopener noreferrer" class="social-icon-btn linkedin" aria-label="Connect on LinkedIn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.848-3.037-1.85 0-2.132 1.445-2.132 2.939v5.667H9.36V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.063 2.063 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
         <a href="https://wa.me/263777256073" target="_blank" rel="noopener noreferrer" class="social-icon-btn whatsapp" aria-label="Chat on WhatsApp">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <svg viewBox="0 0 24 24" fill="#25D366"><path d="M12.031 0C5.395 0 0 5.394 0 12.035c0 2.124.551 4.195 1.6 6.01L.031 24l6.096-1.597A11.964 11.964 0 0 0 12.03 24c6.634 0 12.033-5.395 12.033-12.035S18.666 0 12.031 0zm-1.86 6.945c.34-.012.71-.005 1.01.01.272.015.541.196.7.46.331.554 1.157 2.827 1.258 3.033.1.205.166.446.033.682-.132.237-.2.383-.398.614-.199.23-.414.482-.58.663-.182.199-.377.414-.166.778.212.364.945 1.56 1.954 2.45 1.3 1.144 2.463 1.503 2.827 1.669.364.165.578.132.793-.099.215-.231.928-1.09 1.176-1.464.248-.374.497-.31.828-.182.33.132 2.086.993 2.45 1.176.364.182.613.28.712.446.099.165.099.96-.231 1.887-.33 1.925-1.92 2.015-1.92 2.015-1.045.035-2.423-.473-4.52-1.378-3.04-1.309-5.01-4.487-5.16-4.685-.15-.199-1.233-1.642-1.233-3.132s.775-2.235 1.055-2.533c.28-.298.613-.374.813-.374z"/></svg>
         </a>
       </div>
 
@@ -725,7 +717,6 @@ section { scroll-margin-top: 100px; width: 100%; }
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Nav
     const menuToggle = document.querySelector('.menu-toggle');
     const navGroup = document.querySelector('.nav-group');
     const navLinks = document.querySelectorAll('.nav-links a:not(.open-modal-btn)');
@@ -741,7 +732,6 @@ section { scroll-margin-top: 100px; width: 100%; }
       });
     });
 
-    // Reveal Animation
     const revealElements = document.querySelectorAll('.reveal');
     const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
     const revealOnScroll = new IntersectionObserver(function(entries, observer) {
@@ -754,7 +744,6 @@ section { scroll-margin-top: 100px; width: 100%; }
     }, revealOptions);
     revealElements.forEach(el => revealOnScroll.observe(el));
 
-    // LIGHTBOX GALLERY LOGIC
     const openGalleryBtn = document.getElementById('openGalleryBtn');
     const navGalleryBtn = document.getElementById('navGalleryBtn');
     const lightboxOverlay = document.getElementById('lightboxOverlay');
@@ -817,7 +806,6 @@ section { scroll-margin-top: 100px; width: 100%; }
       }
     });
 
-    // 3-STEP WIZARD MODAL LOGIC
     const modalOverlay = document.getElementById('wizardModal');
     const openBtns = document.querySelectorAll('.open-modal-btn');
     const closeBtn = document.getElementById('closeModalBtn');
@@ -826,7 +814,7 @@ section { scroll-margin-top: 100px; width: 100%; }
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
-    const step4 = document.getElementById('step4'); // Success Screen
+    const step4 = document.getElementById('step4'); 
     
     const indicator1 = document.getElementById('indicator1');
     const indicator2 = document.getElementById('indicator2');
@@ -842,7 +830,6 @@ section { scroll-margin-top: 100px; width: 100%; }
     const softwareCards = document.querySelectorAll('.software-card');
     const hiddenSoftwareInput = document.getElementById('softwareSelection');
     
-    // File Input Logic (Restored)
     const fileInput = document.getElementById('fileInput');
     const fileNameDisplay = document.getElementById('fileNameDisplay');
 
@@ -880,9 +867,7 @@ section { scroll-margin-top: 100px; width: 100%; }
         indicator2.classList.remove('active');
         indicator3.classList.remove('active');
         form.reset();
-        
         if(fileNameDisplay) fileNameDisplay.style.display = 'none';
-        
         submitBtn.innerText = 'Secure Submit';
         submitBtn.disabled = false;
         
@@ -904,7 +889,6 @@ section { scroll-margin-top: 100px; width: 100%; }
       });
     });
 
-    // Step Navigation Check & Movement
     nextBtn1.addEventListener('click', () => {
       step1.classList.remove('is-active');
       step2.classList.add('is-active');
@@ -933,7 +917,6 @@ section { scroll-margin-top: 100px; width: 100%; }
       indicator3.classList.remove('active');
     });
 
-    // Form Submission Processing
     form.addEventListener('submit', (e) => {
       e.preventDefault(); 
       if(!form.checkValidity()) return;
@@ -961,7 +944,6 @@ section { scroll-margin-top: 100px; width: 100%; }
       });
     });
 
-    // COUNTING STAT ANIMATION
     const counters = document.querySelectorAll('.stat-number');
     const counterObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
