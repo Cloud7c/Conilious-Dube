@@ -95,7 +95,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .project-highlights li{margin-bottom:12px;position:relative;padding-left:24px}
 .project-highlights li::before{content:"→";color:var(--primary);position:absolute;left:0;font-weight:bold;}
 
-/* CLEAN, SOFT-TINT GALLERY TRIGGER */
+/* GALLERY TRIGGER CARD */
 .gallery-trigger-card {
   width: 100%; max-width: 1200px; margin: 40px auto 0; padding: 50px 40px; border-radius: 24px; text-align: center;
   cursor: pointer; position: relative; overflow: hidden;
@@ -126,7 +126,7 @@ section { scroll-margin-top: 100px; width: 100%; }
 .gallery-trigger-card:hover .radar-dot::after { border-color: #fff; }
 @keyframes radarPulse { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
 
-/* CINEMATIC DARK MODE LIGHTBOX */
+/* LIGHTBOX */
 .lightbox-overlay {
   position: fixed; inset: 0; background: rgba(10, 12, 16, 0.98); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   z-index: 10000; display: flex; align-items: center; justify-content: center;
@@ -182,30 +182,26 @@ section { scroll-margin-top: 100px; width: 100%; }
 .author-info h4 { margin: 0; font-size: 1rem; color: var(--super-black); font-weight: 700; }
 .author-info span { font-size: 0.85rem; color: var(--text-gray); }
 
-/* CONTACT SECTION */
-.contact-section { padding: 120px 5%; background: #ffffff; border-top: 1px solid var(--border-light); }
+/* DARK FOOTER ANCHOR */
+.contact-section { padding: 120px 5%; background: var(--super-black); border-top: none; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1200px; margin: 0 auto; align-items: center; }
-.contact-info h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--super-black); margin-bottom: 20px; letter-spacing: -0.02em; }
-.contact-info p { font-size: 1.15rem; color: var(--text-gray); line-height: 1.8; margin-bottom: 40px; }
+.contact-info h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: #ffffff; margin-bottom: 20px; letter-spacing: -0.02em; }
+.contact-info p { font-size: 1.15rem; color: #9ca3af; line-height: 1.8; margin-bottom: 40px; }
+
 .status-badge {
-  display: inline-flex; align-items: center; gap: 10px; background: rgba(3, 102, 214, 0.1); color: var(--primary);
+  display: inline-flex; align-items: center; gap: 10px; background: rgba(3, 102, 214, 0.15); color: #60a5fa;
   padding: 8px 16px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; margin-bottom: 24px;
-  border: 1px solid rgba(3, 102, 214, 0.2); position: relative; overflow: hidden;
-  animation: freelanceBadgePulse 2.8s ease-in-out infinite;
+  border: 1px solid rgba(59, 130, 246, 0.3); position: relative; overflow: hidden;
+  animation: freelanceBadgePulseDark 2.8s ease-in-out infinite;
 }
 .status-badge::after{
-  content:""; position:absolute; inset:0; background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%);
+  content:""; position:absolute; inset:0; background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
   transform: translateX(-120%); animation: freelanceBadgeShine 3.6s ease-in-out infinite;
 }
 .status-badge > *{ position: relative; z-index: 1; }
-@keyframes freelanceBadgePulse {
-  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 0 rgba(3,102,214,0); }
-  50% { transform: translateY(-2px) scale(1.01); box-shadow: 0 10px 24px rgba(3,102,214,0.10); }
-}
-@keyframes freelanceBadgeShine {
-  0% { transform: translateX(-120%); }
-  35% { transform: translateX(120%); }
-  100% { transform: translateX(120%); }
+@keyframes freelanceBadgePulseDark {
+  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 0 rgba(59,130,246,0); }
+  50% { transform: translateY(-2px) scale(1.01); box-shadow: 0 10px 24px rgba(59,130,246,0.15); }
 }
 .status-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px rgba(34, 197, 94, 0.6); animation: pulse 2s infinite; }
 
@@ -214,34 +210,51 @@ section { scroll-margin-top: 100px; width: 100%; }
 .social-icon-btn { 
   display: flex; align-items: center; justify-content: center;
   width: 56px; height: 56px; border-radius: 16px; 
-  background: #ffffff; border: 1px solid var(--border-light);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #161b22; border: 1px solid #30363d;
+  color: #e5e7eb; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.social-icon-btn svg { width: 26px; height: 26px; transition: transform 0.3s ease; }
-.social-icon-btn:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+.social-icon-btn svg { width: 28px; height: 28px; transition: transform 0.3s ease; }
+
+/* Exact Official App Colors glowing borders and shadows on hover */
+.social-icon-btn.email:hover { 
+  border-color: #EA4335; 
+  box-shadow: 0 12px 24px rgba(234, 67, 53, 0.25); 
+  transform: translateY(-4px); 
+  background: #ffffff; 
+}
+.social-icon-btn.linkedin:hover { 
+  border-color: #0A66C2; 
+  box-shadow: 0 12px 24px rgba(10, 102, 194, 0.25); 
+  transform: translateY(-4px); 
+  background: #ffffff; 
+}
+.social-icon-btn.whatsapp:hover { 
+  border-color: #25D366; 
+  box-shadow: 0 12px 24px rgba(37, 211, 102, 0.25); 
+  transform: translateY(-4px); 
+  background: #ffffff; 
+}
+
 .social-icon-btn:hover svg { transform: scale(1.1); }
 
-/* Exact Official App Colors applied to borders and backgrounds on hover */
-.social-icon-btn.email:hover { border-color: #EA4335; background: rgba(234, 67, 53, 0.05); }
-.social-icon-btn.linkedin:hover { border-color: #0A66C2; background: rgba(10, 102, 194, 0.05); }
-.social-icon-btn.whatsapp:hover { border-color: #25D366; background: rgba(37, 211, 102, 0.05); }
+.contact-location span { display: block; font-size: 0.9rem; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.contact-location div { font-size: 1.15rem; font-weight: 600; color: #ffffff; line-height: 1.5; }
 
-.contact-location span { display: block; font-size: 0.9rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
-.contact-location div { font-size: 1.15rem; font-weight: 600; color: var(--super-black); line-height: 1.5; }
-
+/* DARK MODE WIZARD TRIGGER */
 .wizard-trigger-card { 
-  background: var(--bg-offwhite); padding: 50px 40px; border-radius: 24px; 
-  border: 1px solid var(--border-light); box-shadow: 0 12px 40px rgba(0,0,0,0.04); 
+  background: #161b22; padding: 50px 40px; border-radius: 24px; 
+  border: 1px solid #30363d; box-shadow: 0 12px 40px rgba(0,0,0,0.3); 
   text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
-.wizard-trigger-card h3 { font-size: 1.6rem; font-weight: 800; color: var(--super-black); margin-bottom: 12px; }
-.wizard-trigger-card p { font-size: 1.05rem; color: var(--text-gray); line-height: 1.6; margin-bottom: 30px; }
+.wizard-trigger-card h3 { font-size: 1.6rem; font-weight: 800; color: #ffffff; margin-bottom: 12px; }
+.wizard-trigger-card p { font-size: 1.05rem; color: #9ca3af; line-height: 1.6; margin-bottom: 30px; }
 .wizard-trigger-card .cta-btn { width: 100%; padding: 18px; font-size: 1.15rem; border-radius: 12px; }
 
-/* FOOTER */
-.site-footer { background: #fff; padding: 40px 5%; border-top: 1px solid var(--border-light); text-align: center; }
-.site-footer p { color: var(--text-gray); font-size: 0.95rem; font-weight: 500; margin: 0; }
+/* DARK FOOTER */
+.site-footer { background: var(--super-black); padding: 40px 5%; border-top: 1px solid #1f2937; text-align: center; }
+.site-footer p { color: #6b7280; font-size: 0.95rem; font-weight: 500; margin: 0; }
+.site-footer a { color: #9ca3af; transition: color 0.2s; }
+.site-footer a:hover { color: #ffffff; }
 
 /* PROJECT WIZARD MODAL */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 12, 16, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; padding: 20px; }
@@ -313,7 +326,7 @@ section { scroll-margin-top: 100px; width: 100%; }
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px); 
-    padding: 6px 16px 6px 8px;
+    padding: 6px 16px 6px 8px; 
     border-radius: 50px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -388,9 +401,7 @@ section { scroll-margin-top: 100px; width: 100%; }
   .logo-text .name{ font-size: 1.1rem; }
   .logo-text .tagline{ font-size: 0.8rem; }
   .project-container, .testimonial-card, .wizard-trigger-card, .service-card { padding: 25px 20px; }
-  .modal-body { padding: 20px; }
-  .modal-header { padding: 20px 20px 15px; }
-  .modal-footer { padding: 15px 20px 20px; }
+  .modal-body, .modal-header, .modal-footer { padding: 20px; }
 }
 </style>
 </head>
@@ -585,19 +596,29 @@ section { scroll-margin-top: 100px; width: 100%; }
 
       <div class="social-dock">
         <a href="mailto:coniliouskailash3@gmail.com" class="social-icon-btn email" aria-label="Email Me">
-          <svg viewBox="0 0 24 24" fill="#EA4335"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#4285F4" d="M17.25 20.5H21a1.5 1.5 0 0 0 1.5-1.5V7.5L17.25 12v8.5z"/>
+            <path fill="#34A853" d="M3 20.5h3.75V12L1.5 7.5V19a1.5 1.5 0 0 0 1.5 1.5z"/>
+            <path fill="#EA4335" d="M17.25 3.5v8.5L12 16.5l-5.25-4.5V3.5L12 8l5.25-4.5z"/>
+            <path fill="#FBBC05" d="M21 3.5a1.5 1.5 0 0 0-1.5-1.5h-2.25L12 8 6.75 2H4.5A1.5 1.5 0 0 0 3 3.5v4L12 12l9-4.5v-4z"/>
+          </svg>
         </a>
         <a href="https://linkedin.com/in/conilious-dube15" target="_blank" rel="noopener noreferrer" class="social-icon-btn linkedin" aria-label="Connect on LinkedIn">
-          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.848-3.037-1.85 0-2.132 1.445-2.132 2.939v5.667H9.36V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.063 2.063 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0A66C2"/>
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.848-3.037-1.85 0-2.132 1.445-2.132 2.939v5.667H9.36V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.063 2.063 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452z" fill="#FFFFFF"/>
+          </svg>
         </a>
         <a href="https://wa.me/263777256073" target="_blank" rel="noopener noreferrer" class="social-icon-btn whatsapp" aria-label="Chat on WhatsApp">
-          <svg viewBox="0 0 24 24" fill="#25D366"><path d="M12.031 0C5.395 0 0 5.394 0 12.035c0 2.124.551 4.195 1.6 6.01L.031 24l6.096-1.597A11.964 11.964 0 0 0 12.03 24c6.634 0 12.033-5.395 12.033-12.035S18.666 0 12.031 0zm-1.86 6.945c.34-.012.71-.005 1.01.01.272.015.541.196.7.46.331.554 1.157 2.827 1.258 3.033.1.205.166.446.033.682-.132.237-.2.383-.398.614-.199.23-.414.482-.58.663-.182.199-.377.414-.166.778.212.364.945 1.56 1.954 2.45 1.3 1.144 2.463 1.503 2.827 1.669.364.165.578.132.793-.099.215-.231.928-1.09 1.176-1.464.248-.374.497-.31.828-.182.33.132 2.086.993 2.45 1.176.364.182.613.28.712.446.099.165.099.96-.231 1.887-.33 1.925-1.92 2.015-1.92 2.015-1.045.035-2.423-.473-4.52-1.378-3.04-1.309-5.01-4.487-5.16-4.685-.15-.199-1.233-1.642-1.233-3.132s.775-2.235 1.055-2.533c.28-.298.613-.374.813-.374z"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.031 0C5.395 0 0 5.394 0 12.035c0 2.124.551 4.195 1.6 6.01L.031 24l6.096-1.597A11.964 11.964 0 0 0 12.03 24c6.634 0 12.033-5.395 12.033-12.035S18.666 0 12.031 0zm-1.86 6.945c.34-.012.71-.005 1.01.01.272.015.541.196.7.46.331.554 1.157 2.827 1.258 3.033.1.205.166.446.033.682-.132.237-.2.383-.398.614-.199.23-.414.482-.58.663-.182.199-.377.414-.166.778.212.364.945 1.56 1.954 2.45 1.3 1.144 2.463 1.503 2.827 1.669.364.165.578.132.793-.099.215-.231.928-1.09 1.176-1.464.248-.374.497-.31.828-.182.33.132 2.086.993 2.45 1.176.364.182.613.28.712.446.099.165.099.96-.231 1.887-.33 1.925-1.92 2.015-1.92 2.015-1.045.035-2.423-.473-4.52-1.378-3.04-1.309-5.01-4.487-5.16-4.685-.15-.199-1.233-1.642-1.233-3.132s.775-2.235 1.055-2.533c.28-.298.613-.374.813-.374z" fill="#25D366"/>
+          </svg>
         </a>
       </div>
 
       <div class="contact-location">
         <span>Location</span>
-        <div>Remote / Global <br><small style="font-weight: 500; font-size: 0.9rem; color: var(--text-gray);">(Currently based in India)</small></div>
+        <div>Remote / Global <br><small style="font-weight: 500; font-size: 0.9rem; color: #9ca3af;">(Currently based in India)</small></div>
       </div>
 
     </div>
@@ -605,16 +626,16 @@ section { scroll-margin-top: 100px; width: 100%; }
     <div class="wizard-trigger-card reveal">
       <h3>Ready to start?</h3>
       <p>Launch the interactive project wizard to specify your CAD software and project details.</p>
-      <p style="font-size:0.9rem; color: var(--text-gray); margin-top:-10px;">
+      <p style="font-size:0.9rem; color: #6b7280; margin-top:-10px;">
         Not sure yet? Just share your idea — I’ll help you define the requirements.
       </p>
-      <button class="cta-btn open-modal-btn">Get Your Design Started →</button>
+      <button class="cta-btn open-modal-btn" style="border: none; margin-top: 10px;">Get Your Design Started →</button>
     </div>
   </div>
 </section>
 
 <footer class="site-footer">
-  <p>&copy; 2026 Conilious Dube. All rights reserved. | <a href="mailto:coniliouskailash3@gmail.com" style="color:var(--text-gray); text-decoration:none;">coniliouskailash3@gmail.com</a></p>
+  <p>&copy; 2026 Conilious Dube. All rights reserved. | <a href="mailto:coniliouskailash3@gmail.com">coniliouskailash3@gmail.com</a></p>
 </footer>
 
 <div class="lightbox-overlay" id="lightboxOverlay">
