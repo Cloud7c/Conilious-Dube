@@ -24,8 +24,6 @@
   .btn-danger { background: var(--danger); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; }
   .btn-danger:hover { background: #dc2626; }
   .btn-small { padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
-  .btn-icon { background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-light); transition: 0.2s; padding: 4px 8px; border-radius: 6px;}
-  .btn-icon:hover { color: var(--primary); background: #f4f7fb; }
   .link-btn { background: transparent; border: none; color: var(--primary); cursor: pointer; padding: 0; font-size: 0.85rem; font-weight: 700; transition: 0.2s; text-decoration: underline;}
   .link-btn:hover { color: var(--primary-hover); }
 
@@ -38,20 +36,23 @@
   .login-box { width: 100%; max-width: 400px; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 36px; box-shadow: var(--shadow); text-align: center;}
 
   /* NAVIGATION */
-  .top-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 24px; display: none; justify-content: space-between; align-items: center; height: 75px; position: sticky; top: 0; z-index: 100; }
-  .nav-left { display: flex; align-items: center; flex: 1; }
-  .nav-center { display: flex; align-items: center; justify-content: center; flex: 2; }
-  .nav-right { display: flex; align-items: center; justify-content: flex-end; flex: 1; }
+  .top-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 24px; display: none; justify-content: space-between; align-items: center; min-height: 75px; position: sticky; top: 0; z-index: 100; }
+  .nav-left { display: flex; align-items: center; }
+  .nav-center { display: flex; align-items: center; justify-content: center; flex: 1; margin: 0 15px; overflow-x: auto; }
+  .nav-right { display: flex; align-items: center; justify-content: flex-end; }
   
   .brand-wrap { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 6px 12px 6px 6px; border-radius: 8px; transition: 0.2s; border: 1px solid transparent;}
   .brand-wrap:hover { background: #f7f7f7; border-color: var(--border); }
-  .nav-avatar { width: 44px; height: 44px; border-radius: 8px; background: var(--border); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; overflow: hidden; }
-  .nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+  .nav-avatar { width: 44px; height: 44px; flex-shrink: 0; border-radius: 8px; background: var(--border); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; overflow: hidden; }
+  .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; white-space: nowrap; }
   .nav-brand-text strong { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); }
   .nav-brand-text span { font-size: 0.75rem; font-weight: 600; color: var(--text-light); }
 
-  .nav-links { display: flex; gap: 20px; font-weight: 700; color: var(--text-light); align-items: center;}
+  /* Hide scrollbar for nav links but keep functionality */
+  .nav-center::-webkit-scrollbar { display: none; }
+  .nav-center { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .nav-links { display: flex; gap: 20px; font-weight: 700; color: var(--text-light); align-items: center; white-space: nowrap; }
   .nav-link { cursor: pointer; padding: 26px 0; border-bottom: 3px solid transparent; transition: 0.2s; font-size: 0.95rem; display:flex; align-items:center; gap:6px; position: relative;}
   .nav-link.active { color: var(--primary); border-bottom-color: var(--primary); }
   .nav-link:hover { color: var(--text-dark); }
@@ -64,12 +65,14 @@
 
   /* CARDS & TABLES */
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: 24px; margin-bottom: 24px; }
+  .hero-card { padding: 80px 40px; min-height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  
   table { width: 100%; border-collapse: collapse; text-align: left; }
   th { padding: 14px 10px; border-bottom: 1px solid var(--border); color: var(--text-light); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  td { padding: 16px 10px; border-bottom: 1px solid var(--border); font-size: 0.95rem; font-weight: 500; vertical-align: middle; }
+  td { padding: 16px 10px; border-bottom: 1px solid var(--border); font-size: 0.95rem; font-weight: 500; vertical-align: middle; word-break: break-word; }
   
   /* TAGS */
-  .status-tag { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; }
+  .status-tag { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; white-space: nowrap; }
   .tag-waiting { background: #fff7df; color: #8a6d00; }
   .tag-active { background: #e6f7ef; color: #137a45; }
   .tag-cancelled { background: #ffe2e2; color: #b42318; }
@@ -80,7 +83,7 @@
   .crm-row:hover { background: #fbfdff; }
 
   /* INBOX / WORKSPACE CHAT */
-  .inbox-split { display: grid; grid-template-columns: 320px 1fr; height: calc(100vh - 140px); min-height: 500px; max-height: 800px; background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);}
+  .inbox-split { display: grid; grid-template-columns: 320px 1fr; min-height: 600px; height: 75vh; background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);}
   .contact-list { border-right: 1px solid var(--border); overflow-y: auto; background: #fbfdff;}
   .contact-item { padding: 20px; border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; align-items: center;}
   .contact-item:hover { background: #f1f5f9; }
@@ -88,18 +91,18 @@
   
   .chat-area { display: flex; flex-direction: column; background: #fff; height: 100%; position: relative; overflow: hidden; }
   .chat-header { flex-shrink: 0; padding: 20px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; background: #fff;}
-  .chat-box { flex: 1 1 auto; overflow-y: auto; min-height: 0; padding: 20px; display: flex; flex-direction: column; gap: 18px; background: #fbfdff; }
+  .chat-box { flex: 1; overflow-y: auto; min-height: 0; padding: 20px; display: flex; flex-direction: column; gap: 18px; background: #fbfdff; }
   .chat-controls { flex-shrink: 0; display: flex; gap: 10px; align-items: center; padding: 15px; border-top: 1px solid var(--border); background: #fff;}
-  .chat-input { flex: 1; padding: 12px 15px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; margin: 0; }
+  .chat-input { flex: 1; padding: 12px 15px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; margin: 0; min-width: 0; }
 
   /* ORDER WORKSPACE UI */
-  .workspace-grid { display: grid; grid-template-columns: 340px 1fr; gap: 24px; align-items: start; height: 100%; }
+  .workspace-grid { display: grid; grid-template-columns: 340px 1fr; gap: 24px; align-items: start; height: auto; }
   .timer-grid { display: flex; gap: 8px; text-align: center; margin-top: 12px; }
-  .timer-unit { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 12px 4px; flex: 1; }
+  .timer-unit { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 12px 4px; flex: 1; min-width: 0;}
   .timer-num { font-size: 1.4rem; font-weight: 900; color: var(--text-dark); display: block; line-height: 1; }
   .timer-label { font-size: 0.65rem; color: var(--text-light); text-transform: uppercase; margin-top: 4px; display: block; letter-spacing: 0.05em; }
 
-  .ws-card-container { display: flex; flex-direction: column; height: calc(100vh - 140px); min-height: 500px; max-height: 800px; padding: 0; overflow: hidden; background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow);}
+  .ws-card-container { display: flex; flex-direction: column; min-height: 600px; height: 75vh; padding: 0; overflow: hidden; background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow);}
 
   /* CHAT BUBBLE & AVATAR STYLING */
   .msg-wrap { display: flex; flex-direction: column; width: 100%; }
@@ -110,7 +113,7 @@
   .msg-wrap.them .msg-header { margin-left: 42px; }
   .msg-wrap.me .msg-header { margin-right: 42px; }
   
-  .msg-body-row { display: flex; align-items: flex-end; gap: 8px; max-width: 80%; }
+  .msg-body-row { display: flex; align-items: flex-end; gap: 8px; max-width: 85%; }
   .msg-wrap.me .msg-body-row { flex-direction: row-reverse; }
 
   .chat-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.05); }
@@ -121,60 +124,50 @@
   .msg { padding: 12px 16px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; word-break: break-word; }
   .msg.me { background: #eef8ff; border: 1px solid #cfe6ff; color: var(--text-dark); border-bottom-right-radius: 4px; }
   .msg.them { background: #ffffff; border: 1px solid var(--border); color: var(--text-dark); border-bottom-left-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
-  .msg.system { background: #fffbeb; color: #92400e; align-self: center; font-size: 0.8rem; font-weight: 600; border: 1px solid #fde68a; border-radius: 20px; padding: 6px 16px; margin: 10px 0;}
+  .msg.system { background: #fffbeb; color: #92400e; align-self: center; font-size: 0.8rem; font-weight: 600; border: 1px solid #fde68a; border-radius: 20px; padding: 6px 16px; margin: 10px 0; text-align: center;}
 
   .offer-card { background: linear-gradient(180deg, #ffffff 0%, #f8fffb 100%); border: 1px solid rgba(29, 191, 115, 0.2); border-left: 4px solid var(--primary); border-radius: 12px; padding: 18px; width: 100%; max-width: 400px; align-self: center; box-shadow: 0 8px 20px rgba(29, 191, 115, 0.06); margin: 10px auto;}
   
   /* MODALS & POPUPS */
-  #offer-form-container { display: none; position: absolute; bottom: 80px; left: 20px; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; width: 360px; box-shadow: var(--shadow); z-index: 20; }
+  #offer-form-container { display: none; position: absolute; bottom: 80px; left: 20px; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; width: 320px; max-width: 90%; box-shadow: var(--shadow); z-index: 20; }
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); z-index: 1000; align-items: center; justify-content: center;}
   .modal-box { background: #fff; border-radius: 16px; padding: 24px; width: min(600px, 90vw); max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow); position: relative; }
   .hint { color: var(--text-light); font-size: 0.85rem; line-height: 1.4; }
 
-  /* SETTINGS DASHBOARD */
-  .settings-container { max-width: 700px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);}
-  .settings-header { background: #f8fafc; padding: 30px 20px; border-bottom: 1px solid var(--border); text-align: center;}
-  .settings-avatar-wrap { width: 120px; height: 120px; border-radius: 50%; background: #fff; border: 4px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 0 auto; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;}
-  .settings-avatar-wrap img { width: 100%; height: 100%; object-fit: cover;}
-  .settings-avatar-edit { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: #fff; text-align: center; padding: 8px 0; font-size: 0.8rem; cursor: pointer; transition: 0.2s; font-weight: 600;}
-  .settings-avatar-edit:hover { background: var(--primary); }
-  .settings-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 30px; border-bottom: 1px solid var(--border); transition: 0.2s;}
-  .settings-row:last-child { border-bottom: none; }
-  .settings-row:hover { background: #fbfdff; }
-  .settings-label { font-size: 0.85rem; color: var(--text-light); font-weight: 700; margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.05em;}
-  .settings-value { font-size: 1.1rem; color: var(--text-dark); font-weight: 500;}
-  .settings-edit-form { display: none; margin-top: 15px; }
-
   /* --- MOBILE OPTIMIZATION (FLAWLESS LAYOUT) --- */
   @media (max-width: 900px) {
-    /* Compress Top Nav for mobile readability */
-    .top-nav { padding: 0 10px; }
-    .nav-brand-text { display: none; } /* Hide name on mobile to save space */
-    .nav-links { gap: 12px; font-size: 0.85rem; }
-    .nav-link { padding: 18px 0; font-size: 0.85rem;}
+    /* Compress Top Nav to prevent overlaps */
+    .top-nav { padding: 10px; min-height: 65px; flex-wrap: wrap; gap: 10px;}
+    .nav-brand-text { display: none; } /* Hide text on mobile to save space */
+    .nav-links { gap: 15px; font-size: 0.9rem; padding: 10px 0; }
+    .nav-link { padding: 5px 0; }
+    .nav-center { margin: 0; width: 100%; order: 3; border-top: 1px solid var(--border); }
     
     /* Allow scrolling on mobile, reset heights */
-    body { overflow-y: auto; }
-    .view-section { height: auto; min-height: calc(100vh - 80px); margin: 20px auto; padding: 0 10px;}
+    body { overflow-y: auto; overflow-x: hidden; }
+    .view-section { padding: 0 10px; margin: 20px auto; }
     
-    /* Ensure tables can scroll horizontally so they don't break the layout */
+    /* Hero scaling for mobile */
+    .hero-card { padding: 50px 20px; min-height: 350px; }
+    
+    /* Ensure tables can scroll horizontally without breaking layout */
     .card { padding: 15px; }
-    .card table { display: block; overflow-x: auto; white-space: nowrap; }
-
-    /* Inbox Split: Stack the Contacts horizontally above Chat */
-    .inbox-split { display: flex; flex-direction: column; height: calc(100vh - 120px); min-height: 500px; }
-    .contact-list { display: flex; flex-direction: row; border-right: none; border-bottom: 1px solid var(--border); padding: 10px; gap: 10px; max-height: 100px; overflow-x: auto; white-space: nowrap; align-items: center;}
+    .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    
+    /* Inbox Split: Stack vertically */
+    .inbox-split { display: flex; flex-direction: column; height: 80vh; min-height: 500px; }
+    .contact-list { display: flex; flex-direction: row; border-right: none; border-bottom: 1px solid var(--border); padding: 10px; gap: 10px; overflow-x: auto; white-space: nowrap; align-items: center; flex-shrink: 0;}
     .contact-list > div:first-child { display: none; } /* Hide 'Conversations' title on mobile */
-    .contact-item { border-bottom: none; border-radius: 8px; border: 1px solid var(--border); padding: 10px 15px; min-width: 140px; display: flex; flex-direction: column; align-items: flex-start;}
-    .contact-item.active { border-left: none; border-bottom: 4px solid var(--primary); }
+    .contact-item { border-bottom: none; border-radius: 8px; border: 1px solid var(--border); padding: 10px 15px; min-width: 150px; display: flex; flex-direction: column; align-items: flex-start;}
+    .contact-item.active { border-left: none; border-bottom: 3px solid var(--primary); }
     
     /* Workspace Split */
-    .workspace-grid { grid-template-columns: 1fr; height: auto; }
-    .ws-card-container { height: 600px; } /* Give chat a fixed block on mobile */
+    .workspace-grid { grid-template-columns: 1fr; }
+    .ws-card-container { height: 75vh; }
     
-    .chat-area { flex: 1; min-height: 400px; }
     .chat-controls { flex-wrap: wrap; }
-    .chat-controls .btn-outline { width: 100%; order: 3; } /* Move Create Offer below Send */
+    .chat-controls .btn-outline { width: 100%; order: 3; margin-top: 10px; } 
+    #offer-form-container { left: 50%; transform: translateX(-50%); bottom: 120px; }
   }
 </style>
 </head>
@@ -189,18 +182,6 @@
     <p style="font-size: 0.85rem; color: var(--text-light); margin: 0;">
       New client? <span class="link-btn" onclick="window.toggleAuthMode()" id="auth-toggle">Create an account</span>
     </p>
-  </div>
-</div>
-
-<div id="vault-auth-modal" class="modal-overlay">
-  <div class="modal-box" style="text-align: center; max-width: 350px;">
-    <h2 style="margin-top:0; color:#1f2937;">Earnings Vault 🔒</h2>
-    <p style="margin-bottom: 20px; font-size: 0.9rem; color:var(--text-light);" id="vault-hint">Enter your master password.</p>
-    <input type="password" id="vault-pass-input" class="input-field" placeholder="Vault Password" style="text-align: center; font-weight: bold; letter-spacing: 2px;" onkeypress="if(event.key==='Enter') window.unlockVault()">
-    <div style="display:flex; gap:10px; margin-top: 15px;">
-      <button class="btn-outline" style="flex:1;" onclick="document.getElementById('vault-auth-modal').style.display='none'">Cancel</button>
-      <button class="btn" style="flex:1;" onclick="window.unlockVault()">Unlock</button>
-    </div>
   </div>
 </div>
 
@@ -220,7 +201,6 @@
       <span class="nav-link active" onclick="window.switchTab('dashboard', event)">Dashboard</span>
       <span class="nav-link" onclick="window.switchTab('orders', event)">Orders</span>
       <span class="nav-link" onclick="window.switchTab('inbox', event)">Main Inbox</span>
-      <span class="nav-link" onclick="window.openEarningsModal()">Earnings 🔒</span>
       <span class="nav-link" onclick="window.switchTab('crm', event)">CRM</span>
     </div>
   </div>
@@ -241,30 +221,32 @@
 </header>
 
 <div id="dashboard-view" class="view-section">
-  <div class="card" style="text-align: center; padding: 60px 40px;">
-    <h2 style="margin-top:0; color: #404145;">Welcome to your Dashboard</h2>
-    <p style="color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px;">Manage your engineering business. Select a client from the CRM or Inbox to start working.</p>
-    <button class="btn" onclick="window.switchTab('inbox', {target: document.querySelectorAll('#seller-nav-links .nav-link')[2]})">Open Inbox</button>
+  <div class="card hero-card">
+    <h2 style="margin-top:0; color: #404145; font-size: 2.5rem;">Welcome to your Dashboard</h2>
+    <p style="color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 15px auto 40px; line-height: 1.6;">Manage your engineering business operations. Select a client from the CRM or check your inbox to start working.</p>
+    <button class="btn" style="padding: 14px 28px; font-size: 1.1rem;" onclick="window.switchTab('inbox', {target: document.querySelectorAll('#seller-nav-links .nav-link')[2]})">Open Main Inbox</button>
   </div>
 </div>
 
 <div id="client-dashboard-view" class="view-section">
-  <div class="card" style="text-align: center; padding: 60px 40px;">
-    <h2 style="margin-top:0; color: #404145;">Welcome to your Client Portal</h2>
-    <p style="color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px;">Securely message Conilious and track the progress of your active engineering projects here.</p>
-    <button class="btn" onclick="window.switchTab('workspace', {target: document.querySelectorAll('#client-nav-links .nav-link')[2]})">View Active Order</button>
+  <div class="card hero-card">
+    <h2 style="margin-top:0; color: #404145; font-size: 2.5rem;">Client Portal</h2>
+    <p style="color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 15px auto 40px; line-height: 1.6;">Securely message Conilious and track the real-time progress of your active engineering projects here.</p>
+    <button class="btn" style="padding: 14px 28px; font-size: 1.1rem;" onclick="window.switchTab('workspace', {target: document.querySelectorAll('#client-nav-links .nav-link')[2]})">View Active Order</button>
   </div>
 </div>
 
 <div id="orders-view" class="view-section">
   <div class="card">
     <h3 style="margin-top:0; color: #404145;">Active Orders</h3>
-    <table>
-      <thead><tr><th>Client Email</th><th>Project</th><th>Status</th><th>Deadline</th><th>Action</th></tr></thead>
-      <tbody id="orders-table-body">
-        <tr><td colspan="5" style="text-align:center; color:var(--text-light); padding:20px;">Loading orders...</td></tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead><tr><th>Client Email</th><th>Project</th><th>Status</th><th>Deadline</th><th>Action</th></tr></thead>
+        <tbody id="orders-table-body">
+          <tr><td colspan="5" style="text-align:center; color:var(--text-light); padding:20px;">Loading orders...</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -273,12 +255,14 @@
     <div style="padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #f8fafc;">
       <h3 style="margin: 0; color: #1f2937;">Client Directory (CRM)</h3>
     </div>
-    <table style="margin: 0;">
-      <thead><tr><th>Client Contact</th><th>Last Active</th><th>Status</th><th>Action</th></tr></thead>
-      <tbody id="crm-table-body">
-        <tr><td colspan="4" style="text-align:center; color:var(--text-light); padding:20px;">No clients registered yet.</td></tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table style="margin: 0;">
+        <thead><tr><th>Client Contact</th><th>Last Active</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="crm-table-body">
+          <tr><td colspan="4" style="text-align:center; color:var(--text-light); padding:20px;">No clients registered yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -308,7 +292,7 @@
           <textarea id="off-desc" class="input-field" placeholder="Description of work..." rows="3"></textarea>
           <div style="display:flex; gap:10px;">
             <input type="number" id="off-days" class="input-field" placeholder="Days" min="1">
-            <input type="number" id="off-price" class="input-field" placeholder="Total Price ($USD)" min="1">
+            <input type="number" id="off-price" class="input-field" placeholder="Total ($USD)" min="1">
           </div>
           <div style="display:flex; gap:10px; margin-top: 15px;">
             <button class="btn-outline" style="flex:1;" onclick="window.toggleOfferForm()">Cancel</button>
@@ -354,12 +338,12 @@
         <span id="ws-partner-name">Select a Conversation</span> <span style="font-size:0.8rem; font-weight:500; color:var(--text-light); margin-left:10px;">Order Workspace</span>
       </div>
       
-      <div class="ws-chat-box" id="workspace-chat-box">
+      <div class="ws-chat-box chat-box" id="workspace-chat-box">
         <div style="text-align:center; color:var(--text-light); margin-top:40px;">Select an active order to view workspace.</div>
       </div>
       
       <div class="chat-controls ws-controls">
-        <input type="text" id="ws-chat-input" class="chat-input" placeholder="Type an order update or attachment note..." onkeypress="if(event.key === 'Enter') window.sendMsg('workspace')" disabled>
+        <input type="text" id="ws-chat-input" class="chat-input" placeholder="Type an order update or note..." onkeypress="if(event.key === 'Enter') window.sendMsg('workspace')" disabled>
         <button class="btn" id="btn-send-ws" onclick="window.sendMsg('workspace')" disabled>Send</button>
       </div>
     </div>
@@ -393,7 +377,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
   import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-  import { getFirestore, collection, addDoc, doc, setDoc, updateDoc, onSnapshot, query, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, doc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAZ2q84JoqhL_HUZCmZ68L0c40HAmEYniY",
@@ -410,15 +394,13 @@
 
   let timerInterval = null, inboxUnsub = null, workspaceUnsub = null, orderUnsub = null, clientUnsub = null;
   
-  // SECURE MULTI-TENANT ROUTING VARIABLES
   window.isAdmin = false; 
   window.currentChatClientId = null; 
   window.currentChatClientEmail = null;
-  window.currentDeadline = null; // Stored to prevent timer bugs
+  window.currentDeadline = null;
 
   const escapeHtml = (str) => String(str || "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
 
-  // --- TOGGLE SIGN UP / LOGIN ---
   window.isSignUpMode = false;
   window.toggleAuthMode = () => {
       window.isSignUpMode = !window.isSignUpMode;
@@ -439,7 +421,6 @@
     try {
         if (window.isSignUpMode) { await createUserWithEmailAndPassword(auth, e, p); } 
         else { await signInWithEmailAndPassword(auth, e, p); }
-        // UI transitions instantly via onAuthStateChanged
     } catch (err) { 
         alert("Error: " + err.message); 
         btn.innerText = window.isSignUpMode ? 'Sign Up' : 'Secure Login';
@@ -454,7 +435,6 @@
       await signOut(auth);
   };
 
-  // --- UI TOGGLES ---
   window.switchTab = function(tabName, evt) {
     document.querySelectorAll('.view-section').forEach(el => { el.classList.remove('active'); });
     const targetView = document.getElementById(tabName + '-view');
@@ -486,18 +466,14 @@
       document.getElementById('cancel-reason-text').value = '';
   };
 
-  // --- MASTER AUTH & ROUTING ENGINE (ASYNCHRONOUS / NON-FREEZING) ---
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      // 1. INSTANT UI LOAD
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('top-nav').style.display = 'flex';
       
-      // 2. CHECK ROLE
       window.isAdmin = (user.email === "coniliousdube@gmail.com" || user.email === "coniliouskailash3@gmail.com");
 
       if (window.isAdmin) {
-          // SELLER
           document.getElementById('seller-nav-links').style.display = 'flex';
           document.getElementById('client-nav-links').style.display = 'none';
           document.getElementById('btn-create-offer').style.display = 'inline-block';
@@ -505,11 +481,8 @@
           
           window.switchTab('dashboard', { target: document.querySelectorAll('#seller-nav-links .nav-link')[0] });
           window.currentChatClientId = null; 
-          
-          // Background Loaders
           loadAdminClientList(); 
       } else {
-          // CLIENT
           document.getElementById('seller-nav-links').style.display = 'none';
           document.getElementById('client-nav-links').style.display = 'flex';
           document.getElementById('btn-create-offer').style.display = 'none';
@@ -520,7 +493,6 @@
           window.currentChatClientId = user.uid; 
           window.currentChatClientEmail = user.email;
           
-          // Background Save (Non-Blocking)
           setDoc(doc(db, "clients", user.uid), { email: user.email, online: true, lastLogin: Date.now() }, { merge: true }).catch(e=>console.log("DB Skip"));
           setDoc(doc(db, "orders", user.uid), { clientId: user.uid, clientEmail: user.email }, { merge: true }).catch(e=>console.log("DB Skip"));
 
@@ -534,7 +506,6 @@
                 <div style="font-size:0.85rem; color:var(--text-light);">Engineering Support</div>
               </div>`;
 
-          // Track unread for Client
           onSnapshot(doc(db, "clients", user.uid), (docSnap) => {
               if(docSnap.exists()) {
                   const c = docSnap.data();
@@ -546,11 +517,9 @@
                   }
               }
           });
-
           window.selectClient(user.uid, "Conilious Dube"); 
       }
     } else {
-      // RESET
       if(orderUnsub) orderUnsub(); if(inboxUnsub) inboxUnsub(); if(workspaceUnsub) workspaceUnsub(); if(clientUnsub) clientUnsub();
       stopTimerUI();
       window.currentChatClientId = null;
@@ -562,7 +531,6 @@
     }
   });
 
-  // --- SELLER: LOAD ALL CLIENTS ---
   function loadAdminClientList() {
       if (clientUnsub) clientUnsub();
       clientUnsub = onSnapshot(collection(db, "clients"), (snap) => {
@@ -585,7 +553,6 @@
               const uid = docObj.id;
               const isOnline = c.online ? '<span style="color:#22c55e; font-weight:700; font-size:0.75rem;">Online</span>' : '<span style="font-size:0.75rem; color:var(--text-light);">Offline</span>';
 
-              // Unread Logic for Admin
               if (window.currentChatClientId === uid) localStorage.setItem('read_' + uid, Date.now());
               const localRead = Number(localStorage.getItem('read_' + uid)) || 0;
               const isUnread = (c.lastMsgTime > localRead) && (c.lastMsgSender !== auth.currentUser.uid) && (window.currentChatClientId !== uid);
@@ -595,9 +562,9 @@
 
               contactList.innerHTML += `
                   <div class="contact-item ${activeClass}" id="sidebar-client-${uid}" onclick="window.switchTab('inbox', {target: document.querySelectorAll('#seller-nav-links .nav-link')[2]}); window.selectClient('${uid}', '${c.email}')">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:5px; align-items:center;">
-                      <strong style="color:var(--text-dark);">${escapeHtml(c.email)}</strong>
-                      <span id="badge-${uid}" style="display:${badgeDisplay}; background:var(--danger); color:#fff; padding:2px 6px; border-radius:10px; font-size:0.65rem; font-weight:bold;">NEW</span>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px; align-items:center; width: 100%;">
+                      <strong style="color:var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(c.email)}</strong>
+                      <span id="badge-${uid}" style="display:${badgeDisplay}; background:var(--danger); color:#fff; padding:2px 6px; border-radius:10px; font-size:0.65rem; font-weight:bold; flex-shrink: 0; margin-left: 8px;">NEW</span>
                     </div>
                     <div style="font-size:0.8rem; color:var(--text-light);">${isOnline}</div>
                   </div>`;
@@ -610,7 +577,6 @@
                     <td><button class="btn-outline btn-small">Open Chat</button></td>
                   </tr>`;
                   
-              // Auto-select first client so UI isn't broken for admin
               if(isFirst && !window.currentChatClientId) {
                   window.selectClient(uid, c.email);
                   isFirst = false;
@@ -656,7 +622,6 @@
       });
   }
 
-  // --- THE CORE ROUTER: SELECTING A CLIENT ---
   window.selectClient = function(clientId, clientEmail) {
       window.currentChatClientId = clientId;
       window.currentChatClientEmail = clientEmail;
@@ -669,7 +634,6 @@
       document.getElementById('ws-chat-input').disabled = false;
       document.getElementById('btn-send-ws').disabled = false;
 
-      // Clear Badge visually
       if (window.isAdmin) {
           localStorage.setItem('read_' + clientId, Date.now());
           const badge = document.getElementById('badge-' + clientId);
@@ -685,7 +649,6 @@
       loadWorkspaceChat();
   };
 
-  // --- ISOLATED ORDER LISTENER ---
   function listenToOrder() {
     if (orderUnsub) orderUnsub();
     if (!window.currentChatClientId) return;
@@ -718,7 +681,6 @@
           }
       }
 
-      // SHOW/HIDE BUTTONS
       const sellerActions = document.getElementById('seller-order-actions');
       const clientActions = document.getElementById('client-order-actions');
       const cancelActions = document.getElementById('cancel-action-container');
@@ -739,7 +701,6 @@
     });
   }
 
-  // --- ACTIONS & MODALS ---
   window.submitCancellation = async () => {
       const reason = document.getElementById('cancel-reason-text').value.trim();
       if (!reason) return alert("Please provide a reason.");
@@ -830,11 +791,6 @@
     finally { btn.innerText = "Upload & Deliver"; btn.disabled = false; }
   };
 
-  window.viewOffer = (desc, days, price, status) => {
-    alert(`OFFER DETAILS\n\nDescription: ${desc}\nDelivery: ${days} Days\nPrice: $${price}\nStatus: ${status}`);
-  };
-
-  // --- WHATSAPP AVATAR RENDERER ---
   function renderMessages(boxId, snapArray, currentUid) {
       const box = document.getElementById(boxId);
       if(!box) return;
@@ -862,8 +818,6 @@
         }
 
         if (msgType === "offer") {
-          const descJS = JSON.stringify(m.desc || "");
-          const priceJS = JSON.stringify(m.price || 0);
           let btnHtml = ''; let badgeHtml = '';
 
           if (m.accepted) {
@@ -895,7 +849,6 @@
           return;
         }
 
-        // Standard Text Msgs (AVATAR INJECTION)
         const senderName = isMe ? "You" : (window.isAdmin ? "Client" : "Conilious Dube");
         const senderInit = isMe ? "ME" : (window.isAdmin ? "CL" : "CD");
         const wrapClass = isMe ? 'me' : 'them';
@@ -914,7 +867,6 @@
       box.scrollTop = box.scrollHeight;
   }
 
-  // --- LOCAL FILTER LOADERS (Bypasses Firebase Index Needs) ---
   function loadInboxChat() {
     if (inboxUnsub) inboxUnsub();
     if (!window.currentChatClientId) return;
@@ -977,7 +929,6 @@
     } catch (err) { console.log("Firebase sync delayed. Message stored locally."); }
   };
 
-  // --- IMMEDIATE TIMER ENGINE ---
   function updateTimer() {
       const diff = window.currentDeadline - Date.now();
       if (diff > 0) {
@@ -995,7 +946,7 @@
   function startVisualCountdown(dl) {
     window.currentDeadline = dl;
     if (timerInterval) clearInterval(timerInterval);
-    updateTimer(); // Draw instantly
+    updateTimer(); 
     timerInterval = setInterval(updateTimer, 1000);
   }
   
