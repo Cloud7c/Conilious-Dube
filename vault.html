@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Earnings Vault | Engineering Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { 
+    --primary: #1dbf73; --primary-hover: #19a463; 
+    --bg-app: #f8fafc; --bg-panel: #ffffff; 
+    --border: #e2e8f0; --text-dark: #0f172a; --text-muted: #64748b; 
+    --danger: #ef4444; --warning: #f59e0b; --success: #10b981;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  * { box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+  body { background: var(--bg-app); color: var(--text-dark); height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; overflow-y: auto;}
+
+  /* --- LOADER --- */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loading-screen { position: fixed; inset: 0; background: var(--bg-app); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
+
+  /* --- APP HEADER --- */
+  .app-header { background: var(--bg-panel); height: 70px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; flex-shrink: 0; z-index: 20; position: sticky; top: 0;}
+  .back-link { display: flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 700; transition: color 0.2s; font-size: 0.9rem;}
+  .back-link:hover { color: var(--text-dark); }
+  .vault-logo { font-weight: 900; font-size: 1.25rem; color: var(--text-dark); letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px;}
+
+  /* --- BUTTONS & INPUTS --- */
+  .btn { background: var(--primary); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px;}
+  .btn:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(29, 191, 115, 0.2); }
+  .input-field { width: 100%; padding: 14px 16px; margin-bottom: 16px; border-radius: 8px; border: 1px solid var(--border); font-size: 1rem; outline: none; background: #f8fafc; transition: 0.2s; text-align: center; font-weight: 800; letter-spacing: 2px;}
+  .input-field:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(29, 191, 115, 0.1); }
+
+  /* --- SECURE LOCK SCREEN --- */
+  #lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 70px); padding: 20px; animation: fadeIn 0.3s ease-out; }
+  .lock-box { width: 100%; max-width: 400px; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 40px; box-shadow: var(--shadow-lg); text-align: center; }
+  .lock-icon { width: 50px; height: 50px; background: #f1f5f9; color: var(--text-dark); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+
+  /* --- MAIN VAULT DASHBOARD --- */
+  #vault-dashboard { display: none; padding: 40px 30px; width: 100%; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.4s ease-out; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .vault-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+  .vault-title h1 { font-size: 2.2rem; font-weight: 900; color: var(--text-dark); margin-bottom: 8px; letter-spacing: -0.02em;}
+  .vault-title p { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; }
+
+  /* Time Filters */
+  .time-filters { display: flex; gap: 8px; background: #fff; padding: 6px; border-radius: 10px; border: 1px solid var(--border); width: fit-content; margin-bottom: 30px; box-shadow: var(--shadow-sm);}
+  .filter-btn { background: transparent; border: none; padding: 8px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+  .filter-btn:hover { color: var(--text-dark); }
+  .filter-btn.active { background: #f1f5f9; color: var(--text-dark); }
+
+  /* Metrics Grid */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 40px; }
+  .metric-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); transition: 0.2s; }
+  .metric-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: #cbd5e1; }
+  .metric-title { font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .metric-val { font-size: 2.4rem; font-weight: 900; color: var(--text-dark); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .val-highlight { color: var(--success); }
+
+  /* Chart Section */
+  .chart-section { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 30px; box-shadow: var(--shadow-sm); margin-bottom: 40px; }
+  .section-title { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 30px; }
+  
+  .chart-container { display: flex; align-items: flex-end; justify-content: space-between; height: 220px; gap: 12px; padding-top: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px;}
+  .chart-bar-wrapper { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; position: relative; }
+  .chart-bar { width: 100%; max-width: 45px; background: #e2e8f0; border-radius: 6px 6px 0 0; transition: 0.3s; position: relative; cursor: pointer; }
+  .chart-bar-wrapper:hover .chart-bar { background: var(--primary); }
+  .chart-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); margin-top: 10px; text-transform: uppercase; }
+  
+  .chart-tooltip { position: absolute; top: -35px; background: var(--text-dark); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; opacity: 0; transform: translateY(10px); transition: 0.2s; pointer-events: none; white-space: nowrap; }
+  .chart-bar-wrapper:hover .chart-tooltip { opacity: 1; transform: translateY(0); }
+
+  /* Transaction Table */
+  .table-section { background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-sm); overflow: hidden; }
+  .table-header { padding: 24px 30px; border-bottom: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; text-align: left; }
+  th { padding: 16px 30px; border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800; background: #f8fafc;}
+  td { padding: 20px 30px; border-bottom: 1px solid var(--border); font-size: 0.9rem; font-weight: 600; color: var(--text-dark); }
+  .table-row:hover { background: #f8fafc; }
+  
+  .desc-col { display: flex; flex-direction: column; gap: 4px; }
+  .desc-id { font-size: 0.7rem; color: var(--text-muted); font-weight: 700; }
+
+  .status-tag { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+  .tag-cleared { background: #d1fae5; color: #047857; }
+  .tag-pending { background: #fef3c7; color: #b45309; }
+  .tag-withdrawn { background: #f1f5f9; color: #475569; }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+  .modal-box { background: #fff; border-radius: 16px; padding: 35px; width: 100%; max-width: 450px; box-shadow: var(--shadow-lg); text-align: center; animation: slideUp 0.2s ease-out;}
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <div style="font-weight: 800; color: var(--text-dark); font-size: 1rem; letter-spacing: -0.01em;">Secure Vault</div>
+  <div style="color: var(--text-muted); font-size: 0.75rem; font-weight: 600; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em;">Verifying Authorization...</div>
+</div>
+
+<header class="app-header">
+  <a href="portal.html" class="back-link">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px; height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+    Back to Dashboard
+  </a>
+  <div class="vault-logo">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px; height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+    Secure Vault
+  </div>
+  <div style="width: 140px;"></div> 
+</header>
+
+<div id="lock-screen" style="display:none;">
+  <div class="lock-box">
+    <div class="lock-icon">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:28px; height:28px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+    </div>
+    <h2 id="lock-title" style="margin-bottom: 8px; font-weight:800; font-size:1.4rem;">Encrypted Access</h2>
+    <p id="lock-desc" style="color:var(--text-muted); font-size:0.85rem; margin-bottom:24px; line-height:1.5;">Authorizing sensitive data access...</p>
+    
+    <div id="pin-entry-area" style="display:none;">
+      <input type="password" id="vault-pin" class="input-field" placeholder="••••" maxlength="12" onkeypress="if(event.key==='Enter') window.verifyPin()">
+      <button class="btn" style="width:100%;" id="btn-unlock" onclick="window.verifyPin()">Unlock Vault</button>
+    </div>
+  </div>
+</div>
+
+<div id="vault-dashboard">
+  <div class="vault-header">
+    <div class="vault-title">
+      <h1>Earnings Vault</h1>
+      <p>Your secure financial control center.</p>
+    </div>
+    <button class="btn" onclick="openModal('withdrawModal')">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px; height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+      Withdraw Funds
+    </button>
+  </div>
+
+  <div class="time-filters">
+    <button class="filter-btn active">1 Month</button>
+    <button class="filter-btn">3 Months</button>
+    <button class="filter-btn">6 Months</button>
+    <button class="filter-btn">1 Year</button>
+    <button class="filter-btn">All Time</button>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-title">Net Income</div>
+      <div class="metric-val" id="val-net">$0.00</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-title">Withdrawn</div>
+      <div class="metric-val" id="val-withdrawn">$0.00</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-title">In Escrow</div>
+      <div class="metric-val" id="val-pending">$0.00</div>
+    </div>
+    <div class="metric-card" style="border-color:var(--success); background:#f0fdf4;">
+      <div class="metric-title" style="color:#047857;">Available Balance</div>
+      <div class="metric-val val-highlight" id="val-available">$0.00</div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <div class="section-title">Revenue Visualization</div>
+    <div class="chart-container" id="revenue-chart"></div>
+  </div>
+
+  <div class="table-section">
+    <div class="table-header">
+      <h2 style="font-size:1.1rem; font-weight:800; margin:0;">Transaction Ledger</h2>
+    </div>
+    <table>
+      <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead>
+      <tbody id="transaction-body">
+        <tr><td colspan="4" style="text-align:center; padding:40px; color:var(--text-muted); font-size:0.9rem;">Initializing secure ledger...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="withdrawModal" class="modal-overlay">
+  <div class="modal-box">
+    <h3 style="margin-bottom: 10px; font-weight: 800; font-size:1.4rem;">Initiate Withdrawal</h3>
+    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:24px; line-height:1.5;">Transfer funds from your available balance to your primary payout method.</p>
+    <div style="background:#f8fafc; border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:24px;">
+      <span style="font-size:0.75rem; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Current Balance</span>
+      <div style="font-size:2rem; font-weight:900; color:var(--success); margin-top:5px;" id="modal-avail-bal">$0.00</div>
+    </div>
+    <button class="btn" style="width:100%; margin-bottom:12px;" onclick="alert('Integration required.')">Transfer Funds</button>
+    <button class="btn-outline" style="width:100%;" onclick="closeModal('withdrawModal')">Cancel</button>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAZ2q84JoqhL_HUZCmZ68L0c40HAmEYniY",
+    authDomain: "conilious-dube-portal.firebaseapp.com",
+    projectId: "conilious-dube-portal",
+    storageBucket: "conilious-dube-portal.firebasestorage.app",
+    messagingSenderId: "1054178318819",
+    appId: "1:1054178318819:web:3bb1fdeb967a8dfd0ea8d6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  let isSetupMode = false;
+
+  window.openModal = (id) => { document.getElementById(id).style.display = 'flex'; };
+  window.closeModal = (id) => { document.getElementById(id).style.display = 'none'; };
+
+  onAuthStateChanged(auth, async (user) => {
+    const loader = document.getElementById('loading-screen');
+    if (loader) loader.style.display = 'none';
+
+    if (!user) {
+        window.location.href = 'portal.html';
+        return;
+    }
+    const isAdmin = (user.email === "coniliousdube@gmail.com" || user.email === "coniliouskailash3@gmail.com");
+    if (!isAdmin) {
+        window.location.href = 'portal.html';
+        return;
+    }
+    
+    document.getElementById('lock-screen').style.display = 'flex';
+    checkVaultSecurity();
+  });
+
+  async function checkVaultSecurity() {
+      try {
+          const secDoc = await getDoc(doc(db, "workspace", "vault_config"));
+          document.getElementById('pin-entry-area').style.display = 'block';
+          
+          if (secDoc.exists() && secDoc.data().pin) {
+              isSetupMode = false;
+              document.getElementById('lock-title').innerText = "Unlock Vault";
+              document.getElementById('lock-desc').innerText = "Enter your Master PIN to view financials.";
+          } else {
+              isSetupMode = true;
+              document.getElementById('lock-title').innerText = "Vault Setup";
+              document.getElementById('lock-desc').innerText = "Create a secure Master PIN to protect your earnings.";
+              document.getElementById('btn-unlock').innerText = "Secure Vault";
+          }
+      } catch (err) {}
+  }
+
+  window.verifyPin = async () => {
+      const input = document.getElementById('vault-pin').value.trim();
+      if(!input) return alert("Enter PIN.");
+      const btn = document.getElementById('btn-unlock');
+      btn.innerText = "Verifying..."; btn.disabled = true;
+
+      try {
+          if (isSetupMode) {
+              await setDoc(doc(db, "workspace", "vault_config"), { pin: input }, { merge: true });
+              unlockDashboard();
+          } else {
+              const secDoc = await getDoc(doc(db, "workspace", "vault_config"));
+              if (secDoc.data().pin === input) unlockDashboard();
+              else {
+                  alert("Access Denied.");
+                  document.getElementById('vault-pin').value = '';
+                  btn.innerText = "Unlock Vault"; btn.disabled = false;
+              }
+          }
+      } catch(e) { btn.disabled = false; }
+  };
+
+  function unlockDashboard() {
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('vault-dashboard').style.display = 'block';
+      loadFinancialData();
+  }
+
+  function loadFinancialData() {
+      onSnapshot(collection(db, "orders"), (snap) => {
+          let netIncome = 0; let pending = 0; let count = 0; let tableHtml = '';
+          snap.forEach(d => {
+              const o = d.data();
+              const value = o.finalPrice || 450.00; 
+              if (o.status === 'completed') {
+                  netIncome += value; count++;
+                  tableHtml += `<tr class="table-row"><td>${new Date(o.updatedAt||Date.now()).toLocaleDateString()}</td><td><div class="desc-col"><span>Project Completion</span><span class="desc-id">${o.clientEmail}</span></div></td><td>+$${value.toFixed(2)}</td><td><span class="status-tag tag-cleared">CLEARED</span></td></tr>`;
+              } else if (o.status === 'delivered') {
+                  pending += value;
+                  tableHtml += `<tr class="table-row"><td>${new Date(o.updatedAt||Date.now()).toLocaleDateString()}</td><td><div class="desc-col"><span>Funds in Escrow</span><span class="desc-id">Review Pending</span></div></td><td>$${value.toFixed(2)}</td><td><span class="status-tag tag-pending">PENDING</span></td></tr>`;
+              }
+          });
+
+          if (count === 0 && pending === 0) tableHtml = `<tr><td colspan="4" style="text-align:center; padding:40px; color:var(--text-muted);">No records found.</td></tr>`;
+
+          document.getElementById('val-net').innerText = `$${netIncome.toFixed(2)}`;
+          document.getElementById('val-pending').innerText = `$${pending.toFixed(2)}`;
+          document.getElementById('val-available').innerText = `$${netIncome.toFixed(2)}`;
+          document.getElementById('modal-avail-bal').innerText = `$${netIncome.toFixed(2)}`;
+          document.getElementById('transaction-body').innerHTML = tableHtml;
+          renderChart(count > 0 ? netIncome : 0);
+      });
+  }
+
+  function renderChart(total) {
+      const container = document.getElementById('revenue-chart');
+      container.innerHTML = '';
+      const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+      const data = [total*0.1, total*0.15, total*0.05, total*0.3, total*0.1, total*0.3];
+      const max = Math.max(...data, 100);
+      months.forEach((m, i) => {
+          let h = (data[i] / max) * 100;
+          if (h < 5) h = 5;
+          container.innerHTML += `<div class="chart-bar-wrapper"><div class="chart-tooltip">$${data[i].toFixed(0)}</div><div class="chart-bar" style="height: ${h}%;"></div><span class="chart-label">${m}</span></div>`;
+      });
+  }
+</script>
+</body>
+</html>
