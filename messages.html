@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Messages | Engineering Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { 
+    --primary: #1dbf73; 
+    --primary-hover: #19a463; 
+    --bg-app: #f1f5f9; 
+    --bg-panel: #ffffff; 
+    --border: #e2e8f0; 
+    --text-dark: #0f172a; 
+    --text-muted: #64748b; 
+    --danger: #ef4444; 
+    --warning: #f59e0b;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  * { box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+  body { background: var(--bg-app); color: var(--text-dark); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+  /* --- LOADER --- */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loading-screen { position: fixed; inset: 0; background: var(--bg-app); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
+
+  /* --- APP HEADER --- */
+  .app-header { background: var(--bg-panel); height: 70px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; flex-shrink: 0; z-index: 10; }
+  .back-link { display: flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+  .back-link:hover { color: var(--primary); }
+  .app-logo { font-weight: 800; font-size: 1.2rem; color: var(--text-dark); letter-spacing: -0.02em; }
+
+  /* --- MESSENGER LAYOUT --- */
+  .messenger-layout { display: grid; grid-template-columns: 340px 1fr; flex: 1; overflow: hidden; background: var(--bg-panel); max-width: 1600px; margin: 0 auto; width: 100%; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+
+  /* --- LEFT PANEL --- */
+  .sidebar { border-right: 1px solid var(--border); display: flex; flex-direction: column; background: #f8fafc; overflow: hidden; }
+  .sidebar-header { padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--bg-panel); flex-shrink: 0; }
+  .sidebar-header h2 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin: 0;}
+  
+  .contact-list { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .contact-card { display: flex; gap: 14px; padding: 16px; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; border: 1px solid transparent; background: transparent; position: relative; }
+  .contact-card:hover { background: var(--bg-panel); border-color: var(--border); box-shadow: var(--shadow-sm); }
+  .contact-card.active { background: var(--bg-panel); border-color: var(--primary); box-shadow: var(--shadow-md); }
+  
+  .avatar-container { position: relative; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+  .status-dot { position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background: var(--primary); border: 2px solid #fff; border-radius: 50%; transition: 0.2s;}
+  .status-dot.offline { background: var(--text-muted); }
+  
+  .contact-info { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+  .contact-top { display: flex; justify-content: space-between; align-items: center; }
+  .contact-name { font-weight: 700; font-size: 0.95rem; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .unread-indicator { background: var(--danger); color: #fff; font-size: 0.7rem; font-weight: 800; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; position: absolute; top: -5px; right: -5px; box-shadow: 0 2px 4px rgba(239,68,68,0.3); }
+
+  /* --- RIGHT PANEL --- */
+  .chat-area { display: flex; flex-direction: column; height: 100%; overflow: hidden; position: relative; background: var(--bg-panel); }
+  
+  .chat-header { padding: 20px 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); flex-shrink: 0; z-index: 10; }
+  .chat-header-client { display: flex; align-items: center; gap: 16px; }
+  .client-title { display: flex; flex-direction: column; gap: 2px; }
+  .client-title h3 { font-size: 1.15rem; font-weight: 800; margin: 0; }
+  
+  .header-actions { display: flex; gap: 12px; }
+  .btn { background: var(--primary); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 10px rgba(29, 191, 115, 0.2); }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-outline { background: #fff; color: var(--text-dark); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; padding: 10px 18px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;}
+  .btn-outline:hover:not(:disabled) { background: #f8fafc; border-color: #cbd5e1; }
+  .btn-outline:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-danger { background: #fff; color: var(--danger); border: 1px solid var(--danger); border-radius: 8px; cursor: pointer; font-weight: 600; padding: 10px 18px; transition: 0.2s;}
+  .btn-danger:hover { background: var(--danger); color: #fff; }
+
+  /* Chat Box */
+  .chat-box { flex: 1; overflow-y: auto; padding: 30px; display: flex; flex-direction: column; gap: 24px; background: #fafafa; }
+  
+  /* Messages */
+  .msg-group { display: flex; flex-direction: column; width: 100%; gap: 4px; }
+  .msg-group.me { align-items: flex-end; }
+  .msg-group.them { align-items: flex-start; }
+  
+  .msg-meta { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; display: flex; gap: 8px; margin: 0 4px; }
+  .msg-row { display: flex; align-items: flex-end; gap: 10px; max-width: 80%; }
+  .msg-group.me .msg-row { flex-direction: row-reverse; }
+
+  .chat-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+  .av-me { background: var(--primary); }
+  .av-them { background: var(--text-dark); }
+
+  .msg-bubble { padding: 14px 18px; border-radius: 18px; font-size: 0.95rem; line-height: 1.5; position: relative; word-break: break-word;}
+  .msg-group.me .msg-bubble { background: var(--primary); color: #fff; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(29, 191, 115, 0.15); }
+  .msg-group.them .msg-bubble { background: #fff; color: var(--text-dark); border: 1px solid var(--border); border-bottom-left-radius: 4px; box-shadow: var(--shadow-sm); }
+  
+  .msg-system { align-self: center; border: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem; font-weight: 600; padding: 6px 16px; border-radius: 999px; background: rgba(255,255,255,0.5); backdrop-filter: blur(4px); }
+
+  /* Embedded Offer Card */
+  .offer-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; width: 100%; min-width: 320px; max-width: 400px; box-shadow: var(--shadow-md); margin-top: 8px; position: relative; overflow: hidden; }
+  .offer-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+  .offer-card.cancelled::before { background: var(--text-muted); }
+  
+  .offer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .offer-title { font-weight: 800; font-size: 1.05rem; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
+  .offer-status { font-size: 0.7rem; font-weight: 800; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .status-pending { background: #e0f2fe; color: #0284c7; }
+  .status-accepted { background: #d1fae5; color: #047857; }
+  .status-cancelled { background: #f1f5f9; color: #64748b; }
+  .status-expired { background: #fee2e2; color: #b91c1c; }
+  
+  .offer-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
+  .offer-details { display: flex; justify-content: space-between; background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 16px; border: 1px solid #f1f5f9; }
+  .detail-item { display: flex; flex-direction: column; gap: 2px; }
+  .detail-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+  .detail-val { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); }
+  
+  .offer-actions { display: flex; gap: 10px; }
+  .offer-countdown { font-size: 0.75rem; font-weight: 700; color: var(--danger); text-align: center; margin-top: 12px; letter-spacing: 0.03em;}
+
+  /* Composer (Sticky Bottom) */
+  .composer { padding: 20px 30px; background: #fff; border-top: 1px solid var(--border); display: flex; gap: 16px; align-items: flex-end; flex-shrink: 0; }
+  .composer-actions { display: flex; gap: 8px; padding-bottom: 4px; }
+  .icon-btn { background: transparent; border: none; color: var(--text-muted); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+  .icon-btn:hover { background: #f1f5f9; color: var(--primary); }
+  
+  .input-wrapper { flex: 1; background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 12px 16px; display: flex; flex-direction: column; transition: 0.2s; }
+  .input-wrapper:focus-within { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(29, 191, 115, 0.1); }
+  
+  .chat-textarea { border: none; background: transparent; resize: none; outline: none; font-size: 0.95rem; line-height: 1.5; font-family: 'Inter', sans-serif; color: var(--text-dark); max-height: 150px; min-height: 24px; overflow-y: auto; }
+  
+  .btn-send { background: var(--primary); color: #fff; border: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(29, 191, 115, 0.2); flex-shrink: 0; margin-bottom: 2px;}
+  .btn-send:hover:not(:disabled) { transform: scale(1.05); background: var(--primary-hover); }
+  .btn-send:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+  /* MODALS */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+  .modal-box { background: #fff; border-radius: 20px; padding: 30px; width: 100%; max-width: 500px; box-shadow: var(--shadow-lg); position: relative; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .modal-header h3 { font-size: 1.25rem; font-weight: 800; margin: 0; color: var(--text-dark); }
+  .close-btn { background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; line-height: 1; }
+  
+  .form-group { margin-bottom: 20px; }
+  .form-label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+  .input-text { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif;}
+  .input-text:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(29, 191, 115, 0.1); }
+
+  @media (max-width: 850px) {
+    .messenger-layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+  }
+</style>
+</head>
+<body class="messenger-view">
+
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <div style="font-weight: 800; color: var(--text-dark); font-size: 1rem; letter-spacing: -0.01em;">Engineering Portal</div>
+  <div style="color: var(--text-muted); font-size: 0.75rem; font-weight: 600; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em;">Authenticating Session...</div>
+</div>
+
+<header class="app-header">
+  <a href="portal.html" class="back-link">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px; height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+    Dashboard
+  </a>
+  <div class="app-logo">Inbox Workspace</div>
+  <div style="width: 100px;"></div>
+</header>
+
+<div class="messenger-layout">
+  
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Conversations</h2>
+    </div>
+    <div class="contact-list" id="contact-list">
+      <div style="text-align:center; padding:20px; color:var(--text-muted);">Loading clients...</div>
+    </div>
+  </aside>
+
+  <main class="chat-area">
+    <header class="chat-header">
+      <div class="chat-header-client">
+        <div class="avatar" id="partner-avatar" style="width:48px; height:48px; font-size:1.2rem; background: #f1f5f9; color: var(--text-dark);">?</div>
+        <div class="client-title">
+          <h3 id="partner-name">Select a conversation</h3>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span id="live-dot" class="status-dot offline" style="position:relative; width:8px; height:8px; border:none;"></span>
+            <span id="live-text" style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">Offline</span>
+            <span class="order-status-badge" id="header-order-badge" style="display:none;"></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-actions" id="admin-actions" style="display:none;">
+        <button class="btn-outline" onclick="openModal('offerModal')">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:18px; height:18px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          Create Offer
+        </button>
+      </div>
+    </header>
+
+    <div class="chat-box" id="chat-box">
+      <div style="text-align:center; color:var(--text-muted); margin-top:50px;">Select a client from the sidebar to begin.</div>
+    </div>
+
+    <div class="composer">
+      <div class="composer-actions">
+        <button class="icon-btn" title="Attach File (Upcoming Feature)">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px; height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+        </button>
+        <button class="icon-btn" id="btn-create-offer" title="Create Offer" onclick="window.openModal('offerModal')" style="display:none;">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px; height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        </button>
+      </div>
+      
+      <div class="input-wrapper">
+        <textarea class="chat-textarea" id="chat-input" placeholder="Write a message... (Press Enter for new line)" rows="1" disabled></textarea>
+      </div>
+      
+      <button class="btn-send" id="send-btn" onclick="window.sendMessage()" disabled>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px; height:20px; margin-left:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+      </button>
+    </div>
+  </main>
+</div>
+
+<div id="offerModal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Create Custom Offer</h3>
+      <button class="close-btn" onclick="closeModal('offerModal')">&times;</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description of Work</label>
+      <textarea class="input-text" id="off-desc" rows="3" placeholder="What exactly will you deliver?"></textarea>
+    </div>
+    <div style="display:flex; gap:16px; margin-bottom:20px;">
+      <div style="flex:1;">
+        <label class="form-label">Delivery (Days)</label>
+        <input type="number" id="off-days" class="input-text" placeholder="e.g. 3" min="1" oninput="if(this.value < 1) this.value = '';">
+      </div>
+      <div style="flex:1;">
+        <label class="form-label">Revisions</label>
+        <input type="number" id="off-revs" class="input-text" placeholder="e.g. 2" min="0" oninput="if(this.value < 0) this.value = '';">
+      </div>
+    </div>
+    <div style="display:flex; gap:16px; margin-bottom:20px;">
+      <div style="flex:1;">
+        <label class="form-label">Auto-Cancel (Hours)</label>
+        <select id="off-expiry" class="input-text">
+          <option value="24">24 Hours</option>
+          <option value="48">48 Hours</option>
+          <option value="72">72 Hours</option>
+          <option value="0">Never Expire</option>
+        </select>
+      </div>
+      <div style="flex:1;">
+        <label class="form-label">Total Price ($USD)</label>
+        <input type="number" id="off-price" class="input-text" placeholder="0.00" min="1" style="font-weight:700; color:var(--primary);" oninput="if(this.value < 1) this.value = '';">
+      </div>
+    </div>
+    <button class="btn" style="width:100%; padding: 14px;" onclick="window.submitOffer()">Send Offer to Chat</button>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+  import { getFirestore, collection, addDoc, doc, setDoc, updateDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  const firebaseConfig = { apiKey: "AIzaSyAZ2q84JoqhL_HUZCmZ68L0c40HAmEYniY", authDomain: "conilious-dube-portal.firebaseapp.com", projectId: "conilious-dube-portal", storageBucket: "conilious-dube-portal.firebasestorage.app", messagingSenderId: "1054178318819", appId: "1:1054178318819:web:3bb1fdeb967a8dfd0ea8d6" };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.currentClientId = null;
+  window.isAdmin = false;
+  let clientStatusUnsub = null;
+  let orderUnsub = null;
+  let inboxUnsub = null;
+
+  const escapeHtml = (s) => String(s||"").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+
+  // Auto-resize textarea
+  const tx = document.getElementById('chat-input');
+  tx.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
+
+  window.openModal = (id) => { document.getElementById(id).style.display = 'flex'; };
+  window.closeModal = (id) => { document.getElementById(id).style.display = 'none'; };
+
+  // --- AUTH CHECK WITH LOADER FIX ---
+  onAuthStateChanged(auth, user => {
+    // Hide the loader immediately
+    const loader = document.getElementById('loading-screen');
+    if (loader) loader.style.display = 'none';
+
+    if(!user) { window.location.href = 'portal.html'; return; }
+    
+    window.isAdmin = (user.email === "coniliousdube@gmail.com" || user.email === "coniliouskailash3@gmail.com");
+
+    if(window.isAdmin) {
+      document.getElementById('admin-actions').style.display = 'flex';
+      document.getElementById('btn-create-offer').style.display = 'flex';
+      loadSidebar();
+    } else {
+      document.getElementById('sidebar').style.display = 'none';
+      document.querySelector('.messenger-layout').style.gridTemplateColumns = '1fr';
+      selectClient(user.uid, "Conilious Dube");
+    }
+  });
+
+  // --- SELLER: CLIENT LIST ---
+  function loadSidebar() {
+    onSnapshot(collection(db, "clients"), snap => {
+      const list = document.getElementById('contact-list');
+      list.innerHTML = '';
+      
+      let isFirst = true;
+
+      snap.forEach(d => {
+        const c = d.data();
+        const uid = d.id;
+        
+        const lastRead = Number(localStorage.getItem('read_' + uid)) || 0;
+        const hasNew = (c.lastMsgTime > lastRead) && (c.lastMsgSender !== auth.currentUser.uid);
+        
+        const item = document.createElement('div');
+        item.className = `contact-card ${window.currentClientId === uid ? 'active' : ''}`;
+        item.id = 'sidebar-' + uid;
+        item.innerHTML = `
+          <div class="avatar-container">
+            <div class="avatar">${c.email.charAt(0).toUpperCase()}</div>
+            <div class="status-dot ${c.online ? '' : 'offline'}"></div>
+            <div class="unread-indicator" style="display:${hasNew ? 'flex' : 'none'};">!</div>
+          </div>
+          <div class="contact-info">
+            <div class="contact-top">
+              <span class="contact-name">${escapeHtml(c.email)}</span>
+            </div>
+            <span class="contact-preview">${c.online ? 'Online now' : 'Offline'}</span>
+          </div>
+        `;
+        item.onclick = () => selectClient(uid, c.email);
+        list.appendChild(item);
+
+        if (isFirst && !window.currentClientId) {
+            selectClient(uid, c.email);
+            isFirst = false;
+        }
+      });
+    });
+  }
+
+  // --- LIVE ONLINE STATUS & ORDER STATUS ---
+  function trackClientData(clientId) {
+      if(clientStatusUnsub) clientStatusUnsub();
+      clientStatusUnsub = onSnapshot(doc(db, "clients", clientId), (s) => {
+          if(!s.exists()) return;
+          const c = s.data();
+          const dot = document.getElementById('live-dot');
+          const txt = document.getElementById('live-text');
+          
+          if(c.online) {
+              dot.classList.remove('offline');
+              txt.innerText = "Online now";
+              txt.style.color = "var(--primary)";
+          } else {
+              dot.classList.add('offline');
+              txt.innerText = "Offline";
+              txt.style.color = "var(--text-muted)";
+          }
+      });
+
+      if(orderUnsub) orderUnsub();
+      orderUnsub = onSnapshot(doc(db, "orders", clientId), (s) => {
+          const badge = document.getElementById('header-order-badge');
+          if(!s.exists()) { badge.style.display = 'none'; return; }
+          const stat = s.data().status;
+          
+          badge.style.display = 'inline-flex';
+          if(stat === 'in_progress') { badge.innerText = 'Active Order'; badge.style.background = '#d1fae5'; badge.style.color = '#047857'; }
+          else if(stat === 'delivered') { badge.innerText = 'Delivered'; badge.style.background = '#e0f2fe'; badge.style.color = '#0284c7'; }
+          else if(stat === 'completed') { badge.innerText = 'Completed'; badge.style.background = '#f1f5f9'; badge.style.color = '#475569'; }
+          else { badge.style.display = 'none'; }
+      });
+  }
+
+  // --- THE CORE ROUTER ---
+  window.selectClient = (id, name) => {
+    window.currentClientId = id;
+    
+    document.getElementById('partner-name').innerText = name;
+    document.getElementById('partner-avatar').innerText = name.charAt(0).toUpperCase();
+    
+    document.getElementById('chat-input').disabled = false;
+    document.getElementById('send-btn').disabled = false;
+
+    trackClientData(id);
+
+    if(window.isAdmin) {
+       localStorage.setItem('read_' + id, Date.now());
+       document.querySelectorAll('.contact-card').forEach(el => el.classList.remove('active'));
+       const activeItem = document.getElementById('sidebar-' + id);
+       if(activeItem) {
+           activeItem.classList.add('active');
+           const badge = activeItem.querySelector('.unread-indicator');
+           if(badge) badge.style.display = 'none';
+       }
+    }
+
+    loadMessages();
+  };
+
+  // --- TIMER ENGINE FOR OFFERS ---
+  setInterval(() => {
+      document.querySelectorAll('.offer-countdown').forEach(el => {
+          const exp = parseInt(el.getAttribute('data-expires-at'));
+          if(!exp) return;
+          const diff = exp - Date.now();
+          if (diff <= 0) {
+              el.innerText = "Offer Expired";
+              el.style.color = "var(--text-muted)";
+              const card = el.closest('.offer-card');
+              if(card) {
+                  const actions = card.querySelector('.offer-actions');
+                  const badge = card.querySelector('.offer-status');
+                  if(actions) actions.innerHTML = `<button class="btn-outline" style="width:100%" disabled>Offer Expired</button>`;
+                  if(badge) { badge.className = 'offer-status status-expired'; badge.innerText = 'Expired'; }
+              }
+          } else {
+              const h = Math.floor(diff / 3600000);
+              const m = Math.floor((diff % 3600000) / 60000);
+              const s = Math.floor((diff % 60000) / 1000);
+              el.innerText = `Auto-cancels in: ${h}h ${m}m ${s}s`;
+          }
+      });
+  }, 1000);
+
+  // --- MESSAGE ENGINE ---
+  function loadMessages() {
+    if(inboxUnsub) inboxUnsub();
+    inboxUnsub = onSnapshot(query(collection(db, "inbox_messages"), orderBy("time", "asc")), snap => {
+      const box = document.getElementById('chat-box');
+      box.innerHTML = '';
+      
+      let rawData = [];
+      snap.forEach(d => { if (d.data().clientId === window.currentClientId) rawData.push({id: d.id, ...d.data()}); });
+
+      if(rawData.length === 0) {
+          box.innerHTML = `<div style="text-align:center; color:var(--text-muted); margin-top:50px;">This is the beginning of your conversation.</div>`;
+          return;
+      }
+
+      rawData.forEach(m => {
+        const isMe = m.uid === auth.currentUser.uid;
+        const senderLabel = isMe ? "You" : (window.isAdmin ? "Client" : "Conilious Dube");
+        const avatarInitials = isMe ? "ME" : (window.isAdmin ? "CL" : "CD");
+
+        if (m.type === "system") {
+            box.innerHTML += `<div class="msg-system">${escapeHtml(m.text)}</div>`;
+            return;
+        }
+
+        if (m.type === "offer") {
+          let badgeHtml = ''; let btnHtml = ''; let classMod = '';
+          const isExpired = m.expiresAt > 0 && Date.now() > m.expiresAt;
+          
+          const viewBtn = `<button class="btn-outline" style="flex:1" onclick="window.viewOffer('${escapeHtml(m.desc)}', ${m.days}, ${m.price}, ${m.revisions || 0})">View Offer</button>`;
+
+          if (m.accepted) {
+              badgeHtml = `<span class="offer-status status-accepted">Accepted</span>`;
+              btnHtml = `<button class="btn-outline" style="width:100%" onclick="window.location.href='workspace.html?id=${window.currentClientId}'">Go to Order Workspace</button>`;
+          } else if (m.canceled) {
+              badgeHtml = `<span class="offer-status status-cancelled">Cancelled</span>`;
+              btnHtml = `<button class="btn-outline" style="width:100%" disabled>Offer Cancelled</button>`;
+              classMod = 'cancelled';
+          } else if (isExpired) {
+              badgeHtml = `<span class="offer-status status-expired">Expired</span>`;
+              btnHtml = `<button class="btn-outline" style="width:100%" disabled>Offer Expired</button>`;
+              classMod = 'cancelled';
+          } else {
+              badgeHtml = `<span class="offer-status status-pending">Pending Approval</span>`;
+              if (window.isAdmin) {
+                  btnHtml = viewBtn + `<button class="btn-danger" style="flex:1" onclick="window.cancelOffer('${m.id}')">Cancel Offer</button>`;
+              } else {
+                  btnHtml = viewBtn + `<button class="btn" style="flex:1" onclick="window.clientAcceptOffer(${m.days}, '${m.id}')">Accept Offer</button>`;
+              }
+          }
+          
+          let expiryHtml = '';
+          if (!m.accepted && !m.canceled && !isExpired && m.expiresAt > 0) {
+              expiryHtml = `<div class="offer-countdown" data-expires-at="${m.expiresAt}">Calculating timer...</div>`;
+          }
+
+          box.innerHTML += `
+            <div class="msg-group ${isMe ? 'me' : 'them'}">
+              <div class="msg-meta">${senderLabel}</div>
+              <div class="offer-card ${classMod}">
+                <div class="offer-header">
+                  <div class="offer-title">
+                    <svg fill="currentColor" viewBox="0 0 20 20" style="color:var(--primary); width:18px; height:18px;"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                    Custom Offer
+                  </div>
+                  ${badgeHtml}
+                </div>
+                <div class="offer-desc">${escapeHtml(m.desc)}</div>
+                <div class="offer-details">
+                  <div class="detail-item"><span class="detail-label">Delivery</span><span class="detail-val">${m.days} Days</span></div>
+                  <div class="detail-item"><span class="detail-label">Revisions</span><span class="detail-val">${m.revisions || 0}</span></div>
+                  <div class="detail-item" style="align-items: flex-end;"><span class="detail-label">Total Price</span><span class="detail-val">$${m.price}</span></div>
+                </div>
+                <div class="offer-actions">${btnHtml}</div>
+                ${expiryHtml}
+              </div>
+            </div>`;
+          return;
+        }
+
+        box.innerHTML += `
+          <div class="msg-group ${isMe ? 'me' : 'them'}">
+            <div class="msg-meta">${senderLabel}</div>
+            <div class="msg-row">
+              <div class="avatar ${isMe ? 'av-me' : 'av-them'}">${avatarInitials}</div>
+              <div class="msg-bubble">${escapeHtml(m.text)}</div>
+            </div>
+          </div>
+        `;
+      });
+      box.scrollTop = box.scrollHeight;
+    });
+  }
+
+  // --- ACTIONS ---
+  window.sendMessage = async () => {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if(!text || !window.currentClientId) return;
+    
+    input.value = '';
+    input.style.height = 'auto';
+
+    const now = Date.now();
+    
+    try {
+      await addDoc(collection(db, "inbox_messages"), { type: "text", text, uid: auth.currentUser.uid, clientId: window.currentClientId, time: now });
+      await setDoc(doc(db, "clients", window.currentClientId), { lastMsgTime: now, lastMsgSender: auth.currentUser.uid }, { merge: true });
+      if(window.isAdmin) localStorage.setItem('read_' + window.currentClientId, now);
+    } catch (err) { console.log("Firebase sync delayed."); }
+  };
+
+  window.submitOffer = async () => {
+    if(!window.currentClientId) return alert("Select a client first.");
+    const desc = document.getElementById('off-desc').value.trim();
+    const days = Number(document.getElementById('off-days').value) || 0;
+    const revs = Number(document.getElementById('off-revs').value) || 0;
+    const price = Number(document.getElementById('off-price').value) || 0;
+    const expiryHours = Number(document.getElementById('off-expiry').value) || 0;
+
+    if (!desc || days < 1 || price < 1 || revs < 0) return alert("Please fill out description, and ensure positive values for days, price, and revisions.");
+    closeModal('offerModal');
+
+    const now = Date.now();
+    const expiresAt = expiryHours > 0 ? now + (expiryHours * 60 * 60 * 1000) : 0;
+
+    try {
+        await addDoc(collection(db, "inbox_messages"), { 
+            type: "offer", desc, days, revisions: revs, price, expiresAt, 
+            clientId: window.currentClientId, uid: auth.currentUser.uid, time: now, accepted: false, canceled: false 
+        });
+        await setDoc(doc(db, "orders", window.currentClientId), { clientId: window.currentClientId, status: "offer_sent" }, { merge: true });
+        await setDoc(doc(db, "clients", window.currentClientId), { lastMsgTime: now, lastMsgSender: auth.currentUser.uid }, { merge: true });
+    } catch(e) {}
+    
+    document.getElementById('off-desc').value = ''; document.getElementById('off-days').value = ''; document.getElementById('off-revs').value = ''; document.getElementById('off-price').value = '';
+  };
+
+  window.viewOffer = (desc, days, price, revs) => {
+      alert(`OFFER DETAILS\n\nScope: ${desc}\nDelivery: ${days} Days\nRevisions: ${revs}\nPrice: $${price}`);
+  };
+
+  window.cancelOffer = async (msgId) => {
+    if (!confirm("Withdraw this offer?")) return;
+    try {
+        await updateDoc(doc(db, "inbox_messages", msgId), { canceled: true });
+        await setDoc(doc(db, "orders", window.currentClientId), { status: "awaiting_offer", updatedAt: Date.now() }, { merge: true });
+    } catch (e) {}
+  };
+
+  window.clientAcceptOffer = async (days, msgId) => {
+    if(!confirm("Accept this offer and start the project?")) return;
+    const deadline = Date.now() + (days * 24 * 60 * 60 * 1000);
+    
+    try {
+        await setDoc(doc(db, "orders", window.currentClientId), { status: "in_progress", deadline: deadline, updatedAt: Date.now() }, { merge: true });
+        await updateDoc(doc(db, "inbox_messages", msgId), { accepted: true });
+        await addDoc(collection(db, "inbox_messages"), { type: "system", text: "Offer Accepted. The workspace has been activated.", clientId: window.currentClientId, time: Date.now() });
+        
+        alert("Offer Accepted! Redirecting to your Order Workspace...");
+        window.location.href = `workspace.html?id=${window.currentClientId}`;
+    } catch(e) {}
+  };
+
+</script>
+</body>
+</html>
