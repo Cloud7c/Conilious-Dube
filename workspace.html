@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Order Workspace | Engineering Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { 
+    --primary: #1dbf73; --primary-hover: #19a463; 
+    --bg-app: #f8fafc; --bg-panel: #ffffff; 
+    --border: #e2e8f0; --text-dark: #0f172a; --text-muted: #64748b; 
+    --danger: #ef4444; --warning: #f59e0b; --success: #10b981;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  * { box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+  
+  /* --- BULLETPROOF FLEXBOX LAYOUT --- */
+  body { background: var(--bg-app); color: var(--text-dark); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* --- LOADER --- */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loading-screen { position: fixed; inset: 0; background: var(--bg-app); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
+
+  /* Header stays fixed at 70px */
+  .app-header { background: var(--bg-panel); height: 70px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; flex-shrink: 0; z-index: 20; box-shadow: var(--shadow-sm); }
+  .back-link { display: flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+  .back-link:hover { color: var(--primary); }
+  .app-logo { font-weight: 800; font-size: 1.25rem; color: var(--text-dark); letter-spacing: -0.02em; }
+
+  /* Main Workspace Wrapper */
+  .workspace-layout { display: flex; flex: 1; height: calc(100vh - 70px); overflow: hidden; width: 100%; max-width: 1600px; margin: 0 auto; background: var(--bg-panel); border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+
+  /* --- LEFT PANEL: ORDER SUMMARY --- */
+  .order-panel { width: 380px; flex-shrink: 0; display: flex; flex-direction: column; background: #fdfdfd; border-right: 1px solid var(--border); overflow-y: auto; padding: 30px; gap: 30px; }
+  
+  .order-header { display: flex; flex-direction: column; gap: 10px; }
+  .client-name { font-size: 0.85rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .project-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); line-height: 1.2; }
+  
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); transition: 0.3s; }
+  .status-dot.offline { background: var(--text-muted); }
+
+  .status-badge { display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; padding: 8px 16px; border-radius: 8px; letter-spacing: 0.05em; text-transform: uppercase; width: 100%; }
+  .status-active { background: #d1fae5; color: #047857; border: 1px solid #10b981; }
+  .status-pending { background: #e0f2fe; color: #0284c7; border: 1px solid #38bdf8; }
+  .status-delivered { background: #fef3c7; color: #b45309; border: 1px solid #f59e0b; }
+  .status-cancelled { background: #fee2e2; color: #b91c1c; border: 1px solid #ef4444; }
+
+  /* 4-Block Timer */
+  .timer-box { background: #fff; border: 2px solid var(--primary); border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(29,191,115,0.1); text-align: center;}
+  .timer-title { font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+  .timer-grid { display: flex; gap: 8px; justify-content: center; }
+  .timer-unit { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 10px 5px; flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .timer-num { font-size: 1.5rem; font-weight: 900; color: var(--text-dark); font-variant-numeric: tabular-nums; line-height: 1; }
+  .timer-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px; }
+
+  /* Financials Grid */
+  .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  .metric-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; align-items: flex-start; box-shadow: var(--shadow-sm);}
+  .metric-val { font-size: 1.6rem; font-weight: 900; color: var(--text-dark); line-height: 1; }
+  .metric-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-top: 6px; }
+
+  /* Horizontal Progress */
+  .stepper { display: flex; justify-content: space-between; position: relative; margin-top: 10px; }
+  .stepper::before { content: ''; position: absolute; top: 12px; left: 0; right: 0; height: 2px; background: var(--border); z-index: 1; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; position: relative; opacity: 0.4; width: 60px;}
+  .step.completed, .step.current { opacity: 1; }
+  .step-circle { width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; transition: 0.3s; }
+  .step.completed .step-circle { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .step.current .step-circle { border-color: var(--primary); border-width: 4px; }
+  .step-label { font-size: 0.65rem; font-weight: 700; color: var(--text-dark); text-align: center; line-height: 1.1; }
+
+  /* --- RIGHT PANEL: TIMELINE & CHAT --- */
+  .timeline-area { flex: 1; display: flex; flex-direction: column; min-width: 0; background: #f8fafc; position: relative; }
+  
+  .timeline-header { padding: 15px 30px; background: #fff; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; z-index: 10; box-shadow: var(--shadow-sm);}
+  .timeline-title { font-weight: 800; font-size: 1.15rem; color: var(--text-dark); }
+  .enc-badge { font-size: 0.75rem; font-weight: 700; color: #059669; background: #d1fae5; padding: 4px 10px; border-radius: 8px; display: flex; align-items: center; gap: 6px;}
+
+  /* Chat Box */
+  .timeline-box { flex: 1; overflow-y: auto; padding: 30px; display: flex; flex-direction: column; gap: 24px; min-height: 0; }
+
+  /* Messages */
+  .msg-group { display: flex; flex-direction: column; width: 100%; gap: 6px; }
+  .msg-group.me { align-items: flex-end; }
+  .msg-group.them { align-items: flex-start; }
+  .msg-meta { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin: 0 4px; }
+  .msg-bubble { padding: 14px 18px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; max-width: 70%; word-break: break-word; box-shadow: var(--shadow-sm); }
+  .msg-group.me .msg-bubble { background: var(--primary); color: #fff; border-bottom-right-radius: 4px; }
+  .msg-group.them .msg-bubble { background: #fff; color: var(--text-dark); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+  
+  .msg-system { align-self: center; border: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem; font-weight: 700; padding: 8px 20px; border-radius: 999px; background: #fff; box-shadow: var(--shadow-sm); margin: 10px 0;}
+
+  /* Embedded Cards (Offers & Deliveries) */
+  .embed-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; width: 100%; min-width: 320px; max-width: 420px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+  .embed-card::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: var(--primary); }
+  .embed-card.cancelled::before { background: var(--text-muted); }
+  .embed-card.delivery::before { background: var(--warning); }
+  
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .card-title { font-weight: 800; font-size: 1.1rem; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
+  .card-desc { font-size: 0.95rem; color: var(--text-dark); line-height: 1.5; margin-bottom: 20px; background: #f8fafc; padding: 14px; border-radius: 8px; border: 1px solid var(--border); }
+  
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .card-stat { display: flex; flex-direction: column; gap: 2px; }
+  .card-stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; }
+  .card-stat-val { font-size: 1rem; font-weight: 800; color: var(--text-dark); }
+  
+  .card-actions { display: flex; gap: 10px; margin-top: 15px; }
+
+  /* Buttons */
+  .btn { background: var(--primary); color: #fff; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 700; cursor: transition: 0.2s; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(29, 191, 115, 0.2); }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-outline { background: #fff; color: var(--text-dark); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-weight: 700; padding: 12px 20px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;}
+  .btn-outline:hover:not(:disabled) { background: #f8fafc; border-color: #cbd5e1; transform: translateY(-2px); box-shadow: var(--shadow-sm);}
+  .btn-danger { background: #fff; color: var(--danger); border: 1px solid var(--danger); border-radius: 10px; cursor: pointer; font-weight: 700; padding: 12px 20px; transition: 0.2s;}
+  .btn-danger:hover { background: var(--danger); color: #fff; }
+  .btn-warning { background: var(--warning); color: #fff; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; padding: 12px 20px; transition: 0.2s;}
+  .btn-warning:hover { background: #d97706; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);}
+
+  .btn-small { padding: 8px 14px; font-size: 0.85rem; }
+
+  /* Sticky Footer Composer */
+  .composer-area { background: #fff; border-top: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; z-index: 20; box-shadow: 0 -4px 10px rgba(0,0,0,0.02);}
+  .power-bar { padding: 14px 30px; display: flex; gap: 12px; border-bottom: 1px solid var(--border); background: #fcfcfc; overflow-x: auto; white-space: nowrap;}
+  .composer { padding: 20px 30px; display: flex; gap: 16px; align-items: flex-end; }
+  
+  .input-wrapper { flex: 1; background: #f8fafc; border: 1px solid var(--border); border-radius: 16px; padding: 14px 20px; transition: 0.2s; }
+  .input-wrapper:focus-within { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(29, 191, 115, 0.1); }
+  .chat-textarea { border: none; background: transparent; resize: none; outline: none; font-size: 1rem; line-height: 1.5; width: 100%; font-family: 'Inter', sans-serif; color: var(--text-dark); max-height: 150px; min-height: 24px; overflow-y: auto; }
+  
+  .btn-send { background: var(--primary); color: #fff; border: none; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(29, 191, 115, 0.2); flex-shrink: 0;}
+  .btn-send:hover:not(:disabled) { transform: scale(1.05); background: var(--primary-hover); }
+
+  /* --- MODALS --- */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+  .modal-box { background: #fff; border-radius: 20px; padding: 35px; width: 100%; max-width: 550px; box-shadow: var(--shadow-lg); position: relative; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); max-height: 90vh; overflow-y: auto;}
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .modal-header h3 { font-size: 1.35rem; font-weight: 800; margin: 0; color: var(--text-dark); }
+  .close-btn { background: none; border: none; font-size: 1.8rem; color: var(--text-muted); cursor: pointer; line-height: 1; }
+  
+  .form-group { margin-bottom: 20px; }
+  .form-label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+  .input-text { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; transition: 0.2s; font-family: 'Inter', sans-serif; background: #f8fafc;}
+  .input-text:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(29, 191, 115, 0.1); }
+  
+  /* Delivery Dropzone */
+  .dropzone { border: 2px dashed var(--border); border-radius: 12px; padding: 30px 20px; text-align: center; background: #f8fafc; cursor: pointer; transition: 0.2s; position: relative;}
+  .dropzone:hover { border-color: var(--primary); background: #f0fdf4; }
+  .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 15px; }
+  .preview-img { width: 100%; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); animation: fadeIn 0.3s;}
+
+  @media (max-width: 900px) {
+    .workspace-layout { grid-template-columns: 1fr; }
+    .order-panel { display: none; } 
+  }
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <div style="font-weight: 800; color: var(--text-dark); font-size: 1rem; letter-spacing: -0.01em;">Engineering Portal</div>
+  <div style="color: var(--text-muted); font-size: 0.75rem; font-weight: 600; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em;">Authenticating Session...</div>
+</div>
+
+<header class="app-header">
+  <a href="portal.html" class="back-link">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px; height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+    Dashboard
+  </a>
+  <div class="app-logo">Project Studio</div>
+  <a href="messages.html" class="back-link" style="color:var(--primary);">Main Inbox</a>
+</header>
+
+<div class="workspace-layout">
+  
+  <aside class="order-panel" id="order-panel">
+    <div class="order-header">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="client-name" id="client-email-display">Loading Data...</span>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span id="live-dot" class="status-dot offline" style="position:relative; border:none;"></span>
+          <span id="live-text" style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Offline</span>
+        </div>
+      </div>
+      <h2 class="project-title">Custom Engineering Project</h2>
+      <div id="status-badge-container" style="margin-top:5px;">
+        <span class="status-badge status-pending" id="ws-status-badge">Connecting...</span>
+      </div>
+    </div>
+
+    <div class="timer-box">
+      <div class="timer-title">Time Remaining</div>
+      <div class="timer-grid">
+        <div class="timer-unit"><span class="timer-num" id="t-days">00</span><span class="timer-label">Days</span></div>
+        <div class="timer-unit"><span class="timer-num" id="t-hours">00</span><span class="timer-label">Hrs</span></div>
+        <div class="timer-unit"><span class="timer-num" id="t-mins">00</span><span class="timer-label">Min</span></div>
+        <div class="timer-unit"><span class="timer-num" id="t-secs">00</span><span class="timer-label">Sec</span></div>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <span class="metric-val" id="metric-revs">0</span>
+        <span class="metric-label">Added Revisions</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-val" id="metric-price">$0</span>
+        <span class="metric-label">Upsell Value</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <div style="font-size: 0.85rem; font-weight: 800; margin-bottom: 15px; color:var(--text-dark);">Project Roadmap</div>
+      <div class="stepper">
+        <div class="step completed" id="step-1">
+          <div class="step-circle"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:14px; height:14px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg></div>
+          <span class="step-label">Offer Sent</span>
+        </div>
+        <div class="step" id="step-2">
+          <div class="step-circle">2</div>
+          <span class="step-label">Active</span>
+        </div>
+        <div class="step" id="step-3">
+          <div class="step-circle">3</div>
+          <span class="step-label">Delivered</span>
+        </div>
+        <div class="step" id="step-4">
+          <div class="step-circle">4</div>
+          <span class="step-label">Complete</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="timeline-area">
+    <div class="timeline-header">
+      <span class="timeline-title">Activity Timeline</span>
+      <span class="enc-badge">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:14px; height:14px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        Secured
+      </span>
+    </div>
+
+    <div class="timeline-box" id="timeline-box">
+      <div style="text-align:center; color:var(--text-muted); margin-top:50px; font-weight:600;">Loading timeline...</div>
+    </div>
+
+    <div class="composer-area">
+      <div class="power-bar" id="power-bar"></div>
+      
+      <div class="composer">
+        <div class="input-wrapper">
+          <textarea class="chat-textarea" id="chat-input" placeholder="Type a message or update... (Press Enter for new line)" rows="1" disabled></textarea>
+        </div>
+        <button class="btn-send" id="send-btn" onclick="window.sendMessage()" disabled title="Send Message">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:24px; height:24px; margin-left:2px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="deliveryModal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Deliver Final Work</h3>
+      <button class="close-btn" onclick="closeModal('deliveryModal')">&times;</button>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Delivery Note</label>
+      <textarea class="input-text" id="del-note" rows="4" placeholder="Describe the files you are delivering..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Upload Files & Images</label>
+      <label class="dropzone">
+        <input type="file" id="file-upload" multiple accept="image/*,.pdf,.step,.iges" style="display:none;" onchange="handleFileSelect(event)">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:36px; height:36px; color:var(--text-muted); margin-bottom:10px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+        <p>Click to browse files or images</p>
+      </label>
+      <div class="preview-grid" id="image-previews"></div>
+    </div>
+
+    <button class="btn" style="width:100%; padding: 14px;" onclick="window.submitDelivery()">Upload & Deliver Order</button>
+  </div>
+</div>
+
+<div id="cancelModal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 style="color:var(--danger);">Request Cancellation</h3>
+      <button class="close-btn" onclick="closeModal('cancelModal')">&times;</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Reason for Request</label>
+      <textarea class="input-text" id="cancel-reason" rows="4" placeholder="Please explain why this order needs to be cancelled..."></textarea>
+    </div>
+    <div style="display:flex; gap:12px;">
+      <button class="btn-outline" style="flex:1;" onclick="closeModal('cancelModal')">Keep Order</button>
+      <button class="btn-danger" style="flex:1;" onclick="window.submitCancellation()">Submit Request</button>
+    </div>
+  </div>
+</div>
+
+<div id="offerModal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Create Upsell Offer</h3>
+      <button class="close-btn" onclick="closeModal('offerModal')">&times;</button>
+    </div>
+    <div class="form-group">
+      <textarea class="input-text" id="off-desc" rows="3" placeholder="Description of extra work/revisions..."></textarea>
+    </div>
+    <div style="display:flex; gap:16px; margin-bottom:20px;">
+      <input type="number" id="off-days" class="input-text" placeholder="Days Added" min="0" oninput="if(this.value < 0) this.value = '';" style="flex:1">
+      <input type="number" id="off-price" class="input-text" placeholder="$ USD Added" min="0" oninput="if(this.value < 0) this.value = '';" style="flex:1; font-weight:700; color:var(--primary);">
+    </div>
+    <button class="btn" style="width:100%; padding: 14px;" onclick="window.submitOffer()">Send Offer</button>
+  </div>
+</div>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+  import { getFirestore, collection, addDoc, doc, setDoc, updateDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  const firebaseConfig = { apiKey: "AIzaSyAZ2q84JoqhL_HUZCmZ68L0c40HAmEYniY", authDomain: "conilious-dube-portal.firebaseapp.com", projectId: "conilious-dube-portal", storageBucket: "conilious-dube-portal.firebasestorage.app", messagingSenderId: "1054178318819", appId: "1:1054178318819:web:3bb1fdeb967a8dfd0ea8d6" };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.isAdmin = false;
+  window.currentClientId = null;
+  window.currentClientEmail = "Client";
+  let orderUnsub = null;
+  let timelineUnsub = null;
+  let clientStatusUnsub = null;
+  let timerInterval = null;
+  window.currentDeadline = null;
+
+  const escapeHtml = (s) => String(s||"").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
+
+  // Route Guard
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlClientId = urlParams.get('id');
+
+  if(!urlClientId) {
+      window.location.href = "portal.html";
+  } else {
+      window.currentClientId = urlClientId;
+  }
+
+  // Composer Resize
+  const tx = document.getElementById('chat-input');
+  tx.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
+
+  window.openModal = (id) => { document.getElementById(id).style.display = 'flex'; };
+  window.closeModal = (id) => { document.getElementById(id).style.display = 'none'; };
+
+  window.handleFileSelect = (event) => {
+      const files = event.target.files;
+      const previewContainer = document.getElementById('image-previews');
+      previewContainer.innerHTML = ''; 
+      
+      for(let i=0; i<files.length; i++) {
+          const file = files[i];
+          if(file.type.startsWith('image/')) {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                  const img = document.createElement('img');
+                  img.src = e.target.result;
+                  img.className = 'preview-img';
+                  previewContainer.appendChild(img);
+              };
+              reader.readAsDataURL(file);
+          } else {
+              const docDiv = document.createElement('div');
+              docDiv.className = 'preview-img';
+              docDiv.style.display = 'flex'; docDiv.style.alignItems='center'; docDiv.style.justifyContent='center';
+              docDiv.style.background = '#e2e8f0'; docDiv.style.fontSize = '0.7rem'; docDiv.style.fontWeight = 'bold';
+              docDiv.innerText = "FILE";
+              previewContainer.appendChild(docDiv);
+          }
+      }
+  };
+
+  // --- AUTH CHECK ---
+  onAuthStateChanged(auth, user => {
+    const loader = document.getElementById('loading-screen');
+    if (loader) loader.style.display = 'none';
+
+    if(!user) { window.location.href = 'portal.html'; return; }
+    
+    window.isAdmin = (user.email === "coniliousdube@gmail.com" || user.email === "coniliouskailash3@gmail.com");
+
+    document.getElementById('chat-input').disabled = false;
+    document.getElementById('send-btn').disabled = false;
+
+    trackLiveStatus(window.currentClientId);
+    loadOrderData();
+    loadTimeline();
+  });
+
+  // --- LIVE ONLINE STATUS TRACKER ---
+  function trackLiveStatus(targetUid) {
+      if(clientStatusUnsub) clientStatusUnsub();
+      clientStatusUnsub = onSnapshot(doc(db, "clients", targetUid), (s) => {
+          if(!s.exists()) return;
+          const c = s.data();
+          const dot = document.getElementById('live-dot');
+          const txt = document.getElementById('live-text');
+          
+          if (window.isAdmin) {
+              if(c.online) {
+                  dot.classList.remove('offline');
+                  txt.innerText = "Client Online";
+                  txt.style.color = "var(--primary)";
+              } else {
+                  dot.classList.add('offline');
+                  txt.innerText = "Client Offline";
+                  txt.style.color = "var(--text-muted)";
+              }
+          } else {
+              dot.classList.remove('offline');
+              txt.innerText = "Support Active";
+              txt.style.color = "var(--primary)";
+          }
+      });
+  }
+
+  // --- ENGINE: ORDER DATA & UI UPDATER ---
+  function loadOrderData() {
+    if(orderUnsub) orderUnsub();
+    
+    orderUnsub = onSnapshot(doc(db, "orders", window.currentClientId), (s) => {
+      const o = s.exists() ? s.data() : { status: 'awaiting_offer', clientEmail: 'Connecting...' };
+      const stat = o.status || 'awaiting_offer';
+      
+      window.currentClientEmail = o.clientEmail || (window.isAdmin ? "Client Workspace" : auth.currentUser.email);
+      document.getElementById('client-email-display').innerText = window.currentClientEmail;
+      
+      const badge = document.getElementById('ws-status-badge');
+      if(stat === 'in_progress') { badge.innerText = 'Active'; badge.className = 'status-badge status-active'; updateStepper(2); }
+      else if(stat === 'delivered') { badge.innerText = 'Delivered'; badge.className = 'status-badge status-delivered'; updateStepper(3); }
+      else if(stat === 'completed') { badge.innerText = 'Completed'; badge.className = 'status-badge status-active'; updateStepper(4); }
+      else if(stat === 'cancelled') { badge.innerText = 'Cancelled'; badge.className = 'status-badge status-cancelled'; updateStepper(1); }
+      else { badge.innerText = 'Awaiting Offer'; badge.className = 'status-badge status-pending'; updateStepper(1); }
+
+      if(stat === 'in_progress' && o.deadline) {
+          startTimer(o.deadline);
+      } else {
+          stopTimer();
+      }
+
+      renderPowerBar(stat);
+    });
+  }
+
+  function updateStepper(stepNumber) {
+      document.querySelectorAll('.step').forEach((el, index) => {
+          el.classList.remove('completed', 'current');
+          if (index + 1 < stepNumber) el.classList.add('completed');
+          if (index + 1 === stepNumber) el.classList.add('current');
+      });
+  }
+
+  function renderPowerBar(status) {
+      const bar = document.getElementById('power-bar');
+      let html = '';
+
+      if (window.isAdmin) {
+          if(status === 'in_progress') {
+              html += `<button class="btn-warning" onclick="openModal('deliveryModal')">Deliver Final Work</button>`;
+              html += `<button class="btn-outline" onclick="openModal('offerModal')">Create Upsell Offer</button>`;
+              html += `<button class="btn-outline" style="color:var(--danger); border-color:var(--border);" onclick="openModal('cancelModal')">Apply for Cancel</button>`;
+          } else if (status === 'delivered' || status === 'completed') {
+              html += `<span style="color:var(--text-muted); font-weight:700;">Work Delivered. Review the timeline above.</span>`;
+          } else {
+              html += `<button class="btn-outline" onclick="window.location.href='messages.html'">Go to Inbox to send an Offer</button>`;
+          }
+      } else {
+          if(status === 'in_progress') {
+              html += `<button class="btn-outline" style="color:var(--danger); border-color:var(--border);" onclick="openModal('cancelModal')">Request Cancellation</button>`;
+          } else if (status === 'delivered') {
+              html += `<button class="btn" style="background:var(--success);" onclick="window.clientApproveDelivery()">Accept & Approve Delivery</button>`;
+              html += `<button class="btn-outline" style="color:var(--warning); border-color:var(--warning);" onclick="openModal('cancelModal')">Request Revision</button>`;
+          } else if (status === 'completed') {
+              html += `<span style="color:var(--success); font-weight:800;">Project Completed Successfully.</span>`;
+          } else {
+              html += `<span style="color:var(--text-muted); font-weight:700;">Awaiting offer from your engineer...</span>`;
+          }
+      }
+      
+      bar.innerHTML = html;
+  }
+
+  // --- ENGINE: TIMELINE MESSAGES ---
+  function loadTimeline() {
+    if(timelineUnsub) timelineUnsub();
+
+    timelineUnsub = onSnapshot(query(collection(db, "order_messages"), orderBy("time", "asc")), snap => {
+      const box = document.getElementById('timeline-box');
+      box.innerHTML = '';
+      
+      let rawData = [];
+      let latestPrice = 0; let latestRevs = 0; 
+      
+      snap.forEach(d => { if (d.data().clientId === window.currentClientId) rawData.push({id: d.id, ...d.data()}); });
+
+      if(rawData.length === 0) {
+          box.innerHTML = `<div style="text-align:center; color:var(--text-muted); margin-top:50px; font-weight:600;">Order timeline initialized. Ready for updates.</div>`;
+          return;
+      }
+
+      rawData.forEach(m => {
+        const isMe = m.uid === auth.currentUser.uid;
+        const senderLabel = isMe ? "You" : (window.isAdmin ? window.currentClientEmail : "Conilious Dube");
+
+        if (m.type === "system") {
+            box.innerHTML += `<div class="msg-system">${escapeHtml(m.text)}</div>`;
+            return;
+        }
+
+        if (m.type === "offer") {
+            if(m.accepted) { latestPrice += Number(m.price); latestRevs += Number(m.revisions || 0); } 
+            
+            let badgeHtml = ''; let btnHtml = ''; let classMod = '';
+            
+            if (m.accepted) {
+                badgeHtml = `<span style="font-size:0.75rem; font-weight:800; color:var(--success)">ACCEPTED</span>`;
+                btnHtml = `<button class="btn-outline btn-small" style="width:100%" disabled>Offer Accepted</button>`;
+            } else if (m.canceled) {
+                badgeHtml = `<span style="font-size:0.75rem; font-weight:800; color:var(--text-muted)">CANCELLED</span>`;
+                btnHtml = `<button class="btn-outline btn-small" style="width:100%" disabled>Offer Cancelled</button>`;
+                classMod = 'cancelled';
+            } else {
+                badgeHtml = `<span style="font-size:0.75rem; font-weight:800; color:var(--warning)">PENDING</span>`;
+                if (window.isAdmin) {
+                    btnHtml = `<button class="btn-danger btn-small" style="width:100%" onclick="window.cancelOffer('${m.id}')">Withdraw Offer</button>`;
+                } else {
+                    btnHtml = `<button class="btn btn-small" style="width:100%" onclick="window.clientAcceptOffer(${m.days}, '${m.id}')">Accept & Add to Order</button>`;
+                }
+            }
+
+            box.innerHTML += `
+              <div class="msg-group ${isMe ? 'me' : 'them'}">
+                <div class="msg-meta">${senderLabel}</div>
+                <div class="embed-card ${classMod}">
+                  <div class="card-header">
+                    <div class="card-title">Upsell / Scope Addition</div>
+                    ${badgeHtml}
+                  </div>
+                  <div class="card-desc">${escapeHtml(m.desc)}</div>
+                  <div class="card-grid">
+                    <div class="card-stat"><span class="card-stat-label">Days Added</span><span class="card-stat-val">+${m.days}</span></div>
+                    <div class="card-stat"><span class="card-stat-label">Amount Added</span><span class="card-stat-val">+$${m.price}</span></div>
+                  </div>
+                  <div class="card-actions" style="margin-top: 15px;">${btnHtml}</div>
+                </div>
+              </div>`;
+            return;
+        }
+
+        if (m.type === "delivery") {
+            box.innerHTML += `
+              <div class="msg-group ${isMe ? 'me' : 'them'}">
+                <div class="msg-meta">${senderLabel}</div>
+                <div class="embed-card delivery">
+                  <div class="card-header">
+                    <div class="card-title"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px;height:20px;color:var(--warning);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Work Delivered</div>
+                  </div>
+                  <div class="card-desc">${escapeHtml(m.note)}</div>
+                  <div class="card-actions">
+                    <button class="btn-outline btn-small" style="width:100%" disabled>File Delivery Ready</button>
+                  </div>
+                </div>
+              </div>`;
+            return;
+        }
+
+        box.innerHTML += `
+          <div class="msg-group ${isMe ? 'me' : 'them'}">
+            <div class="msg-meta">${senderLabel}</div>
+            <div class="msg-bubble">${escapeHtml(m.text)}</div>
+          </div>
+        `;
+      });
+
+      document.getElementById('metric-price').innerText = `$${latestPrice}`;
+      document.getElementById('metric-revs').innerText = latestRevs || 0;
+
+      box.scrollTop = box.scrollHeight;
+    });
+  }
+
+  // --- ACTIONS ---
+  window.sendMessage = async () => {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if(!text) return;
+    
+    input.value = '';
+    input.style.height = 'auto';
+
+    // Optimistic UI for instant display
+    const box = document.getElementById('timeline-box');
+    box.innerHTML += `
+      <div class="msg-group me">
+        <div class="msg-meta">You</div>
+        <div class="msg-bubble">${escapeHtml(text)}</div>
+      </div>`;
+    box.scrollTop = box.scrollHeight;
+
+    try {
+      await addDoc(collection(db, "order_messages"), { type: "text", text, uid: auth.currentUser.uid, clientId: window.currentClientId, time: Date.now() });
+    } catch (err) { console.log("Firebase sync delayed."); }
+  };
+
+  window.submitDelivery = async () => {
+    const note = document.getElementById('del-note').value.trim() || "Here is the final delivery for your review.";
+    closeModal('deliveryModal');
+    
+    try {
+      await addDoc(collection(db, "order_messages"), { type: "delivery", note, uid: auth.currentUser.uid, clientId: window.currentClientId, time: Date.now() });
+      await setDoc(doc(db, "orders", window.currentClientId), { status: "delivered" }, { merge: true });
+    } catch (err) { alert("Error sending delivery."); }
+  };
+
+  window.clientApproveDelivery = async () => {
+    if(!confirm("Approve this delivery? This marks the project as completed.")) return;
+    try {
+        await setDoc(doc(db, "orders", window.currentClientId), { status: "completed", updatedAt: Date.now() }, { merge: true });
+        await addDoc(collection(db, "order_messages"), { type: "system", text: "Client approved the final delivery. Project Completed.", clientId: window.currentClientId, time: Date.now() });
+    } catch (e) {}
+  };
+
+  window.submitCancellation = async () => {
+      const reason = document.getElementById('cancel-reason').value.trim();
+      if (!reason) return alert("Please provide a reason.");
+      closeModal('cancelModal');
+
+      try {
+          await setDoc(doc(db, "orders", window.currentClientId), { status: "cancelled", updatedAt: Date.now() }, { merge: true });
+          const sender = window.isAdmin ? "Seller" : "Client";
+          await addDoc(collection(db, "order_messages"), { type: "system", text: `${sender} requested cancellation. Reason: ${reason}`, clientId: window.currentClientId, time: Date.now() });
+      } catch (e) {}
+  };
+
+  // Admin creating the upsell
+  window.submitOffer = async () => {
+    const desc = document.getElementById('off-desc').value.trim();
+    const days = Number(document.getElementById('off-days').value) || 0;
+    const price = Number(document.getElementById('off-price').value) || 0;
+
+    if (!desc || days < 1 || price < 1) return alert("Please fill out the description, days, and price correctly.");
+    closeModal('offerModal');
+
+    try {
+        // SAVED AS PENDING (accepted: false)
+        await addDoc(collection(db, "order_messages"), { 
+            type: "offer", desc, days, revisions: 0, price, 
+            clientId: window.currentClientId, uid: auth.currentUser.uid, time: Date.now(), 
+            accepted: false, canceled: false 
+        });
+    } catch(e) {}
+    document.getElementById('off-desc').value = '';
+  };
+
+  // Admin withdrawing the upsell
+  window.cancelOffer = async (msgId) => {
+    if (!confirm("Withdraw this upsell offer?")) return;
+    try {
+        await updateDoc(doc(db, "order_messages", msgId), { canceled: true });
+    } catch (e) {}
+  };
+
+  // Client accepting the upsell & extending the timer
+  window.clientAcceptOffer = async (daysToAdd, msgId) => {
+    if(!confirm("Accept this addition to the project?")) return;
+    
+    // Add new days to the current deadline (or start a new one if it expired)
+    let newDeadline = window.currentDeadline ? window.currentDeadline : Date.now();
+    newDeadline += (daysToAdd * 24 * 60 * 60 * 1000);
+    
+    try {
+        await setDoc(doc(db, "orders", window.currentClientId), { deadline: newDeadline, updatedAt: Date.now() }, { merge: true });
+        await updateDoc(doc(db, "order_messages", msgId), { accepted: true });
+        await addDoc(collection(db, "order_messages"), { type: "system", text: `Upsell accepted. Added ${daysToAdd} days to the project deadline.`, clientId: window.currentClientId, time: Date.now() });
+    } catch(e) {}
+  };
+
+  // --- TIMER LOGIC (WITH SECONDS) ---
+  function updateTimer() {
+      if(!window.currentDeadline) return;
+      const diff = window.currentDeadline - Date.now();
+      
+      if (diff <= 0) {
+          stopTimer();
+      } else {
+          const d = String(Math.floor(diff / 86400000)).padStart(2, '0');
+          const h = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+          const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+          const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+          
+          document.getElementById('t-days').innerText = d;
+          document.getElementById('t-hours').innerText = h;
+          document.getElementById('t-mins').innerText = m;
+          document.getElementById('t-secs').innerText = s;
+      }
+  }
+
+  function startTimer(dl) {
+    window.currentDeadline = dl;
+    if (timerInterval) clearInterval(timerInterval);
+    updateTimer(); 
+    timerInterval = setInterval(updateTimer, 1000);
+  }
+  
+  function stopTimer() { 
+    if (timerInterval) clearInterval(timerInterval); 
+    document.getElementById('t-days').innerText = "00";
+    document.getElementById('t-hours').innerText = "00";
+    document.getElementById('t-mins').innerText = "00";
+    document.getElementById('t-secs').innerText = "00";
+    document.querySelectorAll('.timer-num').forEach(el => el.style.color = "var(--danger)");
+  }
+</script>
+</body>
+</html>
