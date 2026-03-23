@@ -3,373 +3,251 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Workspace | Engineering Portal</title>
+<title>Command Center | Engineering Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root { 
-    --primary: #1dbf73; --primary-hover: #19a463; --bg: #f4f7fb; 
-    --card: #ffffff; --border: #e6e9ef; --text-dark: #1f2937; 
-    --text-light: #6b7280; --danger: #ef4444; --blue: #2563eb; 
-    --shadow: 0 12px 30px rgba(0, 0, 0, 0.08); 
+    --primary: #1dbf73; --primary-hover: #19a463; --bg-app: #f8fafc; --bg-panel: #ffffff; 
+    --border: #e2e8f0; --text-dark: #0f172a; --text-muted: #64748b; --danger: #ef4444; 
+    --warning: #f59e0b; --success: #10b981; --blue: #3b82f6;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
   }
-  * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
-  body { background: var(--bg); color: var(--text-dark); margin: 0; }
-
-  /* BUTTONS */
-  .btn { background: var(--primary); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
-  .btn:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-1px); }
-  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-  .btn-outline { background: #fff; color: var(--text-dark); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 700; padding: 10px 18px; transition: 0.2s;}
-  .btn-outline:hover { background: #f8fafc; }
-  .btn-danger { background: var(--danger); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; }
-  .btn-danger:hover { background: #dc2626; }
-  .btn-small { padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
-  .link-btn { background: transparent; border: none; color: var(--primary); cursor: pointer; padding: 0; font-size: 0.85rem; font-weight: 700; transition: 0.2s; text-decoration: underline;}
-  .link-btn:hover { color: var(--primary-hover); }
-
-  /* INPUTS */
-  .input-field { width: 100%; padding: 12px 14px; margin-bottom: 12px; border-radius: 8px; border: 1px solid var(--border); color: var(--text-dark); font-size: 0.95rem; outline: none; background: #fff; }
-  .input-field:focus { border-color: rgba(29, 191, 115, 0.55); box-shadow: 0 0 0 4px rgba(29, 191, 115, 0.12); }
-
-  /* LOGIN / AUTH */
-  #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f4f7fb; padding: 24px; position: fixed; inset: 0; z-index: 9999; }
-  .login-box { width: 100%; max-width: 400px; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 36px; box-shadow: var(--shadow); text-align: center;}
-
-  /* NAVIGATION */
-  .top-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 0 24px; display: none; justify-content: space-between; align-items: center; min-height: 75px; position: sticky; top: 0; z-index: 100; }
-  .nav-left { display: flex; align-items: center; }
-  .nav-center { display: flex; align-items: center; justify-content: center; flex: 1; margin: 0 15px; overflow-x: auto; }
-  .nav-right { display: flex; align-items: center; justify-content: flex-end; }
   
-  .brand-wrap { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 6px 12px 6px 6px; border-radius: 8px; transition: 0.2s; border: 1px solid transparent;}
-  .brand-wrap:hover { background: #f7f7f7; border-color: var(--border); }
-  .nav-avatar { width: 44px; height: 44px; flex-shrink: 0; border-radius: 8px; background: var(--border); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; overflow: hidden; }
-  .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; white-space: nowrap; }
-  .nav-brand-text strong { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); }
-  .nav-brand-text span { font-size: 0.75rem; font-weight: 600; color: var(--text-light); }
+  * { box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+  body { background: var(--bg-app); color: var(--text-dark); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-  /* Hide scrollbar for nav links but keep functionality */
-  .nav-center::-webkit-scrollbar { display: none; }
-  .nav-center { -ms-overflow-style: none; scrollbar-width: none; }
+  /* --- APP HEADER (Ultra Compact) --- */
+  .app-header { background: var(--bg-panel); height: 60px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; flex-shrink: 0; z-index: 10; box-shadow: var(--shadow-sm); }
+  .app-logo-area { display: flex; align-items: center; gap: 10px; }
+  
+  .nav-avatar { width: 34px; height: 34px; border-radius: 8px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem; color: #fff; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-sm); }
+  .nav-avatar:hover { transform: scale(1.05); }
+  
+  .brand-text { display: flex; flex-direction: column; cursor: pointer; }
+  .brand-text strong { font-size: 0.85rem; font-weight: 800; color: var(--text-dark); line-height: 1.1; }
+  .brand-text span { font-size: 0.65rem; font-weight: 600; color: var(--text-muted); }
 
-  .nav-links { display: flex; gap: 20px; font-weight: 700; color: var(--text-light); align-items: center; white-space: nowrap; }
-  .nav-link { cursor: pointer; padding: 26px 0; border-bottom: 3px solid transparent; transition: 0.2s; font-size: 0.95rem; display:flex; align-items:center; gap:6px; position: relative;}
-  .nav-link.active { color: var(--primary); border-bottom-color: var(--primary); }
-  .nav-link:hover { color: var(--text-dark); }
-  .nav-badge { display: none; background: var(--danger); color: #fff; width: 8px; height: 8px; border-radius: 50%; position: absolute; top: 22px; right: -10px; }
+  .nav-links { display: flex; gap: 18px; font-weight: 600; color: var(--text-muted); align-items: center; height: 100%;}
+  .nav-link { cursor: pointer; padding: 20px 0; border-bottom: 2px solid transparent; transition: 0.2s; font-size: 0.8rem; text-decoration: none; color: inherit; position: relative;}
+  .nav-link.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 700;}
+  .nav-link:hover:not(.active) { color: var(--text-dark); }
+  
+  /* --- BUTTONS & INPUTS --- */
+  .btn { background: var(--primary); color: #fff; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px;}
+  .btn:hover { background: var(--primary-hover); box-shadow: 0 2px 8px rgba(29, 191, 115, 0.2); }
+  .btn-outline { background: #fff; color: var(--text-dark); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-weight: 600; padding: 8px 14px; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 6px;}
+  .btn-outline:hover { background: #f1f5f9; border-color: #cbd5e1; }
+  .btn-small { padding: 4px 10px; font-size: 0.7rem; border-radius: 4px; }
+  .input-field { width: 100%; padding: 10px 12px; margin-bottom: 10px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.85rem; outline: none; background: #f8fafc; transition: 0.2s;}
+  .input-field:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(29, 191, 115, 0.1); }
+  .link-btn { background: transparent; border: none; color: var(--primary); cursor: pointer; padding: 0; font-size: 0.8rem; font-weight: 600; text-decoration: underline; }
 
-  /* VIEWS */
-  .view-section { display: none; max-width: 1200px; margin: 30px auto; padding: 0 20px; animation: fadeIn 0.2s ease;}
+  /* --- LOGIN SCREEN --- */
+  #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg-app); position: fixed; inset: 0; z-index: 9999; }
+  .login-box { width: 100%; max-width: 360px; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: var(--shadow-lg); text-align: center; }
+
+  /* --- VIEWS --- */
+  .view-wrapper { flex: 1; overflow-y: auto; padding-bottom: 40px;}
+  .view-section { display: none; padding: 25px 20px; width: 100%; max-width: 1000px; margin: 0 auto; animation: fadeIn 0.2s ease-out; }
   .view-section.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* CARDS & TABLES */
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: 24px; margin-bottom: 24px; }
-  .hero-card { padding: 80px 40px; min-height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  /* --- DASHBOARD COMPONENTS --- */
+  .welcome-sect { margin-bottom: 20px; }
+  .welcome-sect h1 { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; letter-spacing: -0.01em;}
+  .welcome-sect p { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+
+  /* Metrics Grid */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .metric-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; justify-content: space-between; transition: 0.2s; }
+  .metric-card:hover { border-color: #cbd5e1; box-shadow: var(--shadow-md); }
+  .metric-info { display: flex; flex-direction: column; gap: 2px; }
+  .metric-val { font-size: 1.5rem; font-weight: 900; color: var(--text-dark); line-height: 1; }
+  .metric-label { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .metric-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .metric-icon svg { width: 16px; height: 16px; }
   
+  /* Action Tiles */
+  .actions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 25px; }
+  .action-tile { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 18px; box-shadow: var(--shadow-sm); transition: 0.2s; cursor: pointer; text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; }
+  .action-tile:hover { border-color: var(--primary); box-shadow: 0 4px 10px rgba(29,191,115,0.08); transform: translateY(-2px); }
+  .tile-icon { width: 36px; height: 36px; border-radius: 8px; background: #f1f5f9; color: var(--text-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; transition: 0.2s;}
+  .tile-icon svg { width: 18px; height: 18px; }
+  .action-tile:hover .tile-icon { background: var(--primary); color: #fff; }
+  .action-tile h3 { font-size: 0.95rem; font-weight: 800; color: var(--text-dark); margin-bottom: 4px; }
+  .action-tile p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px; flex: 1; }
+  .tile-link { font-weight: 700; color: var(--primary); font-size: 0.7rem; display: flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.05em;}
+
+  /* Recent Conversations List */
+  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .section-header h2 { font-size: 0.95rem; font-weight: 800; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.05em;}
+  
+  .activity-log { background: #fff; border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow-sm); overflow: hidden; }
+  .log-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--border); transition: 0.2s; font-size: 0.8rem; cursor: pointer;}
+  .log-item:hover { background: #f8fafc; }
+  .log-item:last-child { border-bottom: none; }
+  .log-badge { padding: 4px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; text-align: center; flex-shrink: 0; }
+  .log-content { flex: 1; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+  
+  /* --- SECONDARY VIEWS (Tables/Settings) --- */
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow-sm); padding: 20px; margin-bottom: 20px; }
   table { width: 100%; border-collapse: collapse; text-align: left; }
-  th { padding: 14px 10px; border-bottom: 1px solid var(--border); color: var(--text-light); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  td { padding: 16px 10px; border-bottom: 1px solid var(--border); font-size: 0.95rem; font-weight: 500; vertical-align: middle; word-break: break-word; }
+  th { padding: 10px 8px; border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;}
+  td { padding: 12px 8px; border-bottom: 1px solid var(--border); font-size: 0.8rem; font-weight: 600; vertical-align: middle; color: var(--text-dark); }
+  .table-row { transition: 0.2s; cursor: pointer; }
+  .table-row:hover { background: #f8fafc; }
   
-  /* TAGS */
-  .status-tag { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; white-space: nowrap; }
-  .tag-waiting { background: #fff7df; color: #8a6d00; }
-  .tag-active { background: #e6f7ef; color: #137a45; }
-  .tag-cancelled { background: #ffe2e2; color: #b42318; }
-  .tag-pending { background: #e8efff; color: #2449b3; }
-  .tag-delivered { background: #e7ecff; color: #3b4cca; }
+  .status-tag { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+  .tag-waiting { background: #f8fafc; color: #64748b; border: 1px solid var(--border); }
+  .tag-active { background: #d1fae5; color: #047857; }
+  .tag-pending { background: #e0f2fe; color: #0284c7; }
+  .tag-warning { background: #fef3c7; color: #b45309; }
 
-  .crm-row { transition: 0.2s; cursor: pointer; }
-  .crm-row:hover { background: #fbfdff; }
+  /* WHATSAPP STYLE AVATAR UPLOAD */
+  .avatar-upload-label { position:relative; cursor:pointer; width:110px; height:110px; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; color:#fff; font-size:3rem; font-weight:900; overflow:hidden; box-shadow:var(--shadow-sm); transition:0.2s; margin:0 auto; }
+  .avatar-upload-label:hover .avatar-overlay { opacity: 1; }
+  .avatar-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:0; transition:0.2s; color:#fff; }
 
-  /* INBOX / WORKSPACE CHAT */
-  .inbox-split { display: grid; grid-template-columns: 320px 1fr; min-height: 600px; height: 75vh; background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);}
-  .contact-list { border-right: 1px solid var(--border); overflow-y: auto; background: #fbfdff;}
-  .contact-item { padding: 20px; border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; align-items: center;}
-  .contact-item:hover { background: #f1f5f9; }
-  .contact-item.active { background: #fff; border-left: 4px solid var(--primary); }
-  
-  .chat-area { display: flex; flex-direction: column; background: #fff; height: 100%; position: relative; overflow: hidden; }
-  .chat-header { flex-shrink: 0; padding: 20px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; background: #fff;}
-  .chat-box { flex: 1; overflow-y: auto; min-height: 0; padding: 20px; display: flex; flex-direction: column; gap: 18px; background: #fbfdff; }
-  .chat-controls { flex-shrink: 0; display: flex; gap: 10px; align-items: center; padding: 15px; border-top: 1px solid var(--border); background: #fff;}
-  .chat-input { flex: 1; padding: 12px 15px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; margin: 0; min-width: 0; }
+  /* MODALS */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+  .modal-box { background: #fff; border-radius: 16px; padding: 30px; width: 100%; max-width: 360px; box-shadow: var(--shadow-lg); text-align: center; animation: slideUp 0.2s ease-out;}
+  @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ORDER WORKSPACE UI */
-  .workspace-grid { display: grid; grid-template-columns: 340px 1fr; gap: 24px; align-items: start; height: auto; }
-  .timer-grid { display: flex; gap: 8px; text-align: center; margin-top: 12px; }
-  .timer-unit { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 12px 4px; flex: 1; min-width: 0;}
-  .timer-num { font-size: 1.4rem; font-weight: 900; color: var(--text-dark); display: block; line-height: 1; }
-  .timer-label { font-size: 0.65rem; color: var(--text-light); text-transform: uppercase; margin-top: 4px; display: block; letter-spacing: 0.05em; }
-
-  .ws-card-container { display: flex; flex-direction: column; min-height: 600px; height: 75vh; padding: 0; overflow: hidden; background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow);}
-
-  /* CHAT BUBBLE & AVATAR STYLING */
-  .msg-wrap { display: flex; flex-direction: column; width: 100%; }
-  .msg-wrap.me { align-items: flex-end; align-self: flex-end; }
-  .msg-wrap.them { align-items: flex-start; align-self: flex-start; }
-  
-  .msg-header { font-size: 0.75rem; color: var(--text-light); margin-bottom: 4px; font-weight: 600; }
-  .msg-wrap.them .msg-header { margin-left: 42px; }
-  .msg-wrap.me .msg-header { margin-right: 42px; }
-  
-  .msg-body-row { display: flex; align-items: flex-end; gap: 8px; max-width: 85%; }
-  .msg-wrap.me .msg-body-row { flex-direction: row-reverse; }
-
-  .chat-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.05); }
-  .avatar-me { background: var(--primary); color: #fff; }
-  .avatar-them { background: #e5e7eb; color: var(--text-dark); }
-  .avatar-seller { background: var(--text-dark); color: #fff; }
-
-  .msg { padding: 12px 16px; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; word-break: break-word; }
-  .msg.me { background: #eef8ff; border: 1px solid #cfe6ff; color: var(--text-dark); border-bottom-right-radius: 4px; }
-  .msg.them { background: #ffffff; border: 1px solid var(--border); color: var(--text-dark); border-bottom-left-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
-  .msg.system { background: #fffbeb; color: #92400e; align-self: center; font-size: 0.8rem; font-weight: 600; border: 1px solid #fde68a; border-radius: 20px; padding: 6px 16px; margin: 10px 0; text-align: center;}
-
-  .offer-card { background: linear-gradient(180deg, #ffffff 0%, #f8fffb 100%); border: 1px solid rgba(29, 191, 115, 0.2); border-left: 4px solid var(--primary); border-radius: 12px; padding: 18px; width: 100%; max-width: 400px; align-self: center; box-shadow: 0 8px 20px rgba(29, 191, 115, 0.06); margin: 10px auto;}
-  
-  /* MODALS & POPUPS */
-  #offer-form-container { display: none; position: absolute; bottom: 80px; left: 20px; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; width: 320px; max-width: 90%; box-shadow: var(--shadow); z-index: 20; }
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); z-index: 1000; align-items: center; justify-content: center;}
-  .modal-box { background: #fff; border-radius: 16px; padding: 24px; width: min(600px, 90vw); max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow); position: relative; }
-  .hint { color: var(--text-light); font-size: 0.85rem; line-height: 1.4; }
-
-  /* --- MOBILE OPTIMIZATION (FLAWLESS LAYOUT) --- */
-  @media (max-width: 900px) {
-    /* Compress Top Nav to prevent overlaps */
-    .top-nav { padding: 10px; min-height: 65px; flex-wrap: wrap; gap: 10px;}
-    .nav-brand-text { display: none; } /* Hide text on mobile to save space */
-    .nav-links { gap: 15px; font-size: 0.9rem; padding: 10px 0; }
-    .nav-link { padding: 5px 0; }
-    .nav-center { margin: 0; width: 100%; order: 3; border-top: 1px solid var(--border); }
-    
-    /* Allow scrolling on mobile, reset heights */
-    body { overflow-y: auto; overflow-x: hidden; }
-    .view-section { padding: 0 10px; margin: 20px auto; }
-    
-    /* Hero scaling for mobile */
-    .hero-card { padding: 50px 20px; min-height: 350px; }
-    
-    /* Ensure tables can scroll horizontally without breaking layout */
-    .card { padding: 15px; }
-    .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    
-    /* Inbox Split: Stack vertically */
-    .inbox-split { display: flex; flex-direction: column; height: 80vh; min-height: 500px; }
-    .contact-list { display: flex; flex-direction: row; border-right: none; border-bottom: 1px solid var(--border); padding: 10px; gap: 10px; overflow-x: auto; white-space: nowrap; align-items: center; flex-shrink: 0;}
-    .contact-list > div:first-child { display: none; } /* Hide 'Conversations' title on mobile */
-    .contact-item { border-bottom: none; border-radius: 8px; border: 1px solid var(--border); padding: 10px 15px; min-width: 150px; display: flex; flex-direction: column; align-items: flex-start;}
-    .contact-item.active { border-left: none; border-bottom: 3px solid var(--primary); }
-    
-    /* Workspace Split */
-    .workspace-grid { grid-template-columns: 1fr; }
-    .ws-card-container { height: 75vh; }
-    
-    .chat-controls { flex-wrap: wrap; }
-    .chat-controls .btn-outline { width: 100%; order: 3; margin-top: 10px; } 
-    #offer-form-container { left: 50%; transform: translateX(-50%); bottom: 120px; }
-  }
+  @media (max-width: 850px) { .nav-links { display: none; } }
 </style>
 </head>
 <body>
 
 <div id="login-screen">
   <div class="login-box">
-    <h2 id="auth-title" style="margin:0 0 24px; color: #404145;">Engineering Portal</h2>
+    <div style="width:40px; height:40px; background:var(--primary); color:#fff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:900; margin: 0 auto 12px; box-shadow: 0 4px 10px rgba(29,191,115,0.2);">EP</div>
+    <h2 id="auth-title" style="margin:0 0 4px; color: var(--text-dark); font-weight:800; font-size:1.2rem;">Engineering Portal</h2>
+    <p style="color:var(--text-muted); font-size:0.8rem; margin-bottom:20px;">Sign in to access your workspace.</p>
     <input type="email" id="email" class="input-field" placeholder="Email Address">
-    <input type="password" id="pass" class="input-field" placeholder="Password">
-    <button class="btn" style="width:100%; margin-bottom: 15px;" id="auth-btn" onclick="window.executeAuth()">Secure Login</button>
-    <p style="font-size: 0.85rem; color: var(--text-light); margin: 0;">
+    <input type="password" id="pass" class="input-field" placeholder="Password" onkeypress="if(event.key==='Enter') window.executeAuth()">
+    <button class="btn" style="width:100%; padding:10px; margin-bottom: 12px;" id="auth-btn" onclick="window.executeAuth()">Secure Login</button>
+    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">
       New client? <span class="link-btn" onclick="window.toggleAuthMode()" id="auth-toggle">Create an account</span>
     </p>
   </div>
 </div>
 
-<header class="top-nav" id="top-nav">
-  <div class="nav-left">
-    <div class="brand-wrap">
-      <div class="nav-avatar">C</div>
-      <div class="nav-brand-text" id="brand-text-container" style="display: none;">
-        <strong>Conilious D.</strong>
-        <span>Mechanical Design</span>
-      </div>
+<header class="app-header" id="top-nav" style="display:none;">
+  <div class="app-logo-area">
+    <div class="nav-avatar" title="Edit Profile" onclick="if(window.isAdmin) document.getElementById('profileModal').style.display='flex'">C</div>
+    
+    <div id="brand-text-container" class="brand-text" style="display: none;" onclick="window.switchTab('dashboard')">
+      <strong id="global-name">Conilious D.</strong>
+      <span id="global-tagline">Mechanical Design</span>
+    </div>
+    
+    <div id="client-brand-text" class="brand-text" style="display: none;" onclick="window.switchTab('dashboard')">
+      <strong>Engineering Portal</strong>
+      <span>Client Dashboard</span>
     </div>
   </div>
   
-  <div class="nav-center" id="seller-nav-links" style="display:none;">
-    <div class="nav-links">
-      <span class="nav-link active" onclick="window.switchTab('dashboard', event)">Dashboard</span>
-      <span class="nav-link" onclick="window.switchTab('orders', event)">Orders</span>
-      <span class="nav-link" onclick="window.switchTab('inbox', event)">Main Inbox</span>
-      <span class="nav-link" onclick="window.switchTab('crm', event)">CRM</span>
-    </div>
-  </div>
-  
-  <div class="nav-center" id="client-nav-links" style="display:none;">
-    <div class="nav-links">
-      <span class="nav-link active" onclick="window.switchTab('client-dashboard', event)">Dashboard</span>
-      <span class="nav-link" onclick="window.switchTab('inbox', event)">
-          Messages <span class="nav-badge" id="client-inbox-badge"></span>
-      </span>
-      <span class="nav-link" onclick="window.switchTab('workspace', event)">Active Order</span>
-    </div>
+  <div class="nav-center">
+    <div class="nav-links" id="dynamic-nav-links"></div>
   </div>
 
-  <div class="nav-right">
-    <button class="btn-outline btn-small" onclick="window.logout()">Logout</button>
+  <div class="nav-right" style="display:flex; align-items:center;">
+    <button class="btn-outline btn-small" onclick="window.logout()">Log Out</button>
   </div>
 </header>
 
-<div id="dashboard-view" class="view-section">
-  <div class="card hero-card">
-    <h2 style="margin-top:0; color: #404145; font-size: 2.5rem;">Welcome to your Dashboard</h2>
-    <p style="color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 15px auto 40px; line-height: 1.6;">Manage your engineering business operations. Select a client from the CRM or check your inbox to start working.</p>
-    <button class="btn" style="padding: 14px 28px; font-size: 1.1rem;" onclick="window.switchTab('inbox', {target: document.querySelectorAll('#seller-nav-links .nav-link')[2]})">Open Main Inbox</button>
-  </div>
-</div>
-
-<div id="client-dashboard-view" class="view-section">
-  <div class="card hero-card">
-    <h2 style="margin-top:0; color: #404145; font-size: 2.5rem;">Client Portal</h2>
-    <p style="color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 15px auto 40px; line-height: 1.6;">Securely message Conilious and track the real-time progress of your active engineering projects here.</p>
-    <button class="btn" style="padding: 14px 28px; font-size: 1.1rem;" onclick="window.switchTab('workspace', {target: document.querySelectorAll('#client-nav-links .nav-link')[2]})">View Active Order</button>
-  </div>
-</div>
-
-<div id="orders-view" class="view-section">
-  <div class="card">
-    <h3 style="margin-top:0; color: #404145;">Active Orders</h3>
-    <div class="table-container">
-      <table>
-        <thead><tr><th>Client Email</th><th>Project</th><th>Status</th><th>Deadline</th><th>Action</th></tr></thead>
-        <tbody id="orders-table-body">
-          <tr><td colspan="5" style="text-align:center; color:var(--text-light); padding:20px;">Loading orders...</td></tr>
-        </tbody>
-      </table>
+<div class="view-wrapper">
+  
+  <div id="dashboard-view" class="view-section active">
+    
+    <div class="welcome-sect">
+      <h1 id="dash-greeting">Good morning.</h1>
+      <p id="dash-sub">Here is your executive overview for today.</p>
     </div>
-  </div>
-</div>
 
-<div id="crm-view" class="view-section">
-  <div class="card" style="padding: 0; overflow: hidden;">
-    <div style="padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #f8fafc;">
-      <h3 style="margin: 0; color: #1f2937;">Client Directory (CRM)</h3>
+    <div class="metrics-grid" id="metrics-container">
+      <div style="padding: 10px; color:var(--text-muted); font-size:0.8rem;">Calculating metrics...</div>
     </div>
-    <div class="table-container">
-      <table style="margin: 0;">
-        <thead><tr><th>Client Contact</th><th>Last Active</th><th>Status</th><th>Action</th></tr></thead>
-        <tbody id="crm-table-body">
-          <tr><td colspan="4" style="text-align:center; color:var(--text-light); padding:20px;">No clients registered yet.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
-<div id="inbox-view" class="view-section">
-  <div class="inbox-split">
-    <div class="contact-list" id="inbox-contact-list">
-      <div style="padding: 20px; border-bottom: 1px solid var(--border); font-weight: 800; font-size: 1.1rem;">Conversations</div>
+    <div class="actions-grid" id="actions-container"></div>
+
+    <div class="section-header">
+      <h2>Recent Conversations</h2>
+      <button class="btn-outline btn-small" onclick="window.location.href='messages.html'">View Inbox</button>
     </div>
     
-    <div class="chat-area">
-      <div class="chat-header">
-        <div><strong id="chat-partner-name">Select a Conversation</strong> <span style="font-size:0.8rem; font-weight:500; color:var(--text-light); margin-left:10px;">General Chat</span></div>
-      </div>
-      
-      <div class="chat-box" id="inbox-chat-box">
-        <div style="text-align:center; color:var(--text-light); margin-top:40px;">Select a contact from the sidebar to load messages.</div>
-      </div>
-      
-      <div class="chat-controls">
-        <input type="text" id="inbox-chat-input" class="chat-input" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') window.sendMsg('inbox')" disabled>
-        
-        <button id="btn-create-offer" class="btn-outline" style="color:var(--primary); border-color:var(--primary); display:none;" onclick="window.toggleOfferForm()">+ Create Offer</button>
-        <button class="btn" id="btn-send-inbox" onclick="window.sendMsg('inbox')" disabled>Send</button>
+    <div class="activity-log" id="activity-feed">
+      <div style="padding:20px; text-align:center; color:var(--text-muted); font-size:0.8rem;">Scanning communications...</div>
+    </div>
 
-        <div id="offer-form-container">
-          <h4 style="margin:0 0 15px; font-size:1.1rem; color:#404145;">Create Custom Offer</h4>
-          <textarea id="off-desc" class="input-field" placeholder="Description of work..." rows="3"></textarea>
-          <div style="display:flex; gap:10px;">
-            <input type="number" id="off-days" class="input-field" placeholder="Days" min="1">
-            <input type="number" id="off-price" class="input-field" placeholder="Total ($USD)" min="1">
-          </div>
-          <div style="display:flex; gap:10px; margin-top: 15px;">
-            <button class="btn-outline" style="flex:1;" onclick="window.toggleOfferForm()">Cancel</button>
-            <button class="btn" style="flex:1;" onclick="window.submitOffer()">Send Offer</button>
-          </div>
-        </div>
-      </div>
+  </div>
+
+  <div id="orders-view" class="view-section">
+    <div class="section-header"><h2 style="margin:0;">Project Directory</h2></div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table>
+        <thead><tr><th>Client Account</th><th>Service</th><th>Status</th><th>Deadline</th><th>Action</th></tr></thead>
+        <tbody id="orders-table-body">
+          <tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:20px; font-size:0.8rem;">Scanning projects...</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>
 
-<div id="workspace-view" class="view-section">
-  <div class="workspace-grid">
-    <div>
-      <div class="card">
-        <h3 style="margin-top:0;">Order Details</h3>
-        <span class="status-tag tag-waiting" id="ws-status-badge">NO ACTIVE ORDER</span>
-        
-        <h3 style="margin-top:24px;">Project Timer</h3>
-        <div class="timer-grid">
-          <div class="timer-unit"><span class="timer-num t-days">00</span><span class="timer-label">Days</span></div>
-          <div class="timer-unit"><span class="timer-num t-hours">00</span><span class="timer-label">Hrs</span></div>
-          <div class="timer-unit"><span class="timer-num t-mins">00</span><span class="timer-label">Min</span></div>
-          <div class="timer-unit"><span class="timer-num t-secs">00</span><span class="timer-label">Sec</span></div>
-        </div>
-
-        <div id="seller-order-actions" style="margin-top:20px; display:none;">
-          <button class="btn" style="width:100%; margin-bottom:8px;" onclick="window.openDeliveryModal()">Deliver Final Work</button>
-        </div>
-        
-        <div id="client-order-actions" style="margin-top:20px; display:none;">
-          <button class="btn" style="width:100%; margin-bottom:8px;" onclick="window.clientApproveDelivery()">Accept & Approve Delivery</button>
-        </div>
-        
-        <div id="cancel-action-container" style="text-align:center; margin-top: 15px; display:none;">
-           <button class="link-btn" style="color:var(--danger);" onclick="window.openCancellationModal()">Request Revision / Cancel</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card ws-card-container">
-      <div style="padding: 20px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">
-        <span id="ws-partner-name">Select a Conversation</span> <span style="font-size:0.8rem; font-weight:500; color:var(--text-light); margin-left:10px;">Order Workspace</span>
-      </div>
-      
-      <div class="ws-chat-box chat-box" id="workspace-chat-box">
-        <div style="text-align:center; color:var(--text-light); margin-top:40px;">Select an active order to view workspace.</div>
-      </div>
-      
-      <div class="chat-controls ws-controls">
-        <input type="text" id="ws-chat-input" class="chat-input" placeholder="Type an order update or note..." onkeypress="if(event.key === 'Enter') window.sendMsg('workspace')" disabled>
-        <button class="btn" id="btn-send-ws" onclick="window.sendMsg('workspace')" disabled>Send</button>
-      </div>
+  <div id="crm-view" class="view-section">
+    <div class="section-header"><h2 style="margin:0;">Client Database (CRM)</h2></div>
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <table>
+        <thead><tr><th>Client Email</th><th>Last Online</th><th>Network Status</th><th>Action</th></tr></thead>
+        <tbody id="crm-table-body">
+          <tr><td colspan="4" style="text-align:center; color:var(--text-muted); padding:20px; font-size:0.8rem;">Scanning clients...</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
+
 </div>
 
-<div id="delivery-modal-overlay" class="modal-overlay">
+<div id="profileModal" class="modal-overlay">
   <div class="modal-box">
-    <h3 style="margin-top:0;">Deliver Final Work</h3>
-    <p class="hint" style="margin-bottom: 20px;">Attach files to complete this order.</p>
-    <textarea id="delivery-note" class="input-field" placeholder="Delivery message / notes..." rows="3"></textarea>
-    <div style="display:flex; gap:10px; margin-top:20px;">
-      <button class="btn-outline" style="flex:1;" onclick="window.closeAllModals()">Cancel</button>
-      <button id="btn-submit-delivery" class="btn" style="flex:1;" onclick="window.submitDelivery()">Mark Delivered</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h3 style="margin:0; font-size:1.2rem; font-weight:800; color:var(--text-dark);">Your Profile</h3>
+      <button class="link-btn" style="font-size:1.5rem; text-decoration:none; color:var(--text-muted);" onclick="document.getElementById('profileModal').style.display='none'">&times;</button>
     </div>
-  </div>
-</div>
+    
+    <div style="display:flex; flex-direction:column; align-items:center; gap:24px;">
+      
+      <label class="avatar-upload-label" title="Change Profile Picture">
+        <span id="modal-avatar-text">C</span>
+        <div class="avatar-overlay">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:24px;height:24px; margin-bottom:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <span style="font-size:0.65rem; font-weight:700;">CHANGE</span>
+        </div>
+        <input type="file" style="display:none;" accept="image/*" onchange="window.uploadLogo(event)">
+      </label>
 
-<div id="cancel-modal-overlay" class="modal-overlay">
-  <div class="modal-box" style="max-width: 450px;">
-    <h3 style="margin-top:0; color: var(--danger);">Cancel / Revise Order</h3>
-    <p class="hint" style="margin-bottom: 15px;">Please explain why you need to cancel or revise this order. This message will be logged in the workspace.</p>
-    <textarea id="cancel-reason-text" class="input-field" placeholder="Reason for cancellation..." rows="4"></textarea>
-    <div style="display:flex; gap:10px; margin-top:15px;">
-      <button class="btn-outline" style="flex:1;" onclick="window.closeAllModals()">Keep Order</button>
-      <button class="btn-danger" style="flex:1;" onclick="window.submitCancellation()">Submit Request</button>
+      <div style="width:100%; text-align:left;">
+        <label style="font-size:0.7rem; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:0.05em;">Display Name</label>
+        <div style="display:flex; gap:10px; border-bottom:1px solid var(--primary); padding-bottom:5px; margin-top:5px;">
+          <input type="text" id="modal-input-name" style="border:none; outline:none; font-size:1rem; font-weight:700; color:var(--text-dark); flex:1; background:transparent;">
+          <button style="background:transparent; border:none; cursor:pointer; color:var(--primary);" title="Save Name" onclick="window.saveProfileField('name', 'modal-input-name')">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px;height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <div style="width:100%; text-align:left;">
+        <label style="font-size:0.7rem; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:0.05em;">Professional Tagline</label>
+        <div style="display:flex; gap:10px; border-bottom:1px solid var(--primary); padding-bottom:5px; margin-top:5px;">
+          <input type="text" id="modal-input-tagline" style="border:none; outline:none; font-size:0.9rem; font-weight:500; color:var(--text-muted); flex:1; background:transparent;">
+          <button style="background:transparent; border:none; cursor:pointer; color:var(--primary);" title="Save Tagline" onclick="window.saveProfileField('tagline', 'modal-input-tagline')">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px;height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -377,7 +255,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
   import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-  import { getFirestore, collection, addDoc, doc, setDoc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+  import { getFirestore, collection, doc, setDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAZ2q84JoqhL_HUZCmZ68L0c40HAmEYniY",
@@ -392,19 +270,15 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  let timerInterval = null, inboxUnsub = null, workspaceUnsub = null, orderUnsub = null, clientUnsub = null;
-  
+  let globalUnsub = [];
   window.isAdmin = false; 
-  window.currentChatClientId = null; 
-  window.currentChatClientEmail = null;
-  window.currentDeadline = null;
 
   const escapeHtml = (str) => String(str || "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
 
   window.isSignUpMode = false;
   window.toggleAuthMode = () => {
       window.isSignUpMode = !window.isSignUpMode;
-      document.getElementById('auth-title').innerText = window.isSignUpMode ? 'Create Client Account' : 'Engineering Portal';
+      document.getElementById('auth-title').innerText = window.isSignUpMode ? 'Create Account' : 'Engineering Portal';
       document.getElementById('auth-btn').innerText = window.isSignUpMode ? 'Sign Up' : 'Secure Login';
       document.getElementById('auth-toggle').innerText = window.isSignUpMode ? 'Log in to existing account' : 'Create an account';
   };
@@ -415,55 +289,30 @@
     if(!e || !p) return alert("Enter email and password.");
     
     const btn = document.getElementById('auth-btn');
-    btn.innerText = 'Authenticating...';
-    btn.disabled = true;
+    btn.innerText = 'Authenticating...'; btn.disabled = true;
 
     try {
         if (window.isSignUpMode) { await createUserWithEmailAndPassword(auth, e, p); } 
         else { await signInWithEmailAndPassword(auth, e, p); }
     } catch (err) { 
         alert("Error: " + err.message); 
-        btn.innerText = window.isSignUpMode ? 'Sign Up' : 'Secure Login';
-        btn.disabled = false;
+        btn.innerText = window.isSignUpMode ? 'Sign Up' : 'Secure Login'; btn.disabled = false;
     }
   };
   
   window.logout = async () => {
       if(auth.currentUser && !window.isAdmin) {
-          setDoc(doc(db, "clients", auth.currentUser.uid), { online: false }, { merge: true }).catch(()=>{});
+          try { await setDoc(doc(db, "clients", auth.currentUser.uid), { online: false }, { merge: true }); } catch(e){}
       }
       await signOut(auth);
   };
 
   window.switchTab = function(tabName, evt) {
-    document.querySelectorAll('.view-section').forEach(el => { el.classList.remove('active'); });
-    const targetView = document.getElementById(tabName + '-view');
-    if (targetView) targetView.classList.add('active');
+    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabName + '-view').classList.add('active');
     
     document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
     if (evt && evt.target && evt.target.classList.contains('nav-link')) evt.target.classList.add('active');
-
-    if (tabName === 'inbox' && !window.isAdmin) {
-        localStorage.setItem('clientReadInbox', Date.now());
-        const badge = document.getElementById('client-inbox-badge');
-        if (badge) badge.style.display = 'none';
-    }
-  };
-
-  window.toggleOfferForm = function() {
-    const f = document.getElementById('offer-form-container');
-    f.style.display = (f.style.display === 'block') ? 'none' : 'block';
-  };
-
-  window.closeAllModals = function() {
-    document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none');
-    document.getElementById('offer-form-container').style.display = 'none';
-  };
-
-  window.openDeliveryModal = function() { document.getElementById('delivery-modal-overlay').style.display = 'flex'; };
-  window.openCancellationModal = function() { 
-      document.getElementById('cancel-modal-overlay').style.display = 'flex'; 
-      document.getElementById('cancel-reason-text').value = '';
   };
 
   onAuthStateChanged(auth, async (user) => {
@@ -472,489 +321,280 @@
       document.getElementById('top-nav').style.display = 'flex';
       
       window.isAdmin = (user.email === "coniliousdube@gmail.com" || user.email === "coniliouskailash3@gmail.com");
+      
+      const hour = new Date().getHours();
+      const greeting = hour < 12 ? 'Good morning' : (hour < 18 ? 'Good afternoon' : 'Good evening');
 
       if (window.isAdmin) {
-          document.getElementById('seller-nav-links').style.display = 'flex';
-          document.getElementById('client-nav-links').style.display = 'none';
-          document.getElementById('btn-create-offer').style.display = 'inline-block';
           document.getElementById('brand-text-container').style.display = 'flex';
+          document.getElementById('client-brand-text').style.display = 'none';
+          document.getElementById('dash-greeting').innerText = `${greeting}, Conilious.`;
           
-          window.switchTab('dashboard', { target: document.querySelectorAll('#seller-nav-links .nav-link')[0] });
-          window.currentChatClientId = null; 
-          loadAdminClientList(); 
+          document.getElementById('dynamic-nav-links').innerHTML = `
+            <span class="nav-link active" onclick="window.switchTab('dashboard', event)">Dashboard</span>
+            <span class="nav-link" onclick="window.switchTab('orders', event)">Projects</span>
+            <span class="nav-link" onclick="window.switchTab('crm', event)">CRM</span>
+          `;
+          buildAdminDashboard();
       } else {
-          document.getElementById('seller-nav-links').style.display = 'none';
-          document.getElementById('client-nav-links').style.display = 'flex';
-          document.getElementById('btn-create-offer').style.display = 'none';
-          document.getElementById('brand-text-container').style.display = 'none'; 
+          document.getElementById('brand-text-container').style.display = 'none';
+          document.getElementById('client-brand-text').style.display = 'flex';
+          document.getElementById('dash-greeting').innerText = `${greeting}.`;
           
-          window.switchTab('client-dashboard', { target: document.querySelectorAll('#client-nav-links .nav-link')[0] });
+          document.getElementById('dynamic-nav-links').innerHTML = `
+            <span class="nav-link active" onclick="window.switchTab('dashboard', event)">Dashboard</span>
+            <a href="messages.html" class="nav-link">Messages</a>
+            <a href="workspace.html?id=${user.uid}" class="nav-link">Active Order</a>
+          `;
           
-          window.currentChatClientId = user.uid; 
-          window.currentChatClientEmail = user.email;
-          
-          setDoc(doc(db, "clients", user.uid), { email: user.email, online: true, lastLogin: Date.now() }, { merge: true }).catch(e=>console.log("DB Skip"));
-          setDoc(doc(db, "orders", user.uid), { clientId: user.uid, clientEmail: user.email }, { merge: true }).catch(e=>console.log("DB Skip"));
-
-          document.getElementById('inbox-contact-list').innerHTML = `
-              <div style="padding: 20px; border-bottom: 1px solid var(--border); font-weight: 800; font-size: 1.1rem; color: #404145;">Conversations</div>
-              <div class="contact-item active">
-                <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                  <strong style="color:var(--text-dark);">Conilious Dube</strong>
-                  <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">Seller</span>
-                </div>
-                <div style="font-size:0.85rem; color:var(--text-light);">Engineering Support</div>
-              </div>`;
-
-          onSnapshot(doc(db, "clients", user.uid), (docSnap) => {
-              if(docSnap.exists()) {
-                  const c = docSnap.data();
-                  const localRead = Number(localStorage.getItem('clientReadInbox')) || 0;
-                  if (c.lastMsgTime > localRead && c.lastMsgSender !== user.uid) {
-                      document.getElementById('client-inbox-badge').style.display = 'inline-block';
-                  } else {
-                      document.getElementById('client-inbox-badge').style.display = 'none';
-                  }
-              }
-          });
-          window.selectClient(user.uid, "Conilious Dube"); 
+          try { await setDoc(doc(db, "clients", user.uid), { email: user.email, online: true, lastLogin: Date.now() }, { merge: true }); } catch(e) {}
+          buildClientDashboard(user.uid);
       }
+      listenToProfile();
     } else {
-      if(orderUnsub) orderUnsub(); if(inboxUnsub) inboxUnsub(); if(workspaceUnsub) workspaceUnsub(); if(clientUnsub) clientUnsub();
-      stopTimerUI();
-      window.currentChatClientId = null;
+      globalUnsub.forEach(u => u()); globalUnsub = [];
       document.getElementById('login-screen').style.display = 'flex';
       document.getElementById('top-nav').style.display = 'none';
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
       const btn = document.getElementById('auth-btn');
-      btn.innerText = window.isSignUpMode ? 'Sign Up' : 'Secure Login';
-      btn.disabled = false;
+      btn.innerText = window.isSignUpMode ? 'Sign Up' : 'Secure Login'; btn.disabled = false;
     }
   });
 
-  function loadAdminClientList() {
-      if (clientUnsub) clientUnsub();
-      clientUnsub = onSnapshot(collection(db, "clients"), (snap) => {
-          const contactList = document.getElementById('inbox-contact-list');
-          const crmBody = document.getElementById('crm-table-body');
+  // --- DASHBOARD BUILDERS ---
+  function buildAdminDashboard() {
+      // Tiles
+      document.getElementById('actions-container').innerHTML = `
+        <a href="messages.html" class="action-tile">
+          <div class="tile-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg></div>
+          <h3>Main Inbox</h3>
+          <p>Communicate with clients and negotiate project terms.</p>
+          <span class="tile-link">Open Messenger &rarr;</span>
+        </a>
+        <div class="action-tile" onclick="window.switchTab('orders')">
+          <div class="tile-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg></div>
+          <h3>Project Directory</h3>
+          <p>Manage ongoing timelines and execute client deliveries.</p>
+          <span class="tile-link">View Projects &rarr;</span>
+        </div>
+        <a href="vault.html" class="action-tile">
+          <div class="tile-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+          <h3>Earnings Vault</h3>
+          <p>Review financial history and initiate fund withdrawals.</p>
+          <span class="tile-link">Open Vault &rarr;</span>
+        </a>
+      `;
+
+      // Orders Listener
+      const u1 = onSnapshot(collection(db, "orders"), snap => {
+          let active = 0; let pending = 0; let delivered = 0;
+          const table = document.getElementById('orders-table-body');
+          table.innerHTML = '';
           
-          contactList.innerHTML = `<div style="padding: 20px; border-bottom: 1px solid var(--border); font-weight: 800; font-size: 1.1rem;">Conversations</div>`;
-          crmBody.innerHTML = '';
-          
-          if(snap.empty) {
-              contactList.innerHTML += `<div style="padding:20px; color:var(--text-light); text-align:center; font-size:0.9rem;">No clients registered.</div>`;
-              crmBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:var(--text-light);">No clients registered.</td></tr>`;
-              return;
-          }
-
-          let isFirst = true;
-
-          snap.forEach(docObj => {
-              const c = docObj.data();
-              const uid = docObj.id;
-              const isOnline = c.online ? '<span style="color:#22c55e; font-weight:700; font-size:0.75rem;">Online</span>' : '<span style="font-size:0.75rem; color:var(--text-light);">Offline</span>';
-
-              if (window.currentChatClientId === uid) localStorage.setItem('read_' + uid, Date.now());
-              const localRead = Number(localStorage.getItem('read_' + uid)) || 0;
-              const isUnread = (c.lastMsgTime > localRead) && (c.lastMsgSender !== auth.currentUser.uid) && (window.currentChatClientId !== uid);
-              const badgeDisplay = isUnread ? 'inline-block' : 'none';
-
-              const activeClass = (window.currentChatClientId === uid) ? 'active' : '';
-
-              contactList.innerHTML += `
-                  <div class="contact-item ${activeClass}" id="sidebar-client-${uid}" onclick="window.switchTab('inbox', {target: document.querySelectorAll('#seller-nav-links .nav-link')[2]}); window.selectClient('${uid}', '${c.email}')">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:5px; align-items:center; width: 100%;">
-                      <strong style="color:var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHtml(c.email)}</strong>
-                      <span id="badge-${uid}" style="display:${badgeDisplay}; background:var(--danger); color:#fff; padding:2px 6px; border-radius:10px; font-size:0.65rem; font-weight:bold; flex-shrink: 0; margin-left: 8px;">NEW</span>
-                    </div>
-                    <div style="font-size:0.8rem; color:var(--text-light);">${isOnline}</div>
-                  </div>`;
+          snap.forEach(d => {
+              const o = d.data();
+              if(o.status === 'in_progress') active++;
+              if(o.status === 'offer_sent') pending++;
+              if(o.status === 'delivered') delivered++;
               
-              crmBody.innerHTML += `
-                  <tr class="crm-row" onclick="window.switchTab('inbox', {target: document.querySelectorAll('#seller-nav-links .nav-link')[2]}); window.selectClient('${uid}', '${c.email}')">
-                    <td><div style="font-weight: 700; color: var(--text-dark);">${escapeHtml(c.email)}</div></td>
-                    <td style="color: var(--text-light);">${c.lastLogin ? new Date(c.lastLogin).toLocaleDateString() : 'Unknown'}</td>
-                    <td>${isOnline}</td>
-                    <td><button class="btn-outline btn-small">Open Chat</button></td>
-                  </tr>`;
-                  
-              if(isFirst && !window.currentChatClientId) {
-                  window.selectClient(uid, c.email);
-                  isFirst = false;
+              if(o.clientId) {
+                  let bHtml = '';
+                  if (o.status === 'delivered') bHtml = `<span class="status-tag tag-warning">DELIVERED</span>`;
+                  else if (o.status === 'in_progress') bHtml = `<span class="status-tag tag-active">ACTIVE</span>`;
+                  else if (o.status === 'offer_sent') bHtml = `<span class="status-tag tag-pending">OFFER SENT</span>`;
+                  else bHtml = `<span class="status-tag tag-waiting">AWAITING</span>`;
+
+                  table.innerHTML += `
+                     <tr class="table-row" onclick="window.location.href='workspace.html?id=${o.clientId}'">
+                        <td><div style="font-weight:700;">${escapeHtml(o.clientEmail)}</div></td>
+                        <td style="color:var(--text-muted);">CAD Design</td>
+                        <td>${bHtml}</td>
+                        <td style="color:var(--text-muted);">${o.deadline ? new Date(o.deadline).toLocaleDateString() : 'TBD'}</td>
+                        <td><button class="btn-outline btn-small" onclick="window.location.href='workspace.html?id=${o.clientId}'; event.stopPropagation();">Workspace</button></td>
+                     </tr>`;
               }
           });
-          
-          loadAdminOrdersTable();
+          if(snap.empty) table.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:20px; font-size:0.8rem;">No active projects.</td></tr>`;
+
+          document.getElementById('metrics-container').innerHTML = `
+            <div class="metric-card">
+              <div class="metric-info"><span class="metric-label">Active Projects</span><span class="metric-val" style="color:var(--primary);">${active}</span></div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-info"><span class="metric-label">Pending Offers</span><span class="metric-val" style="color:var(--blue);">${pending}</span></div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-info"><span class="metric-label">Awaiting Approval</span><span class="metric-val" style="color:var(--warning);">${delivered}</span></div>
+            </div>
+          `;
       });
-  }
+      globalUnsub.push(u1);
 
-  function loadAdminOrdersTable() {
-      onSnapshot(collection(db, "orders"), (snap) => {
-          const tBody = document.getElementById('orders-table-body');
-          tBody.innerHTML = '';
+      // Clients Listener (CRM + Recent Conversations List)
+      const u2 = onSnapshot(collection(db, "clients"), snap => {
+          const crm = document.getElementById('crm-table-body');
+          const feed = document.getElementById('activity-feed');
+          crm.innerHTML = '';
+          feed.innerHTML = '';
           
-          if(snap.empty) {
-             tBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-light);">No active orders across any clients.</td></tr>`;
-             return;
-          }
-
+          let clientsList = [];
+          
           snap.forEach(d => {
-             const order = d.data();
-             const cid = order.clientId; 
-             const cemail = order.clientEmail || 'Unknown Client';
-             if(!cid) return;
-
-             let badgeHtml = '';
-             if (order.status === 'delivered') badgeHtml = `<span class="status-tag tag-delivered">DELIVERED</span>`;
-             else if (order.status === 'cancelled') badgeHtml = `<span class="status-tag tag-cancelled">CANCELLED</span>`;
-             else if (order.status === 'completed') badgeHtml = `<span class="status-tag tag-active">COMPLETED</span>`;
-             else if (order.status === 'in_progress') badgeHtml = `<span class="status-tag tag-active">ACTIVE</span>`;
-             else if (order.status === 'offer_sent') badgeHtml = `<span class="status-tag tag-pending">OFFER SENT</span>`;
-             else badgeHtml = `<span class="status-tag tag-waiting">AWAITING OFFER</span>`;
-
-             tBody.innerHTML += `<tr class="crm-row">
-                <td><div style="font-weight: 700;">${escapeHtml(cemail)}</div></td>
-                <td>CAD Design</td>
-                <td>${badgeHtml}</td>
-                <td>${order.deadline ? new Date(order.deadline).toLocaleDateString() : 'TBD'}</td>
-                <td><button class="btn-outline btn-small" onclick="window.switchTab('workspace', {target: document.querySelectorAll('#seller-nav-links .nav-link')[1]}); window.selectClient('${cid}', '${cemail}')">Open Workspace</button></td>
-             </tr>`;
+              const c = d.data();
+              c.id = d.id;
+              clientsList.push(c);
+              
+              // Populate CRM
+              crm.innerHTML += `
+                  <tr class="table-row" onclick="window.location.href='messages.html'">
+                    <td><div style="font-weight:700;">${escapeHtml(c.email)}</div></td>
+                    <td style="color:var(--text-muted);">${c.lastLogin ? new Date(c.lastLogin).toLocaleDateString() : 'Unknown'}</td>
+                    <td>${c.online ? '<span style="color:var(--primary); font-weight:700;">Online</span>' : '<span style="color:var(--text-muted);">Offline</span>'}</td>
+                    <td><button class="btn-outline btn-small" onclick="window.location.href='messages.html'; event.stopPropagation();">Chat</button></td>
+                  </tr>`;
           });
+          
+          if(clientsList.length === 0) {
+              feed.innerHTML = '<div style="padding:20px; text-align:center; color:var(--text-muted); font-size:0.8rem;">No recent conversations.</div>';
+          } else {
+              // Populate Recent Contacts (Sorted by latest message)
+              clientsList.sort((a, b) => (b.lastMsgTime || 0) - (a.lastMsgTime || 0));
+              
+              clientsList.slice(0, 4).forEach(c => {
+                  const lastRead = Number(localStorage.getItem('read_' + c.id)) || 0;
+                  const hasNew = (c.lastMsgTime > lastRead) && (c.lastMsgSender !== auth.currentUser.uid);
+                  let badgeHtml = hasNew ? `<div class="log-badge" style="background:var(--danger); color:#fff; width:auto; padding:4px 8px;">NEW MSG</div>` : '';
+                  let timeStr = c.lastMsgTime ? new Date(c.lastMsgTime).toLocaleDateString() : 'No messages yet';
+
+                  feed.innerHTML += `
+                    <div class="log-item" onclick="window.location.href='messages.html'">
+                      <div style="width:36px; height:36px; border-radius:8px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; font-weight:800; color:var(--text-dark); flex-shrink:0;">${c.email.charAt(0).toUpperCase()}</div>
+                      <div class="log-content" style="display:flex; flex-direction:column; gap:2px;">
+                        <div style="font-weight:700; font-size:0.85rem;">${escapeHtml(c.email)}</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted);">Last interaction: ${timeStr}</div>
+                      </div>
+                      ${badgeHtml}
+                      <button class="btn-outline btn-small">Open Chat</button>
+                    </div>`;
+              });
+          }
       });
+      globalUnsub.push(u2);
   }
 
-  window.selectClient = function(clientId, clientEmail) {
-      window.currentChatClientId = clientId;
-      window.currentChatClientEmail = clientEmail;
-      
-      document.getElementById('chat-partner-name').innerText = window.isAdmin ? clientEmail : "Conilious Dube";
-      document.getElementById('ws-partner-name').innerText = window.isAdmin ? clientEmail : "Conilious Dube";
-      
-      document.getElementById('inbox-chat-input').disabled = false;
-      document.getElementById('btn-send-inbox').disabled = false;
-      document.getElementById('ws-chat-input').disabled = false;
-      document.getElementById('btn-send-ws').disabled = false;
+  function buildClientDashboard(uid) {
+      document.getElementById('actions-container').innerHTML = `
+        <a href="messages.html" class="action-tile">
+          <div class="tile-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg></div>
+          <h3>Messages</h3>
+          <p>Communicate with your engineer and review custom offers.</p>
+          <span class="tile-link">Open Inbox &rarr;</span>
+        </a>
+        <a href="workspace.html?id=${uid}" class="action-tile">
+          <div class="tile-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg></div>
+          <h3>Active Order</h3>
+          <p>Track your timeline, download files, and manage revisions.</p>
+          <span class="tile-link">Open Workspace &rarr;</span>
+        </a>
+      `;
 
-      if (window.isAdmin) {
-          localStorage.setItem('read_' + clientId, Date.now());
-          const badge = document.getElementById('badge-' + clientId);
-          if(badge) badge.style.display = 'none';
+      const u1 = onSnapshot(doc(db, "orders", uid), s => {
+          const stat = s.exists() ? s.data().status : 'None';
+          let txt = 'Awaiting Offer'; let col = 'var(--text-muted)';
+          if(stat === 'in_progress') { txt = '1 Active Project'; col = 'var(--primary)'; }
+          if(stat === 'delivered') { txt = 'Ready for Review'; col = 'var(--warning)'; }
+
+          document.getElementById('metrics-container').innerHTML = `
+            <div class="metric-card" style="max-width:250px;">
+              <div class="metric-info"><span class="metric-label">Project Status</span><span class="metric-val" style="color:${col}; font-size:1.3rem;">${txt}</span></div>
+            </div>
+          `;
+      });
+      globalUnsub.push(u1);
+      
+      const u2 = onSnapshot(doc(db, "clients", uid), s => {
+          const feed = document.getElementById('activity-feed');
+          if(!s.exists()) return;
+          const c = s.data();
+          const lastRead = Number(localStorage.getItem('read_' + uid)) || 0;
+          const hasNew = (c.lastMsgTime > lastRead) && (c.lastMsgSender !== auth.currentUser.uid);
+          let badgeHtml = hasNew ? `<div class="log-badge" style="background:var(--danger); color:#fff; width:auto; padding:4px 8px;">NEW MSG</div>` : '';
           
-          document.querySelectorAll('.contact-item').forEach(el => el.classList.remove('active'));
-          const activeItem = document.getElementById('sidebar-client-' + clientId);
-          if(activeItem) activeItem.classList.add('active');
-      }
-
-      listenToOrder();
-      loadInboxChat();
-      loadWorkspaceChat();
-  };
-
-  function listenToOrder() {
-    if (orderUnsub) orderUnsub();
-    if (!window.currentChatClientId) return;
-
-    orderUnsub = onSnapshot(doc(db, "orders", window.currentChatClientId), (snap) => {
-      const s = snap.exists() ? (snap.data().status || 'awaiting_offer') : 'awaiting_offer';
-      
-      let txt = 'AWAITING OFFER'; let cls = 'status-tag tag-waiting';
-      if(s === 'in_progress') { txt = 'ACTIVE'; cls = 'status-tag tag-active'; }
-      else if(s === 'delivered') { txt = 'DELIVERED'; cls = 'status-tag tag-delivered'; }
-      else if(s === 'offer_sent') { txt = 'OFFER SENT'; cls = 'status-tag tag-pending'; }
-      else if(s === 'completed') { txt = 'COMPLETED'; cls = 'status-tag tag-active'; }
-      else if(s === 'cancelled') { txt = 'CANCELLED'; cls = 'status-tag tag-cancelled'; }
-
-      const wsBadge = document.getElementById('ws-status-badge');
-      if (wsBadge) { wsBadge.className = cls; wsBadge.innerText = txt; }
-      
-      if (!window.isAdmin) {
-          const tBody = document.getElementById('orders-table-body');
-          if (snap.exists() && s !== 'awaiting_offer') {
-              tBody.innerHTML = `<tr class="crm-row" onclick="window.switchTab('workspace', {target: document.querySelectorAll('#client-nav-links .nav-link')[2]})">
-                <td><div style="font-weight: 700; color: var(--text-dark);">Conilious Dube</div></td>
-                <td>CAD Design</td>
-                <td><span class="${cls}">${txt}</span></td>
-                <td>${snap.data().deadline ? new Date(snap.data().deadline).toLocaleDateString() : 'TBD'}</td>
-                <td><button class="btn-outline btn-small">Open Workspace</button></td>
-              </tr>`;
-          } else {
-              tBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-light);">No active orders yet. Message the seller for an offer.</td></tr>`;
-          }
-      }
-
-      const sellerActions = document.getElementById('seller-order-actions');
-      const clientActions = document.getElementById('client-order-actions');
-      const cancelActions = document.getElementById('cancel-action-container');
-
-      if (window.isAdmin) {
-          if(sellerActions) sellerActions.style.display = (s === 'in_progress') ? 'block' : 'none';
-          if(clientActions) clientActions.style.display = 'none';
-      } else {
-          if(sellerActions) sellerActions.style.display = 'none';
-          if(clientActions) clientActions.style.display = (s === 'delivered') ? 'block' : 'none'; 
-      }
-      
-      if(cancelActions) cancelActions.style.display = (s === 'in_progress' || s === 'delivered') ? 'block' : 'none';
-
-      if (s === 'in_progress' && snap.exists() && snap.data().deadline) {
-          startVisualCountdown(snap.data().deadline);
-      } else { stopTimerUI(); }
-    });
-  }
-
-  window.submitCancellation = async () => {
-      const reason = document.getElementById('cancel-reason-text').value.trim();
-      if (!reason) return alert("Please provide a reason.");
-      document.getElementById('cancel-modal-overlay').style.display = 'none';
-
-      try {
-          await setDoc(doc(db, "orders", window.currentChatClientId), { cancellationStatus: "requested", status: "cancelled", updatedAt: Date.now() }, { merge: true });
-          const sender = window.isAdmin ? "Seller" : "Client";
-          await addDoc(collection(db, "order_messages"), { type: "system", text: `${sender} cancelled the order. Reason: ${reason}`, clientId: window.currentChatClientId, time: Date.now() });
-      } catch (e) { console.warn("Failed to update Firebase for cancellation", e); }
-  };
-
-  window.submitOffer = async () => {
-    if(!window.currentChatClientId) return alert("Select a client first.");
-    const desc = document.getElementById('off-desc').value.trim();
-    const days = Number(document.getElementById('off-days').value) || 0;
-    const price = Number(document.getElementById('off-price').value) || 0;
-
-    if (!desc || days <= 0 || price <= 0) return alert("Fill out description, days, and price.");
-    window.toggleOfferForm();
-
-    const box = document.getElementById('inbox-chat-box');
-    box.innerHTML += `
-      <div class="offer-card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <h4 style="margin:0; font-size: 1.05rem;">Custom Offer</h4>
-          <span class="status-tag tag-pending">SENDING...</span>
-        </div>
-        <p style="font-size:0.9rem; margin:0 0 15px 0;">${escapeHtml(desc)}</p>
-        <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:5px;">
-          <span>${days} Days Delivery</span><span>$${price}</span>
-        </div>
-      </div>`;
-    box.scrollTop = box.scrollHeight;
-
-    try {
-        await addDoc(collection(db, "inbox_messages"), { type: "offer", desc, days, price, clientId: window.currentChatClientId, uid: auth.currentUser.uid, time: Date.now(), accepted: false, canceled: false });
-        await setDoc(doc(db, "orders", window.currentChatClientId), { clientId: window.currentChatClientId, clientEmail: window.currentChatClientEmail, status: "offer_sent" }, { merge: true });
-        await setDoc(doc(db, "clients", window.currentChatClientId), { lastMsgTime: Date.now(), lastMsgSender: auth.currentUser.uid }, { merge: true });
-    } catch(e) { console.warn("Failed to send offer to Firebase", e); }
-    
-    document.getElementById('off-desc').value = ''; document.getElementById('off-days').value = ''; document.getElementById('off-price').value = '';
-  };
-
-  window.clientAcceptOffer = async (days, msgId) => {
-    if(!confirm("Accept this offer and start the project?")) return;
-    const deadline = Date.now() + (Number(days) * 24 * 60 * 60 * 1000);
-    
-    try {
-        await setDoc(doc(db, "orders", window.currentChatClientId), { status: "in_progress", deadline: deadline, updatedAt: Date.now() }, { merge: true });
-        await updateDoc(doc(db, "inbox_messages", msgId), { accepted: true });
-        await addDoc(collection(db, "order_messages"), { type: "system", text: "Client accepted the offer. Project has started.", clientId: window.currentChatClientId, time: Date.now() });
-    } catch(e) { console.warn("Failed to accept offer on Firebase", e); }
-    window.switchTab('workspace', { target: document.querySelectorAll('#client-nav-links .nav-link')[2] });
-  };
-
-  window.clientApproveDelivery = async () => {
-    if(!confirm("Approve this delivery? This completes the project.")) return;
-    try {
-        await setDoc(doc(db, "orders", window.currentChatClientId), { status: "completed", updatedAt: Date.now() }, { merge: true });
-        await addDoc(collection(db, "order_messages"), { type: "system", text: "Client approved final delivery. Project Completed.", clientId: window.currentChatClientId, time: Date.now() });
-    } catch (e) { console.warn("Failed to approve delivery on Firebase", e); }
-  };
-
-  window.cancelOffer = async (msgId) => {
-    if (!confirm("Are you sure you want to withdraw this offer?")) return;
-    try {
-        await updateDoc(doc(db, "inbox_messages", msgId), { canceled: true });
-        await setDoc(doc(db, "orders", window.currentChatClientId), { status: "awaiting_offer", updatedAt: Date.now() }, { merge: true });
-    } catch (e) { console.warn("Failed to cancel offer on Firebase", e); }
-  };
-
-  window.submitDelivery = async () => {
-    const btn = document.getElementById('btn-submit-delivery');
-    btn.innerText = "Delivering..."; btn.disabled = true;
-    const note = document.getElementById('delivery-note').value.trim() || "Delivery sent.";
-    try {
-      const box = document.getElementById('workspace-chat-box');
-      box.innerHTML += `<div class="offer-card" style="border-color:var(--primary);"><h4 style="margin:0 0 10px 0;">Work Delivered</h4><p style="font-size:0.9rem; margin-bottom:0;">${escapeHtml(note)}</p></div>`;
-      box.scrollTop = box.scrollHeight;
-
-      await addDoc(collection(db, "order_messages"), { type: "delivery", note: note, uid: auth.currentUser.uid, clientId: window.currentChatClientId, time: Date.now() });
-      await setDoc(doc(db, "orders", window.currentChatClientId), { status: "delivered", deadline: null }, { merge: true });
-      await setDoc(doc(db, "clients", window.currentChatClientId), { lastMsgTime: Date.now(), lastMsgSender: auth.currentUser.uid }, { merge: true });
-      window.closeAllModals();
-      document.getElementById('delivery-note').value = ''; 
-    } catch (err) { alert("Error: " + err.message); } 
-    finally { btn.innerText = "Upload & Deliver"; btn.disabled = false; }
-  };
-
-  function renderMessages(boxId, snapArray, currentUid) {
-      const box = document.getElementById(boxId);
-      if(!box) return;
-      box.innerHTML = '';
-      
-      snapArray.sort((a, b) => (a.time || 0) - (b.time || 0));
-
-      if(snapArray.length === 0) {
-          box.innerHTML = `<div style="text-align:center; color:var(--text-light); margin-top:40px;">No messages yet. Say hello!</div>`;
-          return;
-      }
-
-      snapArray.forEach(m => {
-        const msgType = m.type || 'text';
-        const isMe = (m.uid === currentUid);
-
-        if (msgType === "system") {
-           box.innerHTML += `<div class="msg system">${escapeHtml(m.text || '')}</div>`;
-           return;
-        }
-
-        if (msgType === "delivery") {
-           box.innerHTML += `<div class="offer-card" style="border-color:var(--primary);"><h4 style="margin:0 0 10px 0; font-size:1.05rem;">Work Delivered</h4><p style="font-size:0.9rem; margin-bottom:0;">${escapeHtml(m.note)}</p></div>`;
-           return;
-        }
-
-        if (msgType === "offer") {
-          let btnHtml = ''; let badgeHtml = '';
-
-          if (m.accepted) {
-              badgeHtml = `<span class="status-tag tag-active">ACCEPTED</span>`;
-              btnHtml = `<button class="btn-outline btn-small" style="width:100%" disabled>Offer Accepted</button>`;
-          } else if (m.canceled) {
-              badgeHtml = `<span class="status-tag tag-cancelled">CANCELLED</span>`;
-              btnHtml = `<button class="btn-outline btn-small" style="width:100%" disabled>Offer Cancelled</button>`;
-          } else if (window.isAdmin) {
-              badgeHtml = `<span class="status-tag tag-waiting">OFFER SENT</span>`;
-              btnHtml = `<button class="btn-danger btn-small" style="width:100%" onclick="window.cancelOffer('${m.id}')">Cancel Offer</button>`;
-          } else {
-              badgeHtml = `<span class="status-tag tag-active">NEW OFFER</span>`;
-              btnHtml = `<button class="btn btn-small" style="width:100%" onclick="window.clientAcceptOffer(${m.days}, '${m.id}')">Accept Offer</button>`;
-          }
-          
-          box.innerHTML += `
-            <div class="offer-card">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                <h4 style="margin:0; font-size: 1.05rem;">Custom Offer</h4>
-                ${badgeHtml}
+          feed.innerHTML = `
+            <div class="log-item" onclick="window.location.href='messages.html'">
+              <div style="width:36px; height:36px; border-radius:8px; background:var(--primary); display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; flex-shrink:0;">C</div>
+              <div class="log-content" style="display:flex; flex-direction:column; gap:2px;">
+                <div style="font-weight:700; font-size:0.85rem;">Conilious Dube</div>
+                <div style="font-size:0.7rem; color:var(--text-muted);">Engineering Support</div>
               </div>
-              <p style="font-size:0.9rem; margin:0 0 15px 0; color:var(--text-dark);">${escapeHtml(m.desc)}</p>
-              <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:15px;">
-                <span>${m.days} Days Delivery</span><span>$${m.price}</span>
-              </div>
-              <div style="display:flex; gap:10px;">${btnHtml}</div>
+              ${badgeHtml}
+              <button class="btn-outline btn-small" style="padding:4px 8px; font-size:0.7rem;">Open Chat</button>
             </div>`;
-          return;
-        }
-
-        const senderName = isMe ? "You" : (window.isAdmin ? "Client" : "Conilious Dube");
-        const senderInit = isMe ? "ME" : (window.isAdmin ? "CL" : "CD");
-        const wrapClass = isMe ? 'me' : 'them';
-        const msgClass = isMe ? 'me' : 'them';
-        const avatarClass = isMe ? 'avatar-me' : (window.isAdmin ? 'avatar-them' : 'avatar-seller');
-
-        box.innerHTML += `
-          <div class="msg-wrap ${wrapClass}">
-             <span class="msg-header">${senderName}</span>
-             <div class="msg-body-row">
-               <div class="chat-avatar ${avatarClass}">${senderInit}</div>
-               <div class="msg ${msgClass}">${escapeHtml(m.text || '')}</div>
-             </div>
-          </div>`;
       });
-      box.scrollTop = box.scrollHeight;
+      globalUnsub.push(u2);
   }
 
-  function loadInboxChat() {
-    if (inboxUnsub) inboxUnsub();
-    if (!window.currentChatClientId) return;
-
-    inboxUnsub = onSnapshot(collection(db, "inbox_messages"), (snap) => {
-      let rawData = [];
-      snap.forEach(d => {
-          let data = d.data();
-          if (data.clientId === window.currentChatClientId) rawData.push({ id: d.id, ...data });
-      });
-      renderMessages('inbox-chat-box', rawData, auth.currentUser.uid);
-    });
-  }
-
-  function loadWorkspaceChat() {
-    if (workspaceUnsub) workspaceUnsub();
-    if (!window.currentChatClientId) return;
-
-    workspaceUnsub = onSnapshot(collection(db, "order_messages"), (snap) => {
-      let rawData = [];
-      snap.forEach(d => {
-          let data = d.data();
-          if (data.clientId === window.currentChatClientId) rawData.push({ id: d.id, ...data });
-      });
-      renderMessages('workspace-chat-box', rawData, auth.currentUser.uid);
-    });
-  }
-
-  window.sendMsg = async (source) => {
-    const inputId = source === 'inbox' ? 'inbox-chat-input' : 'ws-chat-input';
-    const input = document.getElementById(inputId);
-    if (!input || !window.currentChatClientId) return;
-    
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-    
-    const box = document.getElementById(source + '-chat-box');
-    if(box) {
-      box.innerHTML += `
-          <div class="msg-wrap me">
-             <span class="msg-header">You</span>
-             <div class="msg-body-row">
-               <div class="chat-avatar avatar-me">ME</div>
-               <div class="msg me">${escapeHtml(text)}</div>
-             </div>
-          </div>`;
-      box.scrollTop = box.scrollHeight;
-    }
-    
-    try {
-      await addDoc(collection(db, source === 'inbox' ? "inbox_messages" : "order_messages"), { 
-          type: "text", 
-          text: text, 
-          uid: auth.currentUser.uid, 
-          clientId: window.currentChatClientId, 
-          time: Date.now() 
-      });
-      await setDoc(doc(db, "clients", window.currentChatClientId), { lastMsgTime: Date.now(), lastMsgSender: auth.currentUser.uid }, { merge: true });
-    } catch (err) { console.log("Firebase sync delayed. Message stored locally."); }
+  // --- WHATSAPP STYLE PROFILE ENGINE ---
+  window.uploadLogo = (e) => {
+      const file = e.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+          const base64 = event.target.result;
+          try {
+              await setDoc(doc(db, "workspace", "seller_profile"), { logo: base64 }, { merge: true });
+          } catch(err) { alert("Error saving profile photo."); }
+      };
+      reader.readAsDataURL(file);
   };
 
-  function updateTimer() {
-      const diff = window.currentDeadline - Date.now();
-      if (diff > 0) {
-        const d = String(Math.floor(diff / 86400000)).padStart(2, '0');
-        const h = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
-        const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-        const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-        document.querySelectorAll('.t-days').forEach(el => el.innerText = d);
-        document.querySelectorAll('.t-hours').forEach(el => el.innerText = h);
-        document.querySelectorAll('.t-mins').forEach(el => el.innerText = m);
-        document.querySelectorAll('.t-secs').forEach(el => el.innerText = s);
-      } else { stopTimerUI(); }
-  }
+  window.saveProfileField = async (field, inputId) => {
+    const val = document.getElementById(inputId).value.trim();
+    if(!val) return;
+    try {
+      await setDoc(doc(db, "workspace", "seller_profile"), { [field]: val }, { merge: true });
+      // Brief visual feedback
+      const btn = document.getElementById(inputId).nextElementSibling;
+      const oldHtml = btn.innerHTML;
+      btn.innerHTML = `<span style="color:var(--success); font-weight:800;">✓</span>`;
+      setTimeout(() => btn.innerHTML = oldHtml, 1500);
+    } catch(e) { alert("Error saving."); }
+  };
 
-  function startVisualCountdown(dl) {
-    window.currentDeadline = dl;
-    if (timerInterval) clearInterval(timerInterval);
-    updateTimer(); 
-    timerInterval = setInterval(updateTimer, 1000);
+  function listenToProfile() {
+    onSnapshot(doc(db, "workspace", "seller_profile"), (snap) => {
+      if (snap.exists()) {
+        const d = snap.data();
+        
+        if(d.name) { 
+            document.getElementById('global-name').innerText = d.name; 
+            if(document.getElementById('modal-input-name')) document.getElementById('modal-input-name').value = d.name;
+        }
+        if(d.tagline) { 
+            document.getElementById('global-tagline').innerText = d.tagline; 
+            if(document.getElementById('modal-input-tagline')) document.getElementById('modal-input-tagline').value = d.tagline;
+        }
+        
+        // Handle Custom Logo Base64 Render
+        if(d.logo) {
+            const bgStr = `url(${d.logo})`;
+            document.querySelectorAll('.nav-avatar').forEach(el => {
+                el.style.backgroundImage = bgStr;
+                el.style.backgroundSize = 'cover';
+                el.style.backgroundPosition = 'center';
+                el.innerText = '';
+            });
+            const modalLabel = document.querySelector('.avatar-upload-label');
+            if(modalLabel) {
+                modalLabel.style.backgroundImage = bgStr;
+                modalLabel.style.backgroundSize = 'cover';
+                modalLabel.style.backgroundPosition = 'center';
+                document.getElementById('modal-avatar-text').innerText = '';
+            }
+        }
+      }
+    });
   }
-  
-  function stopTimerUI() { 
-    if (timerInterval) clearInterval(timerInterval); 
-    document.querySelectorAll('.timer-num').forEach(e => e.innerText = "00"); 
-  }
-
 </script>
 </body>
 </html>
